@@ -54,7 +54,7 @@ class BaseLoadingListener {
         if (items.length > 1) {
             const oldestItem = items[0];
             stats.elapsedTime =
-        (newItem.date.getTime() - oldestItem.date.getTime()) / 1000;
+                (newItem.date.getTime() - oldestItem.date.getTime()) / 1000;
             stats.speed = (stats.total - oldestItem.value) / stats.elapsedTime;
         }
     }
@@ -120,14 +120,14 @@ class DICOMFileLoadingListener extends BaseLoadingListener {
     }
 
     _getImageLoadProgressEventName() {
-    // TODO: Add this event as a constant in Cornerstone
+        // TODO: Add this event as a constant in Cornerstone
         return `cornerstoneimageloadprogress.${this.id}`;
     }
 
     startListening() {
         const imageLoadProgressEventName = this._getImageLoadProgressEventName();
 
-        this.imageLoadProgressEventHandler = this._imageLoadProgressEventHandle.bind(
+        this.imageLoadProgressEventHandler = this.imageLoadProgressEventHandle.bind(
             this
         );
 
@@ -147,57 +147,57 @@ class DICOMFileLoadingListener extends BaseLoadingListener {
         );
     }
 
-  _imageLoadProgressEventHandler = (e) => {
-      const eventData = e.detail;
-      const dataSetUrl = this._convertImageIdToDataSetUrl(eventData.imageId);
-      const bytesDiff = eventData.loaded - this._lastLoaded;
+    imageLoadProgressEventHandler = (e) => {
+        const eventData = e.detail;
+        const dataSetUrl = this._convertImageIdToDataSetUrl(eventData.imageId);
+        const bytesDiff = eventData.loaded - this._lastLoaded;
 
-      if (!this._dataSetUrl === dataSetUrl) {
-          return;
-      }
+        if (!this._dataSetUrl === dataSetUrl) {
+            return;
+        }
 
-      // Add the bytes downloaded to the stats
-      this._addStatsData(bytesDiff);
+        // Add the bytes downloaded to the stats
+        this._addStatsData(bytesDiff);
 
-      // Update the download progress
-      this._updateProgress(eventData);
+        // Update the download progress
+        this._updateProgress(eventData);
 
-      // Cache the last eventData.loaded value
-      this._lastLoaded = eventData.loaded;
-  };
+        // Cache the last eventData.loaded value
+        this._lastLoaded = eventData.loaded;
+    };
 
-  _updateProgress(eventData) {
-      const progressId = this._getProgressId();
-      eventData = eventData || {};
+    _updateProgress(eventData) {
+        const progressId = this._getProgressId();
+        eventData = eventData || {};
 
-      const progressData = {
-          multiFrame: false,
-          percentComplete: eventData.percentComplete,
-          bytesLoaded: eventData.loaded,
-          bytesTotal: eventData.total,
-          bytesPerSecond: this.stats.speed
-      };
+        const progressData = {
+            multiFrame: false,
+            percentComplete: eventData.percentComplete,
+            bytesLoaded: eventData.loaded,
+            bytesTotal: eventData.total,
+            bytesPerSecond: this.stats.speed
+        };
 
-      this._setProgressData(progressId, progressData);
-  }
+        this._setProgressData(progressId, progressData);
+    }
 
-  _convertImageIdToDataSetUrl(imageId) {
-      // Remove the prefix ("dicomweb:" or "wadouri:"")
-      imageId = imageId.replace(/^(dicomweb:|wadouri:)/i, '');
+    _convertImageIdToDataSetUrl(imageId) {
+        // Remove the prefix ("dicomweb:" or "wadouri:"")
+        imageId = imageId.replace(/^(dicomweb:|wadouri:)/i, '');
 
-      // Remove "frame=999&" from the imageId
-      imageId = imageId.replace(/frame=\d+&?/i, '');
+        // Remove "frame=999&" from the imageId
+        imageId = imageId.replace(/frame=\d+&?/i, '');
 
-      // Remove the last "&" like in "http://...?foo=1&bar=2&"
-      imageId = imageId.replace(/&$/, '');
+        // Remove the last "&" like in "http://...?foo=1&bar=2&"
+        imageId = imageId.replace(/&$/, '');
 
-      return imageId;
-  }
+        return imageId;
+    }
 
-  _getDataSetUrl(stack) {
-      const imageId = stack.imageIds[0];
-      return this._convertImageIdToDataSetUrl(imageId);
-  }
+    _getDataSetUrl(stack) {
+        const imageId = stack.imageIds[0];
+        return this._convertImageIdToDataSetUrl(imageId);
+    }
 }
 
 class StackLoadingListener extends BaseLoadingListener {
@@ -227,8 +227,8 @@ class StackLoadingListener extends BaseLoadingListener {
     }
 
     _createArray(length, defaultValue) {
-    // `new Array(length)` is an anti-pattern in javascript because its
-    // funny API. Otherwise I would go for `new Array(length).fill(false)`
+        // `new Array(length)` is an anti-pattern in javascript because its
+        // funny API. Otherwise I would go for `new Array(length).fill(false)`
         const array = [];
 
         for (let i = 0; i < length; i++) {
@@ -239,17 +239,17 @@ class StackLoadingListener extends BaseLoadingListener {
     }
 
     _checkCachedData() {
-    // const imageIds = this.stack.imageIds;
-    // TODO: No way to check status of Promise.
-    /* for(let i = 0; i < imageIds.length; i++) {
-            const imageId = imageIds[i];
+        // const imageIds = this.stack.imageIds;
+        // TODO: No way to check status of Promise.
+        /* for(let i = 0; i < imageIds.length; i++) {
+                const imageId = imageIds[i];
 
-            const imagePromise = cornerstone.imageCache.getImageLoadObject(imageId).promise;
+                const imagePromise = cornerstone.imageCache.getImageLoadObject(imageId).promise;
 
-            if (imagePromise && (imagePromise.state() === 'resolved')) {
-                this._updateFrameStatus(imageId, true);
-            }
-        } */
+                if (imagePromise && (imagePromise.state() === 'resolved')) {
+                    this._updateFrameStatus(imageId, true);
+                }
+            } */
     }
 
     _getImageLoadedEventName() {
@@ -322,12 +322,12 @@ class StackLoadingListener extends BaseLoadingListener {
     }
 
     _setProgressData(progressId, progressData) {
-    // TODO: This method (and _clearProgressById) need to access
-    // the Redux store and should therefore be provided from the
-    // application. I've added a workaround to pass this in through
-    // the 'options' variable on instantiation, but this is really ugly.
-    // We could consider making the StudyLoadingListener a higher-order
-    // component which would set this stuff itself.
+        // TODO: This method (and _clearProgressById) need to access
+        // the Redux store and should therefore be provided from the
+        // application. I've added a workaround to pass this in through
+        // the 'options' variable on instantiation, but this is really ugly.
+        // We could consider making the StudyLoadingListener a higher-order
+        // component which would set this stuff itself.
         throw new Error(
             "The _setProgressData function must be provided in StudyLoadingListener's options"
         );
@@ -382,7 +382,7 @@ class StudyLoadingListener {
     }
 
     addStack(stack, stackMetaData) {
-    // TODO: Make this work for plugins
+        // TODO: Make this work for plugins
         if (!stack) {
             // console.log('Skipping adding stack to StudyLoadingListener');
             return;
@@ -467,4 +467,4 @@ class StudyLoadingListener {
     }
 }
 
-export { StudyLoadingListener, StackLoadingListener, DICOMFileLoadingListener };
+export {StudyLoadingListener, StackLoadingListener, DICOMFileLoadingListener};
