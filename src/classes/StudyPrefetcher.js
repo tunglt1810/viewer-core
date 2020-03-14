@@ -60,7 +60,7 @@ export class StudyPrefetcher {
     }
 
     prefetchDisplaySets() {
-    // TODO: Allow passing in config
+        // TODO: Allow passing in config
         const config = {
             order: 'closest',
             displaySetCount: 1
@@ -77,7 +77,8 @@ export class StudyPrefetcher {
         const requestPoolManager = cornerstoneTools.requestPoolManager;
         const requestType = 'prefetch';
         const preventCache = false;
-        const noop = () => {};
+        const noop = () => {
+        };
 
         nonCachedImageIds.forEach((imageId) => {
             requestPoolManager.addRequest(
@@ -250,8 +251,8 @@ export class StudyPrefetcher {
         return image && image.sizeInBytes;
     }
 
-  cacheFullHandler = () => {
-      log.warn('Cache full');
-      this.stopPrefetching();
-  };
+    cacheFullHandler() {
+        log.warn('Cache full');
+        this.stopPrefetching();
+    };
 }
