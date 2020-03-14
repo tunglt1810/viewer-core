@@ -30,7 +30,7 @@ function transpileJavaScript(mode) {
     options: {
       // Find babel.config.js in monorepo root
       // https://babeljs.io/docs/en/options#rootmode
-      rootMode: 'upward',
+      rootMode: 'root',
       envName: mode,
     },
   };
