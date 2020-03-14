@@ -127,7 +127,7 @@ class DICOMFileLoadingListener extends BaseLoadingListener {
     startListening() {
         const imageLoadProgressEventName = this._getImageLoadProgressEventName();
 
-        this.imageLoadProgressEventHandler = this.imageLoadProgressEventHandle.bind(
+        this.imageLoadProgressEventHandler = this._imageLoadProgressEventHandle.bind(
             this
         );
 
@@ -147,7 +147,7 @@ class DICOMFileLoadingListener extends BaseLoadingListener {
         );
     }
 
-    imageLoadProgressEventHandler = (e) => {
+    _imageLoadProgressEventHandler(e) {
         const eventData = e.detail;
         const dataSetUrl = this._convertImageIdToDataSetUrl(eventData.imageId);
         const bytesDiff = eventData.loaded - this._lastLoaded;
@@ -164,7 +164,7 @@ class DICOMFileLoadingListener extends BaseLoadingListener {
 
         // Cache the last eventData.loaded value
         this._lastLoaded = eventData.loaded;
-    };
+    }
 
     _updateProgress(eventData) {
         const progressId = this._getProgressId();
