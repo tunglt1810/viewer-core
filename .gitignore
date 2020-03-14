@@ -1,0 +1,45 @@
+
+# dependencies
+# misc
+# production
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# testing
+*.iml
+*.log*
+*.pyc
+*.sublime-project
+*.sublime-workspace
+*.swo
+*.swp
+*~
+.DS_Store
+.DS_STORE
+.env.development.local
+.env.local
+.env.production.local
+.env.test.local
+.grunt
+.idea
+.module-cache
+.pnp.js
+.vscode
+/.pnp
+/build
+/coverage
+/node_modules
+__benchmarks__
+_SpecRunner.html
+build/
+chrome-user-data
+coverage/
+fixtures/dom/public/react-dom.js
+fixtures/dom/public/react.js
+node_modules
+npm-debug.log*
+remote-repo/
+scripts/flow/*/.flowconfig
+test/the-files-to-test.generated.js
+yarn-debug.log*
+yarn-error.log*
+deploy
+
