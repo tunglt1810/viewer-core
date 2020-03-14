@@ -1,6 +1,6 @@
 {
   "name": "viewer-core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generic business logic for web-based medical imaging applications - edited by Tung LT",
   "author": "OHIF Core Team",
   "editor": "Tung LT",
@@ -40,6 +40,7 @@
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "ajv": "^6.10.0",
+    "core-js": "3",
     "dcmjs": "^0.12.0",
     "dicomweb-client": "^0.5.2",
     "isomorphic-base64": "^1.0.2",
@@ -57,7 +58,7 @@
     "@babel/plugin-transform-arrow-functions": "^7.2.0",
     "@babel/plugin-transform-regenerator": "^7.4.5",
     "@babel/plugin-transform-runtime": "^7.5.0",
-    "@babel/preset-env": "^7.5.0",
+    "@babel/preset-env": "^7.8.7",
     "@babel/preset-react": "^7.8.3",
     "babel-eslint": "9.x",
     "babel-loader": "^8.0.6",

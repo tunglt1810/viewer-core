@@ -31,14 +31,7 @@ function transpileJavaScript(mode) {
             // Find babel.config.js in monorepo root
             // https://babeljs.io/docs/en/options#rootmode
             rootMode: 'root',
-            envName: mode,
-            presets: [
-                {
-                    plugins: [
-                        '@babel/plugin-proposal-class-properties'
-                    ]
-                }
-            ]
+            envName: mode
         },
     };
 }
