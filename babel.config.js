@@ -1,6 +1,6 @@
 // https://babeljs.io/docs/en/options#babelrcroots
 module.exports = {
-    plugins: ['@babel/plugin-proposal-class-properties'],
+    plugins: [["@babel/plugin-proposal-class-properties", {"loose": true}]],
     env: {
         test: {
             presets: [
