@@ -1,6 +1,5 @@
-// https://babeljs.io/docs/en/options#babelrcroots
 module.exports = {
-    plugins: [["@babel/plugin-proposal-class-properties", {"loose": true}]],
+    plugins: ["@babel/plugin-proposal-class-properties"],
     env: {
         test: {
             presets: [
@@ -24,7 +23,6 @@ module.exports = {
             presets: [
                 // WebPack handles ES6 --> Target Syntax
                 ['@babel/preset-env', {modules: false}],
-                '@babel/preset-react'
             ],
             ignore: ['**/*.test.jsx', '**/*.test.js', '__snapshots__', '__tests__'],
         },
@@ -32,9 +30,7 @@ module.exports = {
             presets: [
                 // WebPack handles ES6 --> Target Syntax
                 ['@babel/preset-env', {modules: false}],
-                '@babel/preset-react'
             ],
-            plugins: ['react-hot-loader/babel'],
             ignore: ['**/*.test.jsx', '**/*.test.js', '__snapshots__', '__tests__']
         }
     }
