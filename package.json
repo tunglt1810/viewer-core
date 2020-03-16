@@ -1,6 +1,6 @@
 {
   "name": "viewer-core",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Generic business logic for web-based medical imaging applications - edited by Tung LT",
   "author": "OHIF Core Team",
   "editor": "Tung LT",

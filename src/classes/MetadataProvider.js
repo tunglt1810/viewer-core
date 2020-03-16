@@ -209,7 +209,8 @@ class MetadataProvider {
                     seriesNumber: instance.SeriesNumber,
                     studyInstanceUID: instance.StudyInstanceUID,
                     seriesDate,
-                    seriesTime
+                    seriesTime,
+                    seriesDescription: instance.SeriesDescription,
                 };
                 break;
             case WADO_IMAGE_LOADER_TAGS.PATIENT_STUDY_MODULE:
