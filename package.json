@@ -1,13 +1,13 @@
 {
   "name": "viewer-core",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Generic business logic for web-based medical imaging applications - edited by Tung LT",
   "author": "OHIF Core Team",
   "editor": "Tung LT",
   "license": "MIT",
   "repository": "viewer-core",
   "main": "dist/index.umd.js",
-  "module": "src/index.js",
+  "module": "dist/index.umd.js",
   "sideEffects": "false",
   "publishConfig": {
     "access": "public"
