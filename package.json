@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": "viewer-core",
   "main": "dist/index.umd.js",
-  "module": "dist/index.umd.js",
+  "module": "src/index.umd.js",
   "sideEffects": "false",
   "publishConfig": {
     "access": "public"

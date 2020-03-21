@@ -60,9 +60,9 @@ class MetadataProvider {
 
         Object.assign(instance, naturalizedDataset);
 
-        if (options.server) {
-            await this._checkBulkDataAndInlineBinaries(instance, options.server);
-        }
+        // if (options.server) {
+        // await this._checkBulkDataAndInlineBinaries(instance, options.server);
+        // }
 
         return instance;
     }
