@@ -10,6 +10,8 @@ import { angle } from './angle';
 import { targetCR } from './targetCR';
 import { targetNE } from './targetNE';
 import { targetUN } from './targetUN';
+import { cobbAngle } from './cobbAngle';
+import { probe } from './probe';
 
 export {
     arrowAnnotate,
@@ -21,6 +23,8 @@ export {
     nonTarget,
     rectangleRoi,
     angle,
+    cobbAngle,
+    probe,
     targetCR,
     targetNE,
     targetUN

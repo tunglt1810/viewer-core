@@ -7,10 +7,10 @@ const displayFunction = (data) => {
 };
 
 export const freehandMouse = {
-    id: 'FreehandMouse',
+    id: 'FreehandRoi',
     name: 'Freehand',
     toolGroup: 'allTools',
-    cornerstoneToolType: 'FreehandMouse',
+    cornerstoneToolType: 'FreehandRoi',
     options: {
         measurementTable: {
             displayFunction
