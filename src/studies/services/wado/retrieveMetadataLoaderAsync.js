@@ -1,12 +1,9 @@
-import { api } from 'dicomweb-client';
-import DICOMWeb from '../../../DICOMWeb';
+import {api} from 'dicomweb-client';
+import DICOMWeb from '../../../DICOMWeb/';
 import RetrieveMetadataLoader from './retrieveMetadataLoader';
-import { sortStudySeries, sortingCriteria } from '../../sortStudy';
+import {sortingCriteria, sortStudySeries} from '../../sortStudy';
 import getSeriesInfo from '../../getSeriesInfo';
-import {
-    createStudyFromSOPInstanceList,
-    addInstancesToStudy
-} from './studyInstanceHelpers';
+import {addInstancesToStudy, createStudyFromSOPInstanceList} from './studyInstanceHelpers';
 
 /**
  * Map series to an array of SeriesInstanceUID
@@ -24,7 +21,7 @@ function attachSeriesLoader(server, study, seriesLoader) {
         },
         async next() {
             const series = await seriesLoader.next();
-            await addInstancesToStudy(server, study, series.sopInstances, study.StudyInstanceUID);
+            await addInstancesToStudy(server, study, series.sopInstances);
             return study.seriesMap[series.seriesInstanceUID];
         }
     });
@@ -52,7 +49,7 @@ function makeSeriesAsyncLoader(
                 studyInstanceUID,
                 seriesInstanceUID
             });
-            return { studyInstanceUID, seriesInstanceUID, sopInstances };
+            return {studyInstanceUID, seriesInstanceUID, sopInstances};
         }
     });
 }
@@ -65,7 +62,7 @@ function makeSeriesAsyncLoader(
  */
 export default class RetrieveMetadataLoaderAsync extends RetrieveMetadataLoader {
     configLoad() {
-        const { server } = this;
+        const {server} = this;
 
         const client = new api.DICOMwebClient({
             url: server.qidoRoot,
@@ -76,25 +73,25 @@ export default class RetrieveMetadataLoaderAsync extends RetrieveMetadataLoader 
     }
 
     /**
-   * @returns {Array} Array of preLoaders. To be consumed as queue
-   */
+     * @returns {Array} Array of preLoaders. To be consumed as queue
+     */
     * getPreLoaders() {
         const preLoaders = [];
         const {
             studyInstanceUID,
-            filters: { seriesInstanceUID } = {},
+            filters: {seriesInstanceUID} = {},
             client
         } = this;
 
         if (seriesInstanceUID) {
             const options = {
                 studyInstanceUID,
-                queryParams: { SeriesInstanceUID: seriesInstanceUID }
+                queryParams: {SeriesInstanceUID: seriesInstanceUID}
             };
             preLoaders.push(client.searchForSeries.bind(client, options));
         }
         // Fallback preloader
-        preLoaders.push(client.searchForSeries.bind(client, { studyInstanceUID }));
+        preLoaders.push(client.searchForSeries.bind(client, {studyInstanceUID}));
 
         yield* preLoaders;
     }
@@ -113,7 +110,7 @@ export default class RetrieveMetadataLoaderAsync extends RetrieveMetadataLoader 
     }
 
     async load(preLoadData) {
-        const { client, studyInstanceUID } = this;
+        const {client, studyInstanceUID} = this;
 
         const seriesAsyncLoader = makeSeriesAsyncLoader(
             client,
@@ -130,11 +127,11 @@ export default class RetrieveMetadataLoaderAsync extends RetrieveMetadataLoader 
     }
 
     async posLoad(loadData) {
-        const { server, studyInstanceUID } = this;
+        const {server} = this;
 
-        const { sopInstances, asyncLoader } = loadData;
+        const {sopInstances, asyncLoader} = loadData;
 
-        const study = await createStudyFromSOPInstanceList(server, sopInstances, studyInstanceUID);
+        const study = await createStudyFromSOPInstanceList(server, sopInstances);
 
         if (asyncLoader.hasNext()) {
             attachSeriesLoader(server, study, asyncLoader);

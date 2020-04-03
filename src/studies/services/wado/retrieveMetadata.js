@@ -13,9 +13,9 @@ import RetrieveMetadataLoaderAsync from './retrieveMetadataLoaderAsync';
  */
 async function RetrieveMetadata(server, StudyInstanceUID, filters = {}) {
     const RetrieveMetadataLoader =
-    server.enableStudyLazyLoad != false
-        ? RetrieveMetadataLoaderAsync
-        : RetrieveMetadataLoaderSync;
+        server.enableStudyLazyLoad !== false
+            ? RetrieveMetadataLoaderAsync
+            : RetrieveMetadataLoaderSync;
 
     const retrieveMetadataLoader = new RetrieveMetadataLoader(
         server,

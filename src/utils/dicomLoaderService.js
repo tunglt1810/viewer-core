@@ -1,7 +1,7 @@
 import cornerstone from 'cornerstone-core';
-import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
 import { api } from 'dicomweb-client';
 import DICOMWeb from '../DICOMWeb';
+import { getCornerstoneWADOImageLoader } from './cornerstoneWADOImageLoader';
 
 const getImageId = (imageObj) => {
     if (!imageObj) {
@@ -30,17 +30,27 @@ const findImageIdOnStudies = (studies, displaySetInstanceUID) => {
 const someInvalidStrings = (strings) => {
     const stringsArray = Array.isArray(strings) ? strings : [strings];
     const emptyString = (string) => !string;
-    const invalid = stringsArray.some(emptyString);
+    let invalid = stringsArray.some(emptyString);
     return invalid;
 };
 
-const getImageInstance = (dataset) => dataset && dataset.images && dataset.images[0];
+const getImageInstance = (dataset) => {
+    return dataset && dataset.images && dataset.images[0];
+};
 
-const getImageInstanceId = (imageInstance) => getImageId(imageInstance);
+const getImageInstanceId = (imageInstance) => {
+    return getImageId(imageInstance);
+};
 
-const fetchIt = (url, headers = DICOMWeb.getAuthorizationHeader()) => fetch(url, headers).then((response) => response.arrayBuffer());
+const fetchIt = (url, headers = DICOMWeb.getAuthorizationHeader()) => {
+    return fetch(url, headers).then((response) => response.arrayBuffer());
+};
 
-const cornerstoneRetriever = (imageId) => cornerstone.loadAndCacheImage(imageId).then((image) => image && image.data && image.data.byteArray.buffer);
+const cornerstoneRetriever = (imageId) => {
+    return cornerstone.loadAndCacheImage(imageId).then((image) => {
+        return image && image.data && image.data.byteArray.buffer;
+    });
+};
 
 const wadorsRetriever = (
     url,
@@ -76,7 +86,7 @@ const getImageLoaderType = (imageId) => {
 };
 
 class DicomLoaderService {
-    getLocalData(dataset, studies) {
+    async getLocalData(dataset, studies) {
         if (dataset && dataset.localFile) {
             // Use referenced imageInstance
             const imageInstance = getImageInstance(dataset);
@@ -88,6 +98,7 @@ class DicomLoaderService {
             }
 
             if (!someInvalidStrings(imageId)) {
+                const cornerstoneWADOImageLoader = await getCornerstoneWADOImageLoader();
                 return cornerstoneWADOImageLoader.wadouri.loadFileRequest(imageId);
             }
         }
@@ -161,21 +172,21 @@ class DicomLoaderService {
                 SOPInstanceUID,
                 authorizationHeaders
             );
-        } if (!someInvalidStrings(wadoUri)) {
+        } else if (!someInvalidStrings(wadoUri)) {
             return fetchIt(wadoUri, { headers: authorizationHeaders });
         }
     }
 
-    * getLoaderIterator(dataset, studies) {
-        yield this.getLocalData(dataset, studies);
+    async *getLoaderIterator(dataset, studies) {
+        yield await this.getLocalData(dataset, studies);
         yield this.getDataByImageType(dataset);
         yield this.getDataByDatasetType(dataset);
     }
 
-    findDicomDataPromise(dataset, studies) {
+    async findDicomDataPromise(dataset, studies) {
         const loaderIterator = this.getLoaderIterator(dataset, studies);
         // it returns first valid retriever method.
-        for (const loader of loaderIterator) {
+        for await (const loader of loaderIterator) {
             if (loader) {
                 return loader;
             }

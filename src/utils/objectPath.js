@@ -9,17 +9,17 @@ export class ObjectPath {
    * ... is not a valid Object, in which case the property cannot be set. No excpetions are thrown.
    */
     static set(object, path, value) {
-        const components = ObjectPath.getPathComponents(path);
-        const length = components !== null ? components.length : 0;
-        let result = false;
+        let components = ObjectPath.getPathComponents(path),
+            length = components !== null ? components.length : 0,
+            result = false;
 
         if (length > 0 && ObjectPath.isValidObject(object)) {
-            let i = 0;
-            const last = length - 1;
-            let currentObject = object;
+            let i = 0,
+                last = length - 1,
+                currentObject = object;
 
             while (i < last) {
-                const field = components[i];
+                let field = components[i];
 
                 if (field in currentObject) {
                     if (!ObjectPath.isValidObject(currentObject[field])) {
@@ -50,17 +50,17 @@ export class ObjectPath {
    * @return {Any} The value of the property if found. By default, returns the special type "undefined".
    */
     static get(object, path) {
-        let found; // undefined by default
-        const components = ObjectPath.getPathComponents(path);
-        const length = components !== null ? components.length : 0;
+        let found, // undefined by default
+            components = ObjectPath.getPathComponents(path),
+            length = components !== null ? components.length : 0;
 
         if (length > 0 && ObjectPath.isValidObject(object)) {
-            let i = 0;
-            const last = length - 1;
-            let currentObject = object;
+            let i = 0,
+                last = length - 1,
+                currentObject = object;
 
             while (i < last) {
-                const field = components[i];
+                let field = components[i];
 
                 const isValid = ObjectPath.isValidObject(currentObject[field]);
                 if (field in currentObject && isValid) {

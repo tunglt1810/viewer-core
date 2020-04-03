@@ -1,11 +1,11 @@
 export default function makeCancelable(thenable) {
     let isCanceled = false;
     const promise = Promise.resolve(thenable).then(
-        (result) => {
+        function(result) {
             if (isCanceled) throw Object.freeze({ isCanceled });
             return result;
         },
-        (error) => {
+        function(error) {
             if (isCanceled) throw Object.freeze({ isCanceled, error });
             throw error;
         }

@@ -254,5 +254,5 @@ export class StudyPrefetcher {
     cacheFullHandler() {
         log.warn('Cache full');
         this.stopPrefetching();
-    };
+    }
 }

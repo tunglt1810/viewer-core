@@ -102,7 +102,7 @@ export class Metadata {
     setCustomAttributes(attributeMap) {
         const _hasOwn = Object.prototype.hasOwnProperty;
         const _custom = this._custom;
-        for (const attribute in attributeMap) {
+        for (let attribute in attributeMap) {
             if (_hasOwn.call(attributeMap, attribute)) {
                 _custom[attribute] = attributeMap[attribute];
             }

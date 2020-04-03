@@ -6,8 +6,7 @@ module.exports = {
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended",
-        "airbnb"
+        "plugin:react/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -21,9 +20,6 @@ module.exports = {
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": [
-        "react"
-    ],
     "rules": {
         "indent": ["warn", 4, {"SwitchCase": 1}],
         "semi": ["warn", "always"],
@@ -34,14 +30,14 @@ module.exports = {
         "max-len": "off",
         "import/no-cycle": "off",
         'import/prefer-default-export': "off",
-        "import/no-named-as-default-member": "warn",
+        "import/no-named-as-default-member": "off",
         "object-curly-newline": "off",
         "no-else-return": "warn",
         "no-use-before-define": "off",
         "no-restricted-syntax": "off",
         "no-continue": "off",
         "no-bitwise": "off",
-        "no-unused-vars": ["warn"],
+        "no-unused-vars": ["off"],
         "no-console": "off",
         "no-plusplus": "off",
         "no-underscore-dangle": "off",
@@ -54,11 +50,6 @@ module.exports = {
         "no-debugger": "off",
         "no-mixed-operators": "off",
         "prefer-destructuring": "off",
-        "jsx-a11y/label-has-associated-control": "off",
-        "jsx-a11y/click-events-have-key-events": "off",
-        "jsx-a11y/no-static-element-interactions": "off",
-        "jsx-a11y/no-autofocus": "off",
-        "jsx-a11y/no-noninteractive-element-interactions": "off",
         "operator-linebreak": "off",
 
         // TODO : fix
@@ -93,26 +84,6 @@ module.exports = {
         "no-useless-constructor": "off",
         "no-multi-assign": "off",
         "no-unsafe-negation": "off",
-        "no-loop-func": "off",
-
-        "react/jsx-indent": ["warn", 4],
-        "react/jsx-indent-props": ["warn", 4],
-        "react/jsx-filename-extension": ["warn", {"extensions": [".js", ".jsx"]}],
-        "react/jsx-props-no-spreading": "off",
-        "react/state-in-constructor": "off",
-        "react/static-property-placement": ["warn", "static public field"],
-        "react/forbid-prop-types": ["error", {"forbid": [], "checkContextTypes": true, "checkChildContextTypes": true}],
-        "react/require-default-props": "off",
-        "react/sort-comp": "off",
-        "react/prop-types": ["warn", {ignore: ['children', 'className', 'classes']}],
-        "react/destructuring-assignment": "off",
-        "react/no-did-update-set-state": "off",
-        "react/no-access-state-in-setstate": "off",
-        "react/jsx-no-target-blank": ["error", {"enforceDynamicLinks": "never"}],
-        "react/default-props-match-prop-types": ["error", {"allowRequiredDefaults": true}],
-        "react/no-array-index-key": "off",
-        "react/no-unused-prop-types": "warn",
-        "react/no-unused-state": "warn",
-        "react/no-danger": "off"
+        "no-loop-func": "off"
     }
 };

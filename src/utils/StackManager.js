@@ -1,6 +1,6 @@
-import OHIFError from '../classes/OHIFError';
+import OHIFError from '../classes/OHIFError.js';
 import getImageId from './getImageId';
-import metadataProvider from '../classes/MetadataProvider';
+import metadataProvider from '../classes/MetadataProvider.js';
 
 let stackMap = {};
 let configuration = {};
@@ -35,7 +35,8 @@ function createAndAddStack(stackMap, study, displaySet, stackUpdatedCallbacks) {
             imageIndex: imageIndex + 1
         };
 
-        const NumberOfFrames = image.NumberOfFrames;
+        const naturalizedInstance = instance.getData().metadata;
+        const NumberOfFrames = naturalizedInstance.NumberOfFrames;
 
         if (NumberOfFrames > 1) {
             for (let i = 0; i < NumberOfFrames; i++) {
@@ -59,8 +60,6 @@ function createAndAddStack(stackMap, study, displaySet, stackUpdatedCallbacks) {
             metaData.frameNumber = 1;
             imageId = getImageId(image);
             imageIds.push(imageId);
-
-            const naturalizedInstance = instance.getData().metadata;
 
             const {
                 StudyInstanceUID,

@@ -60,6 +60,7 @@ class MetadataProvider {
 
         Object.assign(instance, naturalizedDataset);
 
+        // TODO: comment by TungLT
         // if (options.server) {
         // await this._checkBulkDataAndInlineBinaries(instance, options.server);
         // }
@@ -210,7 +211,7 @@ class MetadataProvider {
                     studyInstanceUID: instance.StudyInstanceUID,
                     seriesDate,
                     seriesTime,
-                    seriesDescription: instance.SeriesDescription,
+                    seriesDescription: instance.SeriesDescription
                 };
                 break;
             case WADO_IMAGE_LOADER_TAGS.PATIENT_STUDY_MODULE:

@@ -1,14 +1,15 @@
-import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
 import DICOMWeb from '../../../DICOMWeb';
 import metadataProvider from '../../../classes/MetadataProvider';
 import getWADORSImageId from '../../../utils/getWADORSImageId';
+import getReferencedSeriesSequence from './getReferencedSeriesSequence';
+import {getCornerstoneWADOImageLoader} from '../../../utils/cornerstoneWADOImageLoader';
 
 /**
  * Create a plain JS object that describes a study (a study descriptor object)
  * @param {Object} server Object with server configuration parameters
  * @param {Object} aSopInstance a SOP Instance from which study information will be added
  */
-function createStudy(server, aSopInstance, studyInstanceUID) {
+function createStudy(server, aSopInstance) {
     // TODO: Pass a reference ID to the server instead of including the URLs here
     return {
         series: [],
@@ -23,11 +24,14 @@ function createStudy(server, aSopInstance, studyInstanceUID) {
         PatientSize: DICOMWeb.getNumber(aSopInstance['00101020']),
         PatientWeight: DICOMWeb.getNumber(aSopInstance['00101030']),
         AccessionNumber: DICOMWeb.getString(aSopInstance['00080050']),
+        StudyTime: DICOMWeb.getString(aSopInstance['00080030']),
         StudyDate: DICOMWeb.getString(aSopInstance['00080020']),
+        FrameOfReferenceUID: DICOMWeb.getString(aSopInstance['00200052']),
+        ReferencedSeriesSequence: getReferencedSeriesSequence(aSopInstance),
         modalities: DICOMWeb.getString(aSopInstance['00080061']), // TODO -> Rename this.. it'll take a while to not mess this one up.
         StudyDescription: DICOMWeb.getString(aSopInstance['00081030']),
         NumberOfStudyRelatedInstances: DICOMWeb.getString(aSopInstance['00201208']),
-        StudyInstanceUID: studyInstanceUID || DICOMWeb.getString(aSopInstance['0020000D']),
+        StudyInstanceUID: DICOMWeb.getString(aSopInstance['0020000D']),
         InstitutionName: DICOMWeb.getString(aSopInstance['00080080'])
     };
 }
@@ -89,8 +93,7 @@ function buildInstanceFrameWadoRsUri(
 
 async function makeSOPInstance(server, study, instance) {
     const naturalizedInstance = await metadataProvider.addInstance(instance, {
-        server,
-        StudyInstanceUID: study.StudyInstanceUID // fix for iTech protocol
+        server
     });
 
     const {
@@ -148,19 +151,20 @@ async function makeSOPInstance(server, study, instance) {
 
     if (
         sopInstance.thumbnailRendering === 'wadors' ||
-    sopInstance.imageRendering === 'wadors'
+        sopInstance.imageRendering === 'wadors'
     ) {
-    // If using WADO-RS for either images or thumbnails,
-    // Need to add this to cornerstoneWADOImageLoader's provider
-    // (it won't be hit on cornerstone.metaData.get, but cornerstoneWADOImageLoader
-    // will cry if you don't add data to cornerstoneWADOImageLoader.wadors.metaDataManager).
+        // If using WADO-RS for either images or thumbnails,
+        // Need to add this to cornerstoneWADOImageLoader's provider
+        // (it won't be hit on cornerstone.metaData.get, but cornerstoneWADOImageLoader
+        // will cry if you don't add data to cornerstoneWADOImageLoader.wadors.metaDataManager).
 
         const wadoRSMetadata = Object.assign(instance);
 
+        const cornerstoneWADOImageLoader = await getCornerstoneWADOImageLoader();
         if (sopInstance.NumberOfFrames) {
             for (let i = 0; i < sopInstance.NumberOfFrames; i++) {
                 const wadorsImageId = getWADORSImageId(sopInstance, i);
-                // console.log(`wadorsImageId: ${wadorsImageId}`, wadoRSMetadata);
+
                 cornerstoneWADOImageLoader.wadors.metaDataManager.add(
                     wadorsImageId,
                     wadoRSMetadata
@@ -168,7 +172,7 @@ async function makeSOPInstance(server, study, instance) {
             }
         } else {
             const wadorsImageId = getWADORSImageId(sopInstance);
-            // console.log(`wadorsImageId: ${wadorsImageId}`, wadoRSMetadata);
+
             cornerstoneWADOImageLoader.wadors.metaDataManager.add(
                 wadorsImageId,
                 wadoRSMetadata
@@ -185,22 +189,22 @@ async function makeSOPInstance(server, study, instance) {
  * @param {Object} study The study descriptor to which the given SOP instances will be added
  * @param {Array} sopInstanceList A list of SOP instance objects
  */
-// fix for iTech protocol : add new param studyInstanceUID
 async function addInstancesToStudy(server, study, sopInstanceList) {
     return Promise.all(
-        sopInstanceList.map((sopInstance) => makeSOPInstance(server, study, sopInstance))
+        sopInstanceList.map(function (sopInstance) {
+            return makeSOPInstance(server, study, sopInstance);
+        })
     );
 }
 
-// fix for iTech protocol : add new param studyInstanceUID
-const createStudyFromSOPInstanceList = async (server, sopInstanceList, studyInstanceUID) => {
+const createStudyFromSOPInstanceList = async (server, sopInstanceList) => {
     if (Array.isArray(sopInstanceList) && sopInstanceList.length > 0) {
         const firstSopInstance = sopInstanceList[0];
-        const study = createStudy(server, firstSopInstance, studyInstanceUID);
+        const study = createStudy(server, firstSopInstance);
         await addInstancesToStudy(server, study, sopInstanceList);
         return study;
     }
     throw new Error('Failed to create study out of provided SOP instance list');
 };
 
-export { createStudyFromSOPInstanceList, addInstancesToStudy };
+export {createStudyFromSOPInstanceList, addInstancesToStudy};

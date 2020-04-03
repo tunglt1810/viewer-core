@@ -49,7 +49,7 @@ export class SeriesMetadata extends Metadata {
         Object.defineProperty(this, 'seriesInstanceUID', {
             configurable: false,
             enumerable: false,
-            get() {
+            get: function() {
                 return this.getSeriesInstanceUID();
             }
         });
@@ -121,7 +121,9 @@ export class SeriesMetadata extends Metadata {
     getInstanceByUID(uid) {
         let found; // undefined by default...
         if (Metadata.isValidUID(uid)) {
-            found = this._instances.find((instance) => instance.getSOPInstanceUID() === uid);
+            found = this._instances.find((instance) => {
+                return instance.getSOPInstanceUID() === uid;
+            });
         }
         return found;
     }
@@ -168,7 +170,9 @@ export class SeriesMetadata extends Metadata {
    */
     findInstance(callback) {
         if (Metadata.isValidCallback(callback)) {
-            return this._instances.find((instance, index) => callback.call(null, instance, index));
+            return this._instances.find((instance, index) => {
+                return callback.call(null, instance, index);
+            });
         }
     }
 

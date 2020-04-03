@@ -1,11 +1,10 @@
 // Return the array sorting function for its object's properties
 export default function sortBy() {
-    const fields = [].slice.call(arguments);
-    const n_fields = fields.length;
+    var fields = [].slice.call(arguments),
+        n_fields = fields.length;
 
-    return function (A, B) {
-        let a; let b; let field; let key; let reverse; let result; let
-            i;
+    return function(A, B) {
+        var a, b, field, key, reverse, result, i;
 
         for (i = 0; i < n_fields; i++) {
             result = 0;

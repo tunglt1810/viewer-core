@@ -7,12 +7,12 @@
  */
 export default class RetrieveMetadataLoader {
     /**
-   * @constructor
-   * @param {Object} server Object with server configuration parameters
-   * @param {Array} studyInstanceUID Study instance ui to be retrieved
-   * @param {Object} [filters] - Object containing filters to be applied on retrieve metadata process
-   * @param {string} [filter.seriesInstanceUID] - series instance uid to filter results against
-   */
+     * @constructor
+     * @param {Object} server Object with server configuration parameters
+     * @param {Array} studyInstanceUID Study instance ui to be retrieved
+     * @param {Object} [filters] - Object containing filters to be applied on retrieve metadata process
+     * @param {string} [filter.seriesInstanceUID] - series instance uid to filter results against
+     */
     constructor(server, studyInstanceUID, filters = {}) {
         this.server = server;
         this.studyInstanceUID = studyInstanceUID;
@@ -29,9 +29,9 @@ export default class RetrieveMetadataLoader {
     }
 
     /**
-   * It iterates over given loaders running each one. Loaders parameters must be bind when getting it.
-   * @param {Array} loaders - array of loader to retrieve data.
-   */
+     * It iterates over given loaders running each one. Loaders parameters must be bind when getting it.
+     * @param {Array} loaders - array of loader to retrieve data.
+     */
     async runLoaders(loaders) {
         let result;
         for (const loader of loaders) {
@@ -53,11 +53,15 @@ export default class RetrieveMetadataLoader {
     }
 
     // Methods to be overwrite
-    async configLoad() {}
+    async configLoad() {
+    }
 
-    async preLoad() {}
+    async preLoad() {
+    }
 
-    async load(preLoadData) {}
+    async load(preLoadData) {
+    }
 
-    async posLoad(loadData) {}
+    async posLoad(loadData) {
+    }
 }

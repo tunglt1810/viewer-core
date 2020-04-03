@@ -2,12 +2,13 @@ import getWADORSImageId from './getWADORSImageId';
 
 // https://stackoverflow.com/a/6021027/3895126
 function updateQueryStringParameter(uri, key, value) {
-    const regex = new RegExp(`([?&])${key}=.*?(&|$)`, 'i');
+    const regex = new RegExp('([?&])' + key + '=.*?(&|$)', 'i');
     const separator = uri.indexOf('?') !== -1 ? '&' : '?';
     if (uri.match(regex)) {
-        return uri.replace(regex, `$1${key}=${value}$2`);
-    }
-    return `${uri + separator + key}=${value}`;
+        return uri.replace(regex, '$1' + key + '=' + value + '$2');
+    } 
+    return uri + separator + key + '=' + value;
+  
 }
 
 /**
@@ -42,12 +43,13 @@ export default function getImageId(instance, frame, thumbnail = false) {
     instance[renderingAttr] === 'wadouri' ||
     !instance.wadorsuri
     ) {
-        let imageId = `dicomweb:${instance.wadouri}`;
+        let imageId = 'dicomweb:' + instance.wadouri;
         if (frame !== undefined) {
-            imageId += `&frame=${frame}`;
+            imageId += '&frame=' + frame;
         }
 
         return imageId;
-    }
+    } 
     return getWADORSImageId(instance, frame, thumbnail); // WADO-RS Retrieve Frame
+  
 }

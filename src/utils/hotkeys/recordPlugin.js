@@ -6,52 +6,52 @@
  */
 export default function (Mousetrap) {
     /**
-   * the sequence currently being recorded
-   *
-   * @type {Array}
-   */
-    let _recordedSequence = [];
-    /**
-     * a callback to invoke after recording a sequence
-     *
-     * @type {Function|null}
-     */
-    let _recordedSequenceCallback = null;
-    /**
-     * a list of all of the keys currently held down
+     * the sequence currently being recorded
      *
      * @type {Array}
      */
-    let _currentRecordedKeys = [];
-    /**
-     * temporary state where we remember if we've already captured a
-     * character key in the current combo
-     *
-     * @type {boolean}
-     */
-    let _recordedCharacterKey = false;
-    /**
-     * a handle for the timer of the current recording
-     *
-     * @type {null|number}
-     */
-    let _recordTimer = null;
-    /**
+    let _recordedSequence = [],
+        /**
+         * a callback to invoke after recording a sequence
+         *
+         * @type {Function|null}
+         */
+        _recordedSequenceCallback = null,
+        /**
+         * a list of all of the keys currently held down
+         *
+         * @type {Array}
+         */
+        _currentRecordedKeys = [],
+        /**
+         * temporary state where we remember if we've already captured a
+         * character key in the current combo
+         *
+         * @type {boolean}
+         */
+        _recordedCharacterKey = false,
+        /**
+         * a handle for the timer of the current recording
+         *
+         * @type {null|number}
+         */
+        _recordTimer = null;
+    const /**
      * the original handleKey method to override when Mousetrap.record() is
      * called
      *
      * @type {Function}
      */
-    const _origHandleKey = Mousetrap.prototype.handleKey;
+        _origHandleKey = Mousetrap.prototype.handleKey;
 
     /**
-   * handles a character key event
-   *
-   * @param {string} character
-   * @param {Array} modifiers
-   * @param {Event} e
-   * @returns void
-   */
+     * handles a character key event
+     *
+     * @param {string} character
+     * @param {Array} modifiers
+     * @param {Event} e
+     * @returns void
+     */
     function _handleKey(character, modifiers, e) {
         const self = this;
 
@@ -61,7 +61,7 @@ export default function (Mousetrap) {
         }
 
         // remember this character if we're currently recording a sequence
-        if (e.type == 'keydown') {
+        if (e.type === 'keydown') {
             if (character.length === 1 && _recordedCharacterKey) {
                 _recordCurrentCombo();
             }
@@ -73,19 +73,19 @@ export default function (Mousetrap) {
 
             // once a key is released, all keys that were held down at the time
             // count as a keypress
-        } else if (e.type == 'keyup' && _currentRecordedKeys.length > 0) {
+        } else if (e.type === 'keyup' && _currentRecordedKeys.length > 0) {
             _recordCurrentCombo();
         }
     }
 
     /**
-   * marks a character key as held down while recording a sequence
-   *
-   * @param {string} key
-   * @returns void
-   */
+     * marks a character key as held down while recording a sequence
+     *
+     * @param {string} key
+     * @returns void
+     */
     function _recordKey(key) {
-    // one-off implementation of Array.indexOf, since IE6-9 don't support it
+        // one-off implementation of Array.indexOf, since IE6-9 don't support it
         for (let i = 0; i < _currentRecordedKeys.length; ++i) {
             if (_currentRecordedKeys[i] === key) {
                 return;
@@ -100,11 +100,11 @@ export default function (Mousetrap) {
     }
 
     /**
-   * marks whatever key combination that's been recorded so far as finished
-   * and gets ready for the next combo
-   *
-   * @returns void
-   */
+     * marks whatever key combination that's been recorded so far as finished
+     * and gets ready for the next combo
+     *
+     * @returns void
+     */
     function _recordCurrentCombo() {
         _recordedSequence.push(_currentRecordedKeys);
         _currentRecordedKeys = [];
@@ -113,21 +113,21 @@ export default function (Mousetrap) {
     }
 
     /**
-   * ensures each combo in a sequence is in a predictable order and formats
-   * key combos to be '+'-delimited
-   *
-   * modifies the sequence in-place
-   *
-   * @param {Array} sequence
-   * @returns void
-   */
+     * ensures each combo in a sequence is in a predictable order and formats
+     * key combos to be '+'-delimited
+     *
+     * modifies the sequence in-place
+     *
+     * @param {Array} sequence
+     * @returns void
+     */
     function _normalizeSequence(sequence) {
         for (let i = 0; i < sequence.length; ++i) {
-            sequence[i].sort((x, y) => {
+            sequence[i].sort(function (x, y) {
                 // modifier keys always come first, in alphabetical order
                 if (x.length > 1 && y.length === 1) {
                     return -1;
-                } if (x.length === 1 && y.length > 1) {
+                } else if (x.length === 1 && y.length > 1) {
                     return 1;
                 }
 
@@ -141,11 +141,11 @@ export default function (Mousetrap) {
     }
 
     /**
-   * finishes the current recording, passes the recorded sequence to the stored
-   * callback, and sets Mousetrap.handleKey back to its original function
-   *
-   * @returns void
-   */
+     * finishes the current recording, passes the recorded sequence to the stored
+     * callback, and sets Mousetrap.handleKey back to its original function
+     *
+     * @returns void
+     */
     function _finishRecording() {
         if (_recordedSequenceCallback) {
             _normalizeSequence(_recordedSequence);
@@ -159,25 +159,25 @@ export default function (Mousetrap) {
     }
 
     /**
-   * called to set a 1 second timeout on the current recording
-   *
-   * this is so after each key press in the sequence the recording will wait for
-   * 1 more second before executing the callback
-   *
-   * @returns void
-   */
+     * called to set a 1 second timeout on the current recording
+     *
+     * this is so after each key press in the sequence the recording will wait for
+     * 1 more second before executing the callback
+     *
+     * @returns void
+     */
     function _restartRecordTimer() {
         clearTimeout(_recordTimer);
         _recordTimer = setTimeout(_finishRecording, 1000);
     }
 
     /**
-   * records the next sequence and passes it to a callback once it's
-   * completed
-   *
-   * @param {Function} callback
-   * @returns void
-   */
+     * records the next sequence and passes it to a callback once it's
+     * completed
+     *
+     * @param {Function} callback
+     * @returns void
+     */
     Mousetrap.prototype.record = function (callback) {
         const self = this;
         self.recording = true;
@@ -188,22 +188,22 @@ export default function (Mousetrap) {
     };
 
     /**
-   * stop recording
-   *
-   * @param {Function} callback
-   * @returns void
-   */
+     * stop recording
+     *
+     * @param {Function} callback
+     * @returns void
+     */
     Mousetrap.prototype.stopRecord = function () {
         const self = this;
         self.recording = false;
     };
 
     /**
-   * start recording
-   *
-   * @param {Function} callback
-   * @returns void
-   */
+     * start recording
+     *
+     * @param {Function} callback
+     * @returns void
+     */
     Mousetrap.prototype.startRecording = function () {
         const self = this;
         self.recording = true;

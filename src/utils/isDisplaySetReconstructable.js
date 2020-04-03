@@ -24,12 +24,13 @@ export default function isDisplaySetReconstructable(instances) {
 
     if (isMultiframe) {
         return processMultiframe(instances[0]);
-    }
+    } 
     return processSingleframe(instances);
+  
 }
 
 function processMultiframe(instance) {
-    // TODO: deal with multriframe checks! return false for now as can't reconstruct.
+    //TODO: deal with multriframe checks! return false for now as can't reconstruct.
     return { value: false };
 }
 
@@ -166,8 +167,8 @@ function _getSpacingIssue(spacing, averageSpacing) {
 function _getPerpendicularDistance(a, b) {
     return Math.sqrt(
         Math.pow(a[0] - b[0], 2) +
-      Math.pow(a[1] - b[1], 2) +
-      Math.pow(a[2] - b[2], 2)
+    Math.pow(a[1] - b[1], 2) +
+    Math.pow(a[2] - b[2], 2)
     );
 }
 
