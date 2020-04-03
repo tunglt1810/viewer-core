@@ -94,7 +94,8 @@ module.exports = (env, argv, { SRC_DIR, DIST_DIR }) => {
       'cornerstone-wado-image-loader': 'cornerstone-wado-image-loader',
       'cornerstone-core': 'cornerstone-core',
       'cornerstone-tools': 'cornerstone-tools',
-      'dicom-parser': 'dicom-parser'
+      'dicom-parser': 'dicom-parser',
+      'cornerstone-math': 'cornerstone-math'
     }
   };
 

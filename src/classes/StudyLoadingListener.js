@@ -1,9 +1,5 @@
 import cornerstone from 'cornerstone-core';
 import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
-import {
-    clearStudyLoadingProgress,
-    setStudyLoadingProgress
-} from '../redux/actions';
 import StackManager from '../utils/StackManager';
 
 class BaseLoadingListener {

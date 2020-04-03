@@ -4,12 +4,14 @@ import getWADORSImageId from '../../../utils/getWADORSImageId';
 import getReferencedSeriesSequence from './getReferencedSeriesSequence';
 import {getCornerstoneWADOImageLoader} from '../../../utils/cornerstoneWADOImageLoader';
 
+// Modified by TungLT
 /**
  * Create a plain JS object that describes a study (a study descriptor object)
  * @param {Object} server Object with server configuration parameters
  * @param {Object} aSopInstance a SOP Instance from which study information will be added
+ * @param {String} studyInstanceUID of study, need to replace dicom tag of instance - iTech's security
  */
-function createStudy(server, aSopInstance) {
+function createStudy(server, aSopInstance, studyInstanceUID) {
     // TODO: Pass a reference ID to the server instead of including the URLs here
     return {
         series: [],
@@ -31,7 +33,7 @@ function createStudy(server, aSopInstance) {
         modalities: DICOMWeb.getString(aSopInstance['00080061']), // TODO -> Rename this.. it'll take a while to not mess this one up.
         StudyDescription: DICOMWeb.getString(aSopInstance['00081030']),
         NumberOfStudyRelatedInstances: DICOMWeb.getString(aSopInstance['00201208']),
-        StudyInstanceUID: DICOMWeb.getString(aSopInstance['0020000D']),
+        StudyInstanceUID: studyInstanceUID || DICOMWeb.getString(aSopInstance['0020000D']),
         InstitutionName: DICOMWeb.getString(aSopInstance['00080080'])
     };
 }
@@ -93,7 +95,8 @@ function buildInstanceFrameWadoRsUri(
 
 async function makeSOPInstance(server, study, instance) {
     const naturalizedInstance = await metadataProvider.addInstance(instance, {
-        server
+        server,
+        StudyInstanceUID: study.StudyInstanceUID
     });
 
     const {
@@ -197,10 +200,10 @@ async function addInstancesToStudy(server, study, sopInstanceList) {
     );
 }
 
-const createStudyFromSOPInstanceList = async (server, sopInstanceList) => {
+const createStudyFromSOPInstanceList = async (server, sopInstanceList, studyInstanceUID) => {
     if (Array.isArray(sopInstanceList) && sopInstanceList.length > 0) {
         const firstSopInstance = sopInstanceList[0];
-        const study = createStudy(server, firstSopInstance);
+        const study = createStudy(server, firstSopInstance, studyInstanceUID);
         await addInstancesToStudy(server, study, sopInstanceList);
         return study;
     }

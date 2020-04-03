@@ -1,7 +1,6 @@
 import cornerstone from 'cornerstone-core';
 import cornerstoneTools from 'cornerstone-tools';
 import log from '../log';
-import OHIFError from './OHIFError';
 import getImageId from '../utils/getImageId';
 
 export class StudyPrefetcher {

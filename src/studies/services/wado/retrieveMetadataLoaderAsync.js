@@ -21,7 +21,7 @@ function attachSeriesLoader(server, study, seriesLoader) {
         },
         async next() {
             const series = await seriesLoader.next();
-            await addInstancesToStudy(server, study, series.sopInstances);
+            await addInstancesToStudy(server, study, series.sopInstances, study.StudyInstanceUID);
             return study.seriesMap[series.seriesInstanceUID];
         }
     });
@@ -127,11 +127,11 @@ export default class RetrieveMetadataLoaderAsync extends RetrieveMetadataLoader 
     }
 
     async posLoad(loadData) {
-        const {server} = this;
+        const {server, studyInstanceUID} = this;
 
         const {sopInstances, asyncLoader} = loadData;
 
-        const study = await createStudyFromSOPInstanceList(server, sopInstances);
+        const study = await createStudyFromSOPInstanceList(server, sopInstances, studyInstanceUID);
 
         if (asyncLoader.hasNext()) {
             attachSeriesLoader(server, study, asyncLoader);

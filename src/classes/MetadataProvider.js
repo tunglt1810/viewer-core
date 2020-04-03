@@ -1,7 +1,7 @@
 import * as dcmjs from 'dcmjs';
 import queryString from 'query-string';
 import dicomParser from 'dicom-parser';
-import { getFallbackTagFromInstance } from '../utils/metadataProvider/metadataProviderFallbackTags';
+import getPixelSpacingInformation from '../utils/metadataProvider/getPixelSpacingInformation';
 import fetchPaletteColorLookupTableData from '../utils/metadataProvider/fetchPaletteColorLookupTableData';
 import fetchOverlayData from '../utils/metadataProvider/fetchOverlayData';
 
@@ -52,8 +52,9 @@ class MetadataProvider {
         const {
             StudyInstanceUID,
             SeriesInstanceUID,
-            SOPInstanceUID
+            SOPInstanceUID,
         } = naturalizedDataset;
+
         const study = this._getAndCacheStudy(StudyInstanceUID);
         const series = this._getAndCacheSeriesFromStudy(study, SeriesInstanceUID);
         const instance = this._getAndCacheInstanceFromStudy(series, SOPInstanceUID);
@@ -82,7 +83,7 @@ class MetadataProvider {
         let study = studies.get(StudyInstanceUID);
 
         if (!study) {
-            study = { series: new Map() };
+            study = {series: new Map()};
             studies.set(StudyInstanceUID, study);
         }
 
@@ -93,7 +94,7 @@ class MetadataProvider {
         let series = study.series.get(SeriesInstanceUID);
 
         if (!series) {
-            series = { instances: new Map() };
+            series = {instances: new Map()};
             study.series.set(SeriesInstanceUID, series);
         }
 
@@ -126,7 +127,7 @@ class MetadataProvider {
             return;
         }
 
-        const { StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID } = uids;
+        const {StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID} = uids;
 
         return this._getInstanceData(
             StudyInstanceUID,
@@ -135,7 +136,7 @@ class MetadataProvider {
         );
     }
 
-    get(query, imageId, options = { fallback: false }) {
+    get(query, imageId, options = {fallback: false}) {
         const instance = this._getInstance(imageId);
 
         if (query === INSTANCE) {
@@ -156,7 +157,7 @@ class MetadataProvider {
     getTagFromInstance(
         naturalizedTagOrWADOImageLoaderTag,
         instance,
-        options = { fallback: false }
+        options = {fallback: false}
     ) {
         if (!instance) {
             return;
@@ -165,18 +166,6 @@ class MetadataProvider {
         // If its a naturalized dcmjs tag present on the instance, return.
         if (instance[naturalizedTagOrWADOImageLoaderTag]) {
             return instance[naturalizedTagOrWADOImageLoaderTag];
-        }
-
-        if (options.fallback) {
-            // Perhaps the tag has fallbacks?
-            const fallbackTag = getFallbackTagFromInstance(
-                naturalizedTagOrWADOImageLoaderTag,
-                instance
-            );
-
-            if (fallbackTag) {
-                return fallbackTag;
-            }
         }
 
         // Maybe its a legacy CornerstoneWADOImageLoader tag then:
@@ -191,7 +180,7 @@ class MetadataProvider {
 
         switch (wadoImageLoaderTag) {
             case WADO_IMAGE_LOADER_TAGS.GENERAL_SERIES_MODULE:
-                const { SeriesDate, SeriesTime } = instance;
+                const {SeriesDate, SeriesTime} = instance;
 
                 let seriesDate;
                 let seriesTime;
@@ -222,13 +211,12 @@ class MetadataProvider {
                 };
                 break;
             case WADO_IMAGE_LOADER_TAGS.IMAGE_PLANE_MODULE:
-                const { ImageOrientationPatient } = instance;
+                const {ImageOrientationPatient} = instance;
 
                 // Fallback for DX images.
-                const PixelSpacing = getFallbackTagFromInstance(
-                    'PixelSpacing',
-                    instance
-                );
+                // TODO: We should use the rest of the results of this function
+                // to update the UI somehow
+                const {PixelSpacing} = getPixelSpacingInformation(instance);
 
                 let rowPixelSpacing;
                 let columnPixelSpacing;
@@ -291,7 +279,7 @@ class MetadataProvider {
 
                 break;
             case WADO_IMAGE_LOADER_TAGS.VOI_LUT_MODULE:
-                const { WindowCenter, WindowWidth } = instance;
+                const {WindowCenter, WindowWidth} = instance;
 
                 const windowCenter = Array.isArray(WindowCenter)
                     ? WindowCenter
@@ -316,11 +304,11 @@ class MetadataProvider {
             case WADO_IMAGE_LOADER_TAGS.SOP_COMMON_MODULE:
                 metadata = {
                     sopClassUID: instance.SOPClassUID,
-                    sopInstanceUID: instance.SOPInstanceUID
+                    sopInstanceUID: instance.SOPInstanceUID,
                 };
                 break;
             case WADO_IMAGE_LOADER_TAGS.PET_ISOTOPE_MODULE:
-                const { RadiopharmaceuticalInformationSequence } = instance;
+                const {RadiopharmaceuticalInformationSequence} = instance;
 
                 if (RadiopharmaceuticalInformationSequence) {
                     const RadiopharmaceuticalInformation = Array.isArray(
@@ -332,7 +320,7 @@ class MetadataProvider {
                     const {
                         RadiopharmaceuticalStartTime,
                         RadionuclideTotalDose,
-                        RadionuclideHalfLife
+                        RadionuclideHalfLife,
                     } = RadiopharmaceuticalInformation;
 
                     const radiopharmaceuticalInfo = {
@@ -340,10 +328,10 @@ class MetadataProvider {
                             RadiopharmaceuticalStartTime
                         ),
                         radionuclideTotalDose: RadionuclideTotalDose,
-                        radionuclideHalfLife: RadionuclideHalfLife
+                        radionuclideHalfLife: RadionuclideHalfLife,
                     };
                     metadata = {
-                        radiopharmaceuticalInfo
+                        radiopharmaceuticalInfo,
                     };
                 }
 
@@ -396,6 +384,10 @@ class MetadataProvider {
 
                     metadata.push(overlay);
                 }
+
+                metadata = {
+                    overlays
+                };
 
                 break;
 
@@ -480,9 +472,10 @@ class MetadataProvider {
                 SeriesInstanceUID: qs.seriesUID,
                 SOPInstanceUID: qs.objectUID
             };
+        } else {
+            // Maybe its a non-standard imageId
+            return this.imageIdToUIDs.get(imageId);
         }
-        // Maybe its a non-standard imageId
-        return this.imageIdToUIDs.get(imageId);
     }
 }
 
