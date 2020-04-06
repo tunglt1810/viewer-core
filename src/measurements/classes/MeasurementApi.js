@@ -320,9 +320,9 @@ export default class MeasurementApi {
 
         log.info('Saving Measurements for timepoints:', timepoints);
         return storeFn(measurementData, filter, server).then((measurementData) => {
-            log.info('Measurement storage completed');
+            log.info('Measurement storage completed', measurementData);
             this.processMeasurementData(measurementData);
-            return result;
+            return measurementData;
         });
     }
 
