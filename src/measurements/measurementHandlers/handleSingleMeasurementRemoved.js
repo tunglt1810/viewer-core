@@ -28,11 +28,9 @@ export default function handleSingleMeasurementRemoved({
     if (!measurement) return;
 
     // Remove all the measurements with the given type and number
-    const { lesionNamingNumber, timepointId } = measurement;
-    measurementApi.deleteMeasurements(toolType, measurementTypeId, {
-        lesionNamingNumber,
-        timepointId
-    });
+    // Modified by TungLT
+    // const { lesionNamingNumber, timepointId } = measurement;
+    measurementApi.deleteMeasurements(toolType, measurementTypeId, measurement);
 
     // TODO: This is very hacky, but will work for now
     cornerstone.getEnabledElements().forEach((enabledElement) => {

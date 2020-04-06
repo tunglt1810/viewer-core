@@ -9,16 +9,17 @@ import findMostRecentStructuredReport from './utils/findMostRecentStructuredRepo
 
 /**
  *
- * @typedef serverType
+ * @typedef ServerType
  * @property {string} type - type of the server
  * @property {string} wadoRoot - server wado root url
+ * @property {string} annotationEndpoint - endpoint url for annotation service
  *
  */
 
 /**
  * Function to be registered into MeasurementAPI to retrieve measurements from DICOM Structured Reports
  *
- * @param {serverType} server
+ * @param {ServerType} server
  * @returns {Promise} Should resolve with OHIF measurementData object
  */
 const retrieveMeasurements = (server) => {
@@ -44,7 +45,7 @@ const retrieveMeasurements = (server) => {
  *
  * @param {Object} measurementData - OHIF measurementData object
  * @param {Object} filter
- * @param {serverType} server
+ * @param {ServerType} server
  * @returns {Object} With message to be displayed on success
  */
 const storeMeasurements = async (measurementData, filter, server) => {

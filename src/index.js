@@ -9,6 +9,7 @@ import { ServicesManager,
 } from './services';
 import classes, { CommandsManager, HotkeysManager } from './classes';
 
+import AnnotationService from "./AnnotationService";
 import DICOMWeb from './DICOMWeb';
 import DICOMSR from './DICOMSR';
 import cornerstone from './cornerstone';
@@ -25,8 +26,7 @@ import ui from './ui';
 import user from './user';
 import utils, { hotkeys } from './utils';
 
-
-const OHIF = {
+const ViewerCore = {
     MODULE_TYPES,
     //
     CommandsManager,
@@ -56,7 +56,8 @@ const OHIF = {
     UINotificationService,
     UIModalService,
     UIDialogService,
-    MeasurementService
+    MeasurementService,
+    AnnotationService
 };
 
 export {
@@ -88,9 +89,10 @@ export {
     UINotificationService,
     UIModalService,
     UIDialogService,
-    MeasurementService
+    MeasurementService,
+    AnnotationService
 };
 
-export { OHIF };
+export { ViewerCore };
 
-export default OHIF;
+export default ViewerCore;
