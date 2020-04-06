@@ -195,7 +195,10 @@ export default class MeasurementApi {
     }
 
     static getInstance() {
-        return new MeasurementApi();
+        if (!this.Instance) {
+            this.Instance = new MeasurementApi()
+        }
+        return this.Instance;
     }
 
     initialize(timepointApi, options = {}) {
@@ -845,7 +848,7 @@ export default class MeasurementApi {
             return;
         }
 
-        collection[toolIndex] = {...measurement};
+        collection[toolIndex] = {...measurement, updated: true};
 
         // Let others know that the measurements are updated
         this.onMeasurementsUpdated();
@@ -1061,5 +1064,5 @@ export default class MeasurementApi {
     // temporary deleted measurements of a study need to be clear when call delete request success or current viewport of this study is cleared
     clearTemporaryDeletedMeasurement = (StudyInstanceUID) => {
         delete this.temporaryDeletedMeasurement[StudyInstanceUID]
-    }
+    };
 }
