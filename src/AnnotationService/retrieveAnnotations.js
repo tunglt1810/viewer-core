@@ -53,18 +53,18 @@ const retrieveAnnotations = async (server) => {
         };
     });
 
-    log.info('retrieve annotations', annotations);
+    // log.info('retrieve annotations', annotations);
 
     const toolTypes = uniqBy(annotations, 'toolType').map((annotation) => annotation.toolType);
 
-    log.info(toolTypes);
+    // log.info(toolTypes);
 
     const mapToolTypeWithAnnotations = {};
     toolTypes.forEach((toolType) => {
         mapToolTypeWithAnnotations[toolType] = annotations.filter((annotation) => annotation.toolType === toolType);
     });
 
-    log.info('mapToolTypeWithAnnotations', mapToolTypeWithAnnotations);
+    // log.info('mapToolTypeWithAnnotations', mapToolTypeWithAnnotations);
 
     return mapToolTypeWithAnnotations;
 };

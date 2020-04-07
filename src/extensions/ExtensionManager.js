@@ -84,7 +84,6 @@ export default class ExtensionManager {
                 extensionId,
                 configuration
             );
-
             if (extensionModule) {
                 this._initSpecialModuleTypes(moduleType, extensionModule);
 
