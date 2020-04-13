@@ -35,7 +35,7 @@ const retrieveAnnotations = async (server) => {
         if (response.status === 200) {
             const {body} = await response.json();
             if (Array.isArray(body)) annotations.push(...body);
-            else annotations.push(body);
+            else if (body.id) annotations.push(body);
         } else {
             log.error(response);
         }
