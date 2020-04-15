@@ -1,13 +1,13 @@
 {
   "name": "viewer-core",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Generic business logic for web-based medical imaging applications - edited by Tung LT",
   "author": "OHIF Core Team",
   "editor": "Tung LT",
   "license": "MIT",
   "repository": "viewer-core",
   "main": "dist/index.umd.js",
-  "module": "src/index.umd.js",
+  "module": "dist/index.umd.js",
   "sideEffects": "false",
   "publishConfig": {
     "access": "public"
@@ -30,7 +30,9 @@
     "prepublishOnly": "yarn run build",
     "start": "yarn run dev",
     "test:unit": "jest --watchAll",
-    "test:unit:ci": "jest --ci --runInBand --collectCoverage"
+    "test:unit:ci": "jest --ci --runInBand --collectCoverage",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src"
   },
   "peerDependencies": {
     "cornerstone-core": "^2.2.8",
