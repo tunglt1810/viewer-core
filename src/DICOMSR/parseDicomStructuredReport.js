@@ -19,7 +19,7 @@ const parseDicomStructuredReport = (part10SRArrayBuffer, displaySets) => {
         dicomData.dict
     );
 
-    const { MeasurementReport } = dcmjs.adapters.Cornerstone;
+    const {MeasurementReport} = dcmjs.adapters.Cornerstone;
     const storedMeasurementByToolType = MeasurementReport.generateToolState(
         dataset
     );
@@ -36,10 +36,10 @@ const parseDicomStructuredReport = (part10SRArrayBuffer, displaySets) => {
                 measurement.sopInstanceUid
             );
 
-            const { _study: study, _series: series } = instanceMetadata;
-            const { StudyInstanceUID, PatientID } = study;
-            const { SeriesInstanceUID } = series;
-            const { sopInstanceUid, frameIndex } = measurement;
+            const {_study: study, _series: series} = instanceMetadata;
+            const {StudyInstanceUID, PatientID} = study;
+            const {SeriesInstanceUID} = series;
+            const {sopInstanceUid, frameIndex} = measurement;
             const imagePath = getImagePath(
                 StudyInstanceUID,
                 SeriesInstanceUID,
@@ -55,7 +55,7 @@ const parseDicomStructuredReport = (part10SRArrayBuffer, displaySets) => {
             // TODO: We need the currentTimepointID set into the viewer
             const currentTimepointId = 'TimepointId';
 
-            const toolData = { ...measurement,
+            const toolData = {...measurement,
                 imageId,
                 imagePath,
                 SOPInstanceUID: sopInstanceUid,
@@ -65,7 +65,7 @@ const parseDicomStructuredReport = (part10SRArrayBuffer, displaySets) => {
                 measurementNumber: ++measurementNumber,
                 timepointId: currentTimepointId,
                 toolType: toolName,
-                _id: imageId + measurementNumber };
+                _id: imageId + measurementNumber};
 
             measurementData[toolName].push(toolData);
         });

@@ -234,7 +234,7 @@ class MeasurementService {
 
         if (matchingMapping) {
             log.info('Matching mapping found:', matchingMapping);
-            const { toSourceSchema, definition } = matchingMapping;
+            const {toSourceSchema, definition} = matchingMapping;
             return toSourceSchema(measurement, definition);
         }
     }
@@ -271,7 +271,7 @@ class MeasurementService {
         let measurement = {};
         try {
             const sourceMappings = this.mappings[source.id];
-            const { toMeasurementSchema } = sourceMappings.find(
+            const {toMeasurementSchema} = sourceMappings.find(
                 (mapping) => mapping.definition === definition
             );
 
@@ -341,7 +341,7 @@ class MeasurementService {
     subscribe(eventName, callback) {
         if (this._isValidEvent(eventName)) {
             const listenerId = guid();
-            const subscription = { id: listenerId, callback };
+            const subscription = {id: listenerId, callback};
 
             console.info(`Subscribing to '${eventName}'.`);
             if (Array.isArray(this.listeners[eventName])) {
@@ -382,7 +382,7 @@ class MeasurementService {
         );
 
         /* Criteria Matching */
-        return sourceMappingsByDefinition.find(({ matchingCriteria }) => (
+        return sourceMappingsByDefinition.find(({matchingCriteria}) => (
             measurement.points &&
         measurement.points.length === matchingCriteria.points
         ));
@@ -434,7 +434,7 @@ class MeasurementService {
 
         if (hasListeners && hasCallbacks) {
             this.listeners[eventName].forEach((listener) => {
-                listener.callback({ source, measurement });
+                listener.callback({source, measurement});
             });
         }
     }
@@ -454,7 +454,7 @@ class MeasurementService {
         const listeners = this.listeners[eventName];
         if (Array.isArray(listeners)) {
             this.listeners[eventName] = listeners.filter(
-                ({ id }) => id !== listenerId
+                ({id}) => id !== listenerId
             );
         } else {
             this.listeners[eventName] = undefined;
@@ -493,8 +493,8 @@ class MeasurementService {
    *
    * @return {Array} Array of objects
    */
-  _arrayOfObjects = (obj) => Object.entries(obj).map((e) => ({ [e[0]]: e[1] }));
+  _arrayOfObjects = (obj) => Object.entries(obj).map((e) => ({[e[0]]: e[1]}));
 }
 
 export default MeasurementService;
-export { EVENTS, VALUE_TYPES };
+export {EVENTS, VALUE_TYPES};

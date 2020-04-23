@@ -1,5 +1,5 @@
-import { StudyMetadata } from './StudyMetadata';
-import { OHIFSeriesMetadata } from './OHIFSeriesMetadata';
+import {StudyMetadata} from './StudyMetadata';
+import {OHIFSeriesMetadata} from './OHIFSeriesMetadata';
 
 export class OHIFStudyMetadata extends StudyMetadata {
     /**

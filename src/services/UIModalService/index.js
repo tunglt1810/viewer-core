@@ -81,5 +81,5 @@ function setServiceImplementation({
 
 export default {
     name,
-    create: ({ configuration = {} }) => publicAPI
+    create: ({configuration = {}}) => publicAPI
 };

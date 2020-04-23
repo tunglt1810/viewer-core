@@ -178,5 +178,5 @@ const StackManager = {
     }
 };
 
-export { StackManager };
+export {StackManager};
 export default StackManager;

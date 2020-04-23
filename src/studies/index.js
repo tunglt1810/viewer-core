@@ -1,4 +1,4 @@
-import { QIDO, WADO } from './services';
+import {QIDO, WADO} from './services';
 import {
     deleteStudyMetadataPromise,
     retrieveStudyMetadata

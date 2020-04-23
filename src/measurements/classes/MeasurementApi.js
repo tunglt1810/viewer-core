@@ -196,7 +196,7 @@ export default class MeasurementApi {
 
     static getInstance() {
         if (!this.Instance) {
-            this.Instance = new MeasurementApi()
+            this.Instance = new MeasurementApi();
         }
         return this.Instance;
     }
@@ -1054,7 +1054,7 @@ export default class MeasurementApi {
         const {StudyInstanceUID} = measurementData;
         const temporaryDeleted = this.getTemporaryDeletedMeasurements(StudyInstanceUID);
         // prevent duplicated measurement
-        if (temporaryDeleted.length === 0 || temporaryDeleted.findIndex(measurement => measurement.id === measurementData.id) === -1) {
+        if (temporaryDeleted.length === 0 || temporaryDeleted.findIndex((measurement) => measurement.id === measurementData.id) === -1) {
             log.info('add measurement to temporary deleted list', measurementData);
             temporaryDeleted.push(measurementData);
             this.temporaryDeletedMeasurement[StudyInstanceUID] = temporaryDeleted;
@@ -1063,6 +1063,6 @@ export default class MeasurementApi {
 
     // temporary deleted measurements of a study need to be clear when call delete request success or current viewport of this study is cleared
     clearTemporaryDeletedMeasurement = (StudyInstanceUID) => {
-        delete this.temporaryDeletedMeasurement[StudyInstanceUID]
+        delete this.temporaryDeletedMeasurement[StudyInstanceUID];
     };
 }

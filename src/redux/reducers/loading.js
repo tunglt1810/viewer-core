@@ -17,14 +17,14 @@ const loading = (state = defaultState, action) => {
             // to the progress object without doing deep comparison.
             lastUpdated = new Date().getTime();
 
-            return { ...state, progress, lastUpdated };
+            return {...state, progress, lastUpdated};
         case 'CLEAR_STUDY_LOADING_PROGRESS':
             progress = cloneDeep(state).progress;
             delete progress[action.progressId];
 
             lastUpdated = new Date().getTime();
 
-            return { ...state, progress, lastUpdated };
+            return {...state, progress, lastUpdated};
         default:
             return state;
     }

@@ -19,4 +19,4 @@ function addCustomViewportSetting(settingId, settingName, options, callback) {
     };
 }
 
-export { CustomViewportSettings, addCustomViewportSetting };
+export {CustomViewportSettings, addCustomViewportSetting};

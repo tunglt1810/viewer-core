@@ -1,5 +1,5 @@
 import log from '../log';
-import { retrieveStudyMetadata } from './retrieveStudyMetadata';
+import {retrieveStudyMetadata} from './retrieveStudyMetadata';
 
 /**
  * Retrieves metaData for multiple studies at once.

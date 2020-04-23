@@ -1,14 +1,14 @@
 import cornerstone from 'cornerstone-core';
-import { MeasurementApi } from '../classes';
+import {MeasurementApi} from '../classes';
 import log from '../../log';
 
-export default function ({ eventData, tool, toolGroupId, toolGroup }) {
+export default function ({eventData, tool, toolGroupId, toolGroup}) {
     const measurementApi = MeasurementApi.Instance;
     if (!measurementApi) {
         log.warn('Measurement API is not initialized');
     }
 
-    const { measurementData, toolType } = eventData;
+    const {measurementData, toolType} = eventData;
 
     const collection = measurementApi.tools[toolType];
 

@@ -52,7 +52,7 @@ class MetadataProvider {
         const {
             StudyInstanceUID,
             SeriesInstanceUID,
-            SOPInstanceUID,
+            SOPInstanceUID
         } = naturalizedDataset;
 
         const study = this._getAndCacheStudy(StudyInstanceUID);
@@ -304,7 +304,7 @@ class MetadataProvider {
             case WADO_IMAGE_LOADER_TAGS.SOP_COMMON_MODULE:
                 metadata = {
                     sopClassUID: instance.SOPClassUID,
-                    sopInstanceUID: instance.SOPInstanceUID,
+                    sopInstanceUID: instance.SOPInstanceUID
                 };
                 break;
             case WADO_IMAGE_LOADER_TAGS.PET_ISOTOPE_MODULE:
@@ -320,7 +320,7 @@ class MetadataProvider {
                     const {
                         RadiopharmaceuticalStartTime,
                         RadionuclideTotalDose,
-                        RadionuclideHalfLife,
+                        RadionuclideHalfLife
                     } = RadiopharmaceuticalInformation;
 
                     const radiopharmaceuticalInfo = {
@@ -328,10 +328,10 @@ class MetadataProvider {
                             RadiopharmaceuticalStartTime
                         ),
                         radionuclideTotalDose: RadionuclideTotalDose,
-                        radionuclideHalfLife: RadionuclideHalfLife,
+                        radionuclideHalfLife: RadionuclideHalfLife
                     };
                     metadata = {
-                        radiopharmaceuticalInfo,
+                        radiopharmaceuticalInfo
                     };
                 }
 
@@ -392,7 +392,7 @@ class MetadataProvider {
                 break;
 
             case WADO_IMAGE_LOADER_TAGS.PATIENT_MODULE:
-                const { PatientName } = instance;
+                const {PatientName} = instance;
 
                 let patientName;
                 if (PatientName) {
@@ -472,10 +472,10 @@ class MetadataProvider {
                 SeriesInstanceUID: qs.seriesUID,
                 SOPInstanceUID: qs.objectUID
             };
-        } else {
-            // Maybe its a non-standard imageId
-            return this.imageIdToUIDs.get(imageId);
-        }
+        } 
+        // Maybe its a non-standard imageId
+        return this.imageIdToUIDs.get(imageId);
+        
     }
 }
 

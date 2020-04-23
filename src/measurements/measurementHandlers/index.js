@@ -1,4 +1,4 @@
-import { MeasurementApi } from '../classes';
+import {MeasurementApi} from '../classes';
 import handleSingleMeasurementAdded from './handleSingleMeasurementAdded';
 import handleChildMeasurementAdded from './handleChildMeasurementAdded';
 import handleSingleMeasurementModified from './handleSingleMeasurementModified';
@@ -25,7 +25,7 @@ const MeasurementHandlers = {
 
     onAdded(event) {
         const eventData = getEventData(event);
-        const { toolType } = eventData;
+        const {toolType} = eventData;
         const {
             toolGroupId,
             toolGroup,
@@ -49,7 +49,7 @@ const MeasurementHandlers = {
 
     onModified(event) {
         const eventData = getEventData(event);
-        const { toolType } = eventData;
+        const {toolType} = eventData;
         const {
             toolGroupId,
             toolGroup,
@@ -73,7 +73,7 @@ const MeasurementHandlers = {
 
     onRemoved(event) {
         const eventData = getEventData(event);
-        const { toolType } = eventData;
+        const {toolType} = eventData;
         const {
             toolGroupId,
             toolGroup,

@@ -404,7 +404,7 @@ export const unsavedChanges = {
             const dialogOptions = {
                 title: 'You have unsaved changes!',
                 message:
-            "Your changes will be lost if you don't save them before leaving the current page... Are you sure you want to proceed?",
+            'Your changes will be lost if you don\'t save them before leaving the current page... Are you sure you want to proceed?',
                 ...options
             };
             OHIF.ui.showDialog('dialogConfirm', dialogOptions).then(
@@ -485,7 +485,7 @@ export const unsavedChanges = {
             const probe = this.probe(options.path, true);
             if (!probe) return true;
 
-            const dialogOptions = { class: 'themed', ...options };
+            const dialogOptions = {class: 'themed', ...options};
             if (event) {
                 dialogOptions.position = {
                     x: event.clientX + 15,

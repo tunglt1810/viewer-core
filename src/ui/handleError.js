@@ -1,7 +1,7 @@
 import log from '../log';
 
 export default function handleError(error) {
-    let { title, message } = error;
+    let {title, message} = error;
 
     if (!title) {
         if (error instanceof Error) {

@@ -1,12 +1,12 @@
 import OHIFError from '../classes/OHIFError';
 import metadata from '../classes/metadata';
-import { validate } from './lib/validate';
-import { CustomAttributeRetrievalCallbacks } from './customAttributes';
+import {validate} from './lib/validate';
+import {CustomAttributeRetrievalCallbacks} from './customAttributes';
 
 /**
  * Import Constants
  */
-const { InstanceMetadata } = metadata;
+const {InstanceMetadata} = metadata;
 
 /**
  * Match a Metadata instance against rules using Validate.js for validation.
@@ -112,4 +112,4 @@ const HPMatcher = {
     match
 };
 
-export { HPMatcher };
+export {HPMatcher};

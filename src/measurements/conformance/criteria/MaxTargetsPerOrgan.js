@@ -1,4 +1,4 @@
-import { BaseCriterion } from './BaseCriterion';
+import {BaseCriterion} from './BaseCriterion';
 
 export const MaxTargetsPerOrganSchema = {
     type: 'object',
@@ -39,14 +39,14 @@ export class MaxTargetsPerOrganCriterion extends BaseCriterion {
     }
 
     evaluate(data) {
-        const { options } = this;
+        const {options} = this;
         const targetsPerOrgan = {};
         const measurements = [];
 
         const newTargetNumbers = this.getNewTargetNumbers(data);
         data.targets.forEach((target) => {
-            const { measurement } = target;
-            const { location, measurementNumber, isSplitLesion, isNodal } = measurement;
+            const {measurement} = target;
+            const {location, measurementNumber, isSplitLesion, isNodal} = measurement;
 
             if (isSplitLesion) { return; }
 

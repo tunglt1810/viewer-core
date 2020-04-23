@@ -1,17 +1,17 @@
 import cornerstone from 'cornerstone-core';
-import { MeasurementApi } from '../classes';
+import {MeasurementApi} from '../classes';
 import log from '../../log';
 import user from '../../user';
 import getImageAttributes from '../lib/getImageAttributes';
 import getLabel from '../lib/getLabel';
 
-export default function handleSingleMeasurementAdded({ eventData, tool }) {
+export default function handleSingleMeasurementAdded({eventData, tool}) {
     const measurementApi = MeasurementApi.Instance;
     if (!measurementApi) {
         log.warn('Measurement API is not initialized');
     }
 
-    const { measurementData, toolType } = eventData;
+    const {measurementData, toolType} = eventData;
 
     const collection = measurementApi.tools[toolType];
 
@@ -24,11 +24,11 @@ export default function handleSingleMeasurementAdded({ eventData, tool }) {
     log.info('CornerstoneToolsMeasurementAdded');
 
     const imageAttributes = getImageAttributes(eventData.element);
-    const measurement = { ...measurementData,
+    const measurement = {...measurementData,
         ...imageAttributes,
         lesionNamingNumber: measurementData.lesionNamingNumber,
         userId: user.getUserId(),
-        toolType };
+        toolType};
 
     const addedMeasurement = measurementApi.addMeasurement(toolType, measurement);
     Object.assign(measurementData, addedMeasurement);

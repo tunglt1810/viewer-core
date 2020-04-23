@@ -79,4 +79,4 @@ const storeMeasurements = async (measurementData, filter, server) => {
     }
 };
 
-export { retrieveMeasurements, storeMeasurements };
+export {retrieveMeasurements, storeMeasurements};

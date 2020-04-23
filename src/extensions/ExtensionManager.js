@@ -2,7 +2,7 @@ import MODULE_TYPES from './MODULE_TYPES';
 import log from '../log';
 
 export default class ExtensionManager {
-    constructor({ commandsManager, servicesManager, appConfig = {} }) {
+    constructor({commandsManager, servicesManager, appConfig = {}}) {
         this.modules = {};
         this.registeredExtensionIds = [];
         this.moduleTypeNames = Object.values(MODULE_TYPES);
@@ -137,7 +137,7 @@ export default class ExtensionManager {
     _initSpecialModuleTypes(moduleType, extensionModule) {
         switch (moduleType) {
             case 'commandsModule': {
-                const { definitions, defaultContext } = extensionModule;
+                const {definitions, defaultContext} = extensionModule;
                 if (!definitions || Object.keys(definitions).length === 0) {
                     log.warn('Commands Module contains no command definitions');
                     return;

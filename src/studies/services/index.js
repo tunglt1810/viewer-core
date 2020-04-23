@@ -12,4 +12,4 @@ const QIDO = {
     Instances
 };
 
-export { QIDO, WADO };
+export {QIDO, WADO};

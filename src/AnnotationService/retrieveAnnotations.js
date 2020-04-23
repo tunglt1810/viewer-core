@@ -1,7 +1,7 @@
 import uniqBy from 'lodash.uniqby';
-import DICOMWeb from "../DICOMWeb";
-import utils from "../utils";
-import log from "../log";
+import DICOMWeb from '../DICOMWeb';
+import utils from '../utils';
+import log from '../log';
 
 /**
  * Function to be registered into MeasurementAPI to retrieve measurements from MongoDB

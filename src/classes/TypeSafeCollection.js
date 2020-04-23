@@ -127,9 +127,9 @@ export class TypeSafeCollection {
         const found = this._elementWithPayload(payload, true);
         if (!found) {
             id = guid();
-            this._elements(true).push({ id, payload });
+            this._elements(true).push({id, payload});
             this._invalidate();
-            this._trigger('insert', { id, data: payload });
+            this._trigger('insert', {id, data: payload});
         }
         return id;
     }

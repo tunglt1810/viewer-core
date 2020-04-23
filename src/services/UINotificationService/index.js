@@ -62,7 +62,7 @@ function _show({
  * @returns undefined
  */
 function _hide(id) {
-    return serviceImplementation._hide({ id });
+    return serviceImplementation._hide({id});
 }
 
 /**
@@ -92,5 +92,5 @@ function setServiceImplementation({
 
 export default {
     name,
-    create: ({ configuration = {} }) => publicAPI
+    create: ({configuration = {}}) => publicAPI
 };

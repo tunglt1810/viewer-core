@@ -9,10 +9,10 @@ const servers = (state = defaultState, action) => {
         case 'ADD_SERVER':
             const servers = uniqBy([...state.servers, action.server], 'id');
             servers.forEach((s) => (s.active = true));
-            return { ...state, servers };
+            return {...state, servers};
 
         case 'ACTIVATE_SERVER': {
-            const newServer = { ...action.server, active: true };
+            const newServer = {...action.server, active: true};
             const newServers = state.servers;
             newServers.forEach((s) => (s.active = false));
             return {
@@ -22,7 +22,7 @@ const servers = (state = defaultState, action) => {
         }
 
         case 'SET_SERVERS':
-            return { ...state, servers: action.servers };
+            return {...state, servers: action.servers};
 
         default:
             return state;

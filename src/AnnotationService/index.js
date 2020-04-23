@@ -1,6 +1,6 @@
-import { retrieveAnnotations } from "./retrieveAnnotations";
-import { storeAnnotations} from "./storeAnnotations";
-import { isToolSupported } from "./supportedTools";
+import {retrieveAnnotations} from './retrieveAnnotations';
+import {storeAnnotations} from './storeAnnotations';
+import {isToolSupported} from './supportedTools';
 
 const AnnotationService = {
     isToolSupported,

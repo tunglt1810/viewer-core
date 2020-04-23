@@ -51,7 +51,7 @@ export default class ProtocolEngine {
       !studies.every((study) => study instanceof StudyMetadata)
       ) {
           throw new OHIFError(
-              "ProtocolEngine::constructor studies is not an array or it's items are not instances of StudyMetadata"
+              'ProtocolEngine::constructor studies is not an array or it\'s items are not instances of StudyMetadata'
           );
       }
 
@@ -308,7 +308,9 @@ export default class ProtocolEngine {
 
               // Check if study metadata is already in studies list
               if (
-                  this.studies.find((study) => study.getObjectID() === priorStudyObjectID)
+                  this.studies.find(
+                      (study) => study.getObjectID() === priorStudyObjectID
+                  )
               ) {
                   return;
               }
@@ -450,9 +452,11 @@ export default class ProtocolEngine {
                   };
 
                   // Find the displaySet
-                  const displaySet = study.findDisplaySet((displaySet) => displaySet.images.find(
-                      (image) => image.getSOPInstanceUID() === currentSOPInstanceUID
-                  ));
+                  const displaySet = study.findDisplaySet((displaySet) =>
+                      displaySet.images.find(
+                          (image) => image.getSOPInstanceUID() === currentSOPInstanceUID
+                      )
+                  );
 
                   // If the instance was found, set the displaySet ID
                   if (displaySet) {
@@ -482,7 +486,9 @@ export default class ProtocolEngine {
               name: 'series'
           }
       );
-      matchingScores.sort((a, b) => sortingFunction(a.sortingInfo, b.sortingInfo));
+      matchingScores.sort((a, b) =>
+          sortingFunction(a.sortingInfo, b.sortingInfo)
+      );
 
       const bestMatch = matchingScores[0];
 
@@ -752,7 +758,8 @@ export default class ProtocolEngine {
       // Check if previous or next stage is available
       if (stageAction === -1 && !this.isPreviousStageAvailable()) {
           return false;
-      } if (stageAction === 1 && !this.isNextStageAvailable()) {
+      }
+      if (stageAction === 1 && !this.isNextStageAvailable()) {
           return false;
       }
 

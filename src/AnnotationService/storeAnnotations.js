@@ -1,7 +1,7 @@
-import DICOMWeb from "../DICOMWeb";
-import measurements from "../measurements";
-import log from "../log";
-import uniqBy from "lodash.uniqby";
+import DICOMWeb from '../DICOMWeb';
+import measurements from '../measurements';
+import log from '../log';
+import uniqBy from 'lodash.uniqby';
 
 const MeasurementApiInstance = measurements.MeasurementApi.getInstance();
 
@@ -60,7 +60,7 @@ const storeAnnotations = async (measurementData, filter, server) => {
             log.info('send request to delete', annotation);
             await _sendRequest(`${serverUrl}/${annotation.id}`, headers, 'PUT', null);
         }
-        MeasurementApiInstance.clearTemporaryDeletedMeasurement(StudyInstanceUID)
+        MeasurementApiInstance.clearTemporaryDeletedMeasurement(StudyInstanceUID);
     }
 
     if (allTools && allTools.length > 0) {

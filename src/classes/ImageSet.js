@@ -21,7 +21,7 @@ class ImageSet {
             enumerable: false,
             configurable: false,
             writable: false,
-            value: images,
+            value: images
         });
 
         // @property "uid"
@@ -29,7 +29,7 @@ class ImageSet {
             enumerable: false,
             configurable: false,
             writable: false,
-            value: guid(), // Unique ID of the instance
+            value: guid() // Unique ID of the instance
         });
     }
 
@@ -96,7 +96,7 @@ class ImageSet {
 
             return {
                 distance,
-                image,
+                image
             };
         });
 
@@ -104,7 +104,7 @@ class ImageSet {
             return b.distance - a.distance;
         });
 
-        const sortedImages = distanceImagePairs.map(a => a.image);
+        const sortedImages = distanceImagePairs.map((a) => a.image);
 
         images.sort(function (a, b) {
             return sortedImages.indexOf(a) - sortedImages.indexOf(b);

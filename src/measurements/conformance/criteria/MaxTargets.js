@@ -1,4 +1,4 @@
-import { BaseCriterion } from './BaseCriterion';
+import {BaseCriterion} from './BaseCriterion';
 
 export const MaxTargetsSchema = {
     type: 'object',
@@ -60,12 +60,12 @@ export class MaxTargetsCriterion extends BaseCriterion {
     }
 
     evaluate(data) {
-        const { options } = this;
+        const {options} = this;
 
         const newTargetNumbers = this.getNewTargetNumbers(data);
         const measurementNumbers = [];
         data.targets.forEach((target) => {
-            const { location, measurementNumber, isSplitLesion, isNodal } = target.measurement;
+            const {location, measurementNumber, isSplitLesion, isNodal} = target.measurement;
 
             if (isSplitLesion) { return; }
 

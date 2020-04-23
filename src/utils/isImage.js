@@ -1,4 +1,4 @@
-import { sopClassDictionary } from './sopClassDictionary';
+import {sopClassDictionary} from './sopClassDictionary';
 
 const imagesTypes = [
     sopClassDictionary.ComputedRadiographyImageStorage,

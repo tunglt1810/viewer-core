@@ -1,4 +1,4 @@
-import { TypeSafeCollection } from '../classes/TypeSafeCollection';
+import {TypeSafeCollection} from '../classes/TypeSafeCollection';
 
 const studyMetadataList = new TypeSafeCollection();
 
@@ -7,7 +7,7 @@ function add(studyMetadata) {
 }
 
 function get(studyInstanceUID) {
-    return studyMetadataList.findBy({ studyInstanceUID });
+    return studyMetadataList.findBy({studyInstanceUID});
 }
 
 function all(options) {
@@ -15,7 +15,7 @@ function all(options) {
 }
 
 function remove(studyInstanceUID) {
-    studyMetadataList.remove({ studyInstanceUID });
+    studyMetadataList.remove({studyInstanceUID});
 }
 
 function purge() {

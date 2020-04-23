@@ -1,5 +1,5 @@
 import * as dcmjs from 'dcmjs';
-import { api } from 'dicomweb-client';
+import {api} from 'dicomweb-client';
 
 import DICOMWeb from '../DICOMWeb';
 import parseDicomStructuredReport from './parseDicomStructuredReport';
@@ -50,8 +50,8 @@ const retrieveMeasurementFromSR = async (series, studies, serverUrl) => {
  * @returns {Promise}
  */
 const stowSRFromMeasurements = async (measurements, serverUrl) => {
-    const { dataset } = parseMeasurementsData(measurements);
-    const { DicomMetaDictionary, DicomDict } = dcmjs.data;
+    const {dataset} = parseMeasurementsData(measurements);
+    const {DicomMetaDictionary, DicomDict} = dcmjs.data;
     const meta = {
         FileMetaInformationVersion: dataset._meta.FileMetaInformationVersion.Value,
         MediaStorageSOPClassUID: dataset.SOPClassUID,
@@ -81,4 +81,4 @@ const stowSRFromMeasurements = async (measurements, serverUrl) => {
     await dicomWeb.storeInstances(options);
 };
 
-export { retrieveMeasurementFromSR, stowSRFromMeasurements };
+export {retrieveMeasurementFromSR, stowSRFromMeasurements};

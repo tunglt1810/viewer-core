@@ -1,4 +1,4 @@
-import { api } from 'dicomweb-client';
+import {api} from 'dicomweb-client';
 import DICOMWeb from '../../../DICOMWeb';
 
 /**

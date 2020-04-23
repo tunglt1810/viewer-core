@@ -325,13 +325,13 @@ class StackLoadingListener extends BaseLoadingListener {
         // We could consider making the StudyLoadingListener a higher-order
         // component which would set this stuff itself.
         throw new Error(
-            "The _setProgressData function must be provided in StudyLoadingListener's options"
+            'The _setProgressData function must be provided in StudyLoadingListener\'s options'
         );
     }
 
     _clearProgressById(progressId) {
         throw new Error(
-            "The _clearProgressById function must be provided in StudyLoadingListener's options"
+            'The _clearProgressById function must be provided in StudyLoadingListener\'s options'
         );
     }
 

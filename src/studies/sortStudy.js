@@ -89,4 +89,4 @@ export default function sortStudy(
     return study;
 }
 
-export { sortStudySeries, sortStudyInstances, sortingCriteria };
+export {sortStudySeries, sortStudyInstances, sortingCriteria};

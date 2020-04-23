@@ -10,7 +10,7 @@ const servers = (state = defaultState, action) => {
             const updatedStudyData = cloneDeep(state).studyData;
             updatedStudyData[action.StudyInstanceUID] = action.data;
 
-            return { ...state, studyData: updatedStudyData };
+            return {...state, studyData: updatedStudyData};
         default:
             return state;
     }

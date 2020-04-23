@@ -88,8 +88,8 @@ function _dismissAll() {
  *
  * @returns void
  */
-function _dismiss({ id }) {
-    return serviceImplementation._dismiss({ id });
+function _dismiss({id}) {
+    return serviceImplementation._dismiss({id});
 }
 
 /**
@@ -119,5 +119,5 @@ function setServiceImplementation({
 
 export default {
     name,
-    create: ({ configuration = {} }) => publicAPI
+    create: ({configuration = {}}) => publicAPI
 };

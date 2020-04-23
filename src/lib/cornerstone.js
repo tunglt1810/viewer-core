@@ -92,7 +92,7 @@ function repositionTextBox(eventData, measurementData, config) {
     };
 
     const getAvailableBlankAreas = (enabledElement, labelWidth, labelHeight) => {
-        const { element, canvas, image } = enabledElement;
+        const {element, canvas, image} = enabledElement;
 
         const topLeft = cornerstone.pixelToCanvas(element, {
             x: 0,
@@ -219,9 +219,9 @@ function repositionTextBox(eventData, measurementData, config) {
     bounds.y = textBox.boundingBox.height;
 
     const getHandlePosition = (key) => {
-        const { x, y } = handles[key];
+        const {x, y} = handles[key];
 
-        return { x, y };
+        return {x, y};
     };
     const start = getHandlePosition('start');
     const end = getHandlePosition('end');
@@ -234,14 +234,14 @@ function repositionTextBox(eventData, measurementData, config) {
     limits.x = image.width;
     limits.y = image.height;
 
-    let { directions, cornerAxis } = getRenderingInformation(limits, tool);
+    let {directions, cornerAxis} = getRenderingInformation(limits, tool);
 
     const availableAreas = getAvailableBlankAreas(
         enabledElement,
         bounds.x,
         bounds.y
     );
-    const tempDirections = { ...directions };
+    const tempDirections = {...directions};
     let tempCornerAxis = cornerAxis;
     let foundPlace = false;
     let current = 0;
@@ -262,11 +262,11 @@ function repositionTextBox(eventData, measurementData, config) {
 
     let cornerAxisPosition;
     if (foundPlace) {
-        directions = { ...directions, ...tempDirections };
+        directions = {...directions, ...tempDirections};
         cornerAxis = tempCornerAxis;
         cornerAxisPosition = directions[cornerAxis] < 0 ? 0 : limits[cornerAxis];
     } else {
-        limits = { ...limits, ...canvasDimensions };
+        limits = {...limits, ...canvasDimensions};
 
         const toolPositionOnCanvas = cornerstone.pixelToCanvas(element, tool);
         const renderingInformation = getRenderingInformation(
@@ -324,4 +324,4 @@ function repositionTextBox(eventData, measurementData, config) {
     }
 }
 
-export { getBoundingBox, pixelToPage, repositionTextBox };
+export {getBoundingBox, pixelToPage, repositionTextBox};

@@ -1,4 +1,4 @@
-import { comparators } from '../lib/comparators';
+import {comparators} from '../lib/comparators';
 import guid from '../../utils/guid';
 
 const EQUALS_REGEXP = /^equals$/;
@@ -123,7 +123,7 @@ export default class Rule {
 
         // Get rule's validator and value
         const ruleValidatorAndValue = this.getConstraintValidatorAndValue();
-        const { value, validator } = ruleValidatorAndValue;
+        const {value, validator} = ruleValidatorAndValue;
         const intValue = parseInt(value, 10) || 0; // avoid possible NaN
 
         // "Equal to" validators

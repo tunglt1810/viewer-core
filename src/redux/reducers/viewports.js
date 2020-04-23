@@ -98,7 +98,7 @@ const viewports = (state = DEFAULT_STATE, action) => {
                 state.numColumns,
                 action.viewportIndex
             );
-            return { ...state, activeViewportIndex };
+            return {...state, activeViewportIndex};
         }
 
         /**
@@ -107,7 +107,7 @@ const viewports = (state = DEFAULT_STATE, action) => {
      * @return {Object} New state.
      */
         case SET_VIEWPORT_LAYOUT: {
-            const { numRows, numColumns } = action;
+            const {numRows, numColumns} = action;
             const viewportSpecificData = findActiveViewportSpecificData(
                 numRows,
                 numColumns,
@@ -123,7 +123,7 @@ const viewports = (state = DEFAULT_STATE, action) => {
                 ...state,
                 numRows: action.numRows,
                 numColumns: action.numColumns,
-                layout: { viewports: [...action.viewports] },
+                layout: {viewports: [...action.viewports]},
                 viewportSpecificData,
                 activeViewportIndex
             };
@@ -135,7 +135,7 @@ const viewports = (state = DEFAULT_STATE, action) => {
      * @return {Object} New state.
      */
         case SET_VIEWPORT_LAYOUT_AND_DATA: {
-            const { numRows, numColumns } = action;
+            const {numRows, numColumns} = action;
             const viewportSpecificData = findActiveViewportSpecificData(
                 numRows,
                 numColumns,
@@ -151,7 +151,7 @@ const viewports = (state = DEFAULT_STATE, action) => {
                 ...state,
                 numRows: action.numRows,
                 numColumns: action.numColumns,
-                layout: { viewports: [...action.viewports] },
+                layout: {viewports: [...action.viewports]},
                 viewportSpecificData,
                 activeViewportIndex
             };
@@ -177,7 +177,7 @@ const viewports = (state = DEFAULT_STATE, action) => {
           action.viewportSpecificData.plugin;
             }
 
-            return { ...state, layout, viewportSpecificData };
+            return {...state, layout, viewportSpecificData};
         }
 
         /**
@@ -205,7 +205,7 @@ const viewports = (state = DEFAULT_STATE, action) => {
           action.viewportSpecificData.plugin;
             }
 
-            return { ...state, layout, viewportSpecificData };
+            return {...state, layout, viewportSpecificData};
         }
 
         /**
@@ -218,7 +218,7 @@ const viewports = (state = DEFAULT_STATE, action) => {
 
             if (action.viewportIndex) {
                 viewportSpecificData[action.viewportIndex] = {};
-                return { ...state, viewportSpecificData };
+                return {...state, viewportSpecificData};
             }
             return DEFAULT_STATE;
         }

@@ -1,15 +1,15 @@
 import './lib';
 
-import { ExtensionManager, MODULE_TYPES } from './extensions';
-import { ServicesManager,
+import {ExtensionManager, MODULE_TYPES} from './extensions';
+import {ServicesManager,
     UINotificationService,
     UIModalService,
     UIDialogService,
     MeasurementService
 } from './services';
-import classes, { CommandsManager, HotkeysManager } from './classes';
+import classes, {CommandsManager, HotkeysManager} from './classes';
 
-import AnnotationService from "./AnnotationService";
+import AnnotationService from './AnnotationService';
 import DICOMWeb from './DICOMWeb';
 import DICOMSR from './DICOMSR';
 import cornerstone from './cornerstone';
@@ -24,7 +24,7 @@ import string from './string';
 import studies from './studies';
 import ui from './ui';
 import user from './user';
-import utils, { hotkeys } from './utils';
+import utils, {hotkeys} from './utils';
 
 const ViewerCore = {
     MODULE_TYPES,
@@ -93,6 +93,6 @@ export {
     AnnotationService
 };
 
-export { ViewerCore };
+export {ViewerCore};
 
 export default ViewerCore;

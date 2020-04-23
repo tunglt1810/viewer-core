@@ -1,8 +1,8 @@
-import { CriteriaEvaluator } from './CriteriaEvaluator';
+import {CriteriaEvaluator} from './CriteriaEvaluator';
 import * as initialEvaluations from './evaluations';
 import log from '../../log';
 
-const evaluations = { ...initialEvaluations };
+const evaluations = {...initialEvaluations};
 
 const BASELINE = 'baseline';
 const FOLLOWUP = 'followup';
@@ -91,7 +91,7 @@ class ConformanceCriteria {
 
         nonconformities.forEach((nonConformity) => {
             if (nonConformity.isGlobal) {
-                groups.globals = groups.globals || { messages: [] };
+                groups.globals = groups.globals || {messages: []};
                 groups.globals.messages.push(nonConformity.message);
 
                 return;
@@ -99,7 +99,7 @@ class ConformanceCriteria {
 
             nonConformity.measurements.forEach((measurement) => {
                 const groupName = toolsGroupsMap[measurement.toolType];
-                groups[groupName] = groups[groupName] || { measurementNumbers: {} };
+                groups[groupName] = groups[groupName] || {measurementNumbers: {}};
 
                 const group = groups[groupName];
                 const measureNumber = measurement.measurementNumber;
@@ -181,7 +181,7 @@ class ConformanceCriteria {
             const measurements = this.measurementApi.fetch(measurementType);
 
             measurements.forEach((measurement) => {
-                const { StudyInstanceUID } = measurement;
+                const {StudyInstanceUID} = measurement;
 
                 const timepointId = measurement.timepointId;
                 const timepoint =

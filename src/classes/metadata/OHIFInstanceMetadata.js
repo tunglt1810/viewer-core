@@ -1,4 +1,4 @@
-import { InstanceMetadata } from './InstanceMetadata';
+import {InstanceMetadata} from './InstanceMetadata';
 import getImageId from '../../utils/getImageId';
 
 export class OHIFInstanceMetadata extends InstanceMetadata {

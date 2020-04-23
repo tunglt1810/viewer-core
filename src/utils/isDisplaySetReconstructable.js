@@ -5,7 +5,7 @@
  */
 export default function isDisplaySetReconstructable(instances) {
     if (!instances.length) {
-        return { value: false };
+        return {value: false};
     }
 
     const firstInstance = instances[0].getData().metadata;
@@ -14,12 +14,12 @@ export default function isDisplaySetReconstructable(instances) {
     const isMultiframe = firstInstance.NumberOfFrames > 1;
 
     if (!constructableModalities.includes(Modality)) {
-        return { value: false };
+        return {value: false};
     }
 
     // Can't reconstruct if we only have one image.
     if (!isMultiframe && instances.length === 1) {
-        return { value: false };
+        return {value: false};
     }
 
     if (isMultiframe) {
@@ -31,7 +31,7 @@ export default function isDisplaySetReconstructable(instances) {
 
 function processMultiframe(instance) {
     //TODO: deal with multriframe checks! return false for now as can't reconstruct.
-    return { value: false };
+    return {value: false};
 }
 
 function processSingleframe(instances) {
@@ -61,7 +61,7 @@ function processSingleframe(instances) {
       SamplesPerPixel !== firstImageSamplesPerPixel ||
       !_isSameOrientation(ImageOrientationPatient, firstImageOrientationPatient)
         ) {
-            return { value: false };
+            return {value: false};
         }
     }
 
@@ -76,7 +76,7 @@ function processSingleframe(instances) {
 
         // We can't reconstruct if we are missing ImagePositionPatient values
         if (!firstImagePositionPatient || !lastIpp) {
-            return { value: false };
+            return {value: false};
         }
 
         const averageSpacingBetweenFrames =
@@ -87,7 +87,7 @@ function processSingleframe(instances) {
 
         for (let i = 1; i < instances.length; i++) {
             const instance = instances[i].getData().metadata;
-            const { ImagePositionPatient } = instance;
+            const {ImagePositionPatient} = instance;
 
             const spacingBetweenFrames = _getPerpendicularDistance(
                 ImagePositionPatient,
@@ -104,7 +104,7 @@ function processSingleframe(instances) {
                 if (issue === reconstructionIssues.MISSING_FRAMES) {
                     missingFrames += spacingIssue.missingFrames;
                 } else if (issue === reconstructionIssues.IRREGULAR_SPACING) {
-                    return { value: false };
+                    return {value: false};
                 }
             }
 
@@ -112,7 +112,7 @@ function processSingleframe(instances) {
         }
     }
 
-    return { value: true, missingFrames };
+    return {value: true, missingFrames};
 }
 
 function _isSameOrientation(iop1, iop2) {
@@ -161,7 +161,7 @@ function _getSpacingIssue(spacing, averageSpacing) {
         };
     }
 
-    return { issue: reconstructionIssues.IRREGULAR_SPACING };
+    return {issue: reconstructionIssues.IRREGULAR_SPACING};
 }
 
 function _getPerpendicularDistance(a, b) {

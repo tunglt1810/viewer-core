@@ -32,7 +32,6 @@ module.exports = {
         'import/prefer-default-export': "off",
         "import/no-named-as-default-member": "off",
         "object-curly-newline": "off",
-        "object-curly-spacing": "warn",
         "no-else-return": "warn",
         "no-use-before-define": "off",
         "no-restricted-syntax": "off",
@@ -52,6 +51,9 @@ module.exports = {
         "no-mixed-operators": "off",
         "prefer-destructuring": "off",
         "operator-linebreak": "off",
+        'prefer-destructuring': 'off',
+        'quotes': ['error', 'single'],
+        'space-unary-ops': 2,
 
         // TODO : fix
         "radix": ["off", "as-needed"],

@@ -29,4 +29,4 @@ const removeFromArray = (array, input) => {
     return true;
 };
 
-export { removeFromArray };
+export {removeFromArray};

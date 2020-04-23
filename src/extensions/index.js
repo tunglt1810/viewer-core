@@ -6,4 +6,4 @@ export default {
     MODULE_TYPES
 };
 
-export { ExtensionManager, MODULE_TYPES };
+export {ExtensionManager, MODULE_TYPES};

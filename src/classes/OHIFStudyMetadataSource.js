@@ -1,9 +1,9 @@
-import { studyMetadataManager } from '../utils';
+import {studyMetadataManager} from '../utils';
 
 import OHIFError from './OHIFError';
-import { StudyMetadata } from './metadata/StudyMetadata';
-import { StudyMetadataSource } from './StudyMetadataSource';
-import { retrieveStudyMetadata } from '../studies/retrieveStudyMetadata';
+import {StudyMetadata} from './metadata/StudyMetadata';
+import {StudyMetadataSource} from './StudyMetadataSource';
+import {retrieveStudyMetadata} from '../studies/retrieveStudyMetadata';
 
 export class OHIFStudyMetadataSource extends StudyMetadataSource {
     /**

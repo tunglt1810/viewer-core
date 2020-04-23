@@ -1,4 +1,4 @@
-import { api } from 'dicomweb-client';
+import {api} from 'dicomweb-client';
 import DICOMWeb from '../../DICOMWeb';
 import str2ab from '../str2ab';
 

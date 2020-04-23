@@ -1,5 +1,5 @@
 import log from '../../log';
-import { timepointApiDefaultConfig } from '../configuration';
+import {timepointApiDefaultConfig} from '../configuration';
 
 const configuration = {
     ...timepointApiDefaultConfig
@@ -229,7 +229,7 @@ export default class TimepointApi {
           return;
       }
 
-      this.timepoints[tpIndex] = { ...this.timepoints[tpIndex], locked: true };
+      this.timepoints[tpIndex] = {...this.timepoints[tpIndex], locked: true};
   }
 
   // Return the prior timepoint

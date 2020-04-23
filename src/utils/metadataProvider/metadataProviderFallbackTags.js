@@ -24,4 +24,4 @@ const fallbackTagsMap = {
     PixelSpacing: ['ImagerPixelSpacing']
 };
 
-export { fallbackTagsMap, getFallbackTagFromInstance };
+export {fallbackTagsMap, getFallbackTagFromInstance};

@@ -1,5 +1,5 @@
-import { Metadata } from './Metadata';
-import { InstanceMetadata } from './InstanceMetadata';
+import {Metadata} from './Metadata';
+import {InstanceMetadata} from './InstanceMetadata';
 
 export class SeriesMetadata extends Metadata {
     constructor(data, uid) {

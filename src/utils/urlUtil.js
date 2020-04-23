@@ -7,7 +7,7 @@ function toLowerCaseFirstLetter(word) {
     return word[0].toLowerCase() + word.slice(1);
 }
 const getQueryFilters = (location = {}) => {
-    const { search } = location;
+    const {search} = location;
 
     if (!search) {
         return;
@@ -70,4 +70,4 @@ const paramString = {
     replaceParam
 };
 
-export { parse, queryString, paramString };
+export {parse, queryString, paramString};

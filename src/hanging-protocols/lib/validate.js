@@ -36,4 +36,4 @@ validate.validators.endsWith = function (value, options, key) {
     }
 };
 
-export { validate };
+export {validate};

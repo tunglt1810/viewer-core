@@ -1,7 +1,7 @@
 import ProtocolEngine from './ProtocolEngine';
-import { ProtocolStore, ProtocolStrategy } from './protocolStore';
-import { addCustomAttribute } from './customAttributes';
-import { addCustomViewportSetting } from './customViewportSettings';
+import {ProtocolStore, ProtocolStrategy} from './protocolStore';
+import {addCustomAttribute} from './customAttributes';
+import {addCustomViewportSetting} from './customViewportSettings';
 
 const hangingProtocols = {
     ProtocolEngine,

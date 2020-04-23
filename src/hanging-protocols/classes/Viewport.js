@@ -3,7 +3,7 @@ import {
     SeriesMatchingRule,
     ImageMatchingRule
 } from './rules';
-import { removeFromArray } from '../lib/removeFromArray';
+import {removeFromArray} from '../lib/removeFromArray';
 
 /**
  * This Class defines a Viewport in the Hanging Protocol Stage. A Viewport contains

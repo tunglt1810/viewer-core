@@ -6,9 +6,9 @@ const defaultState = {
 const timepointManager = (state = defaultState, action) => {
     switch (action.type) {
         case 'SET_TIMEPOINTS':
-            return { ...state, timepoints: action.state };
+            return {...state, timepoints: action.state};
         case 'SET_MEASUREMENTS':
-            return { ...state, measurements: action.state };
+            return {...state, measurements: action.state};
         default:
             return state;
     }

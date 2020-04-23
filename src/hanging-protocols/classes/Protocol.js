@@ -1,5 +1,5 @@
-import { ProtocolMatchingRule } from './rules';
-import { removeFromArray } from '../lib/removeFromArray';
+import {ProtocolMatchingRule} from './rules';
+import {removeFromArray} from '../lib/removeFromArray';
 import Stage from './Stage';
 import guid from '../../utils/guid';
 import user from '../../user';
@@ -180,7 +180,7 @@ export default class Protocol {
    */
     createClone(name) {
     // Create a new JavaScript independent of the current Protocol
-        const currentProtocol = { ...this };
+        const currentProtocol = {...this};
 
         // Create a new Protocol to return
         const clonedProtocol = new Protocol();

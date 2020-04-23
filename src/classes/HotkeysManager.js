@@ -61,13 +61,13 @@ export class HotkeysManager {
         try {
             const definitions = this._getValidDefinitions(hotkeyDefinitions);
 
-            definitions.forEach(definition => this.registerHotkeys(definition));
+            definitions.forEach((definition) => this.registerHotkeys(definition));
         } catch (error) {
             const {UINotificationService} = this._servicesManager.services;
             UINotificationService.show({
                 title: 'Hotkeys Manager',
                 message: 'Erro while setting hotkeys',
-                type: 'error',
+                type: 'error'
             });
         }
     }
@@ -107,7 +107,7 @@ export class HotkeysManager {
      */
     _parseToArrayLike(hotkeyDefinitionsObj = {}) {
         const copy = {...hotkeyDefinitionsObj};
-        return Object.entries(copy).map(entryValue =>
+        return Object.entries(copy).map((entryValue) =>
             this._parseToHotKeyObj(entryValue[0], entryValue[1])
         );
     }
@@ -132,7 +132,7 @@ export class HotkeysManager {
     _parseToHotKeyObj(propertyName, propertyValue) {
         return {
             commandName: propertyName,
-            ...propertyValue,
+            ...propertyValue
         };
     }
 
@@ -207,7 +207,7 @@ export class HotkeysManager {
 
         // TungLT fix for bind multi key with single command
         const combinedKeys = isKeyArray ? keys : [keys];
-        combinedKeys.forEach(combinedKey => hotkeys.bind(combinedKey, evt => {
+        combinedKeys.forEach((combinedKey) => hotkeys.bind(combinedKey, (evt) => {
             evt.preventDefault();
             evt.stopPropagation();
             this._commandsManager.runCommand(commandName, {evt});
@@ -230,7 +230,7 @@ export class HotkeysManager {
 
         const isKeyArray = keys instanceof Array;
         const combinedKeys = isKeyArray ? keys : [keys];
-        combinedKeys.forEach(combinedKey => hotkeys.unbind(combinedKey));
+        combinedKeys.forEach((combinedKey) => hotkeys.unbind(combinedKey));
 
         // if (isKeyArray) {
         //     const combinedKeys = keys.join('+');

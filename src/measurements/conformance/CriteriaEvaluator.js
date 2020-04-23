@@ -1,8 +1,8 @@
 import Ajv from 'ajv';
-import { BaseCriterion } from './criteria/BaseCriterion';
+import {BaseCriterion} from './criteria/BaseCriterion';
 import * as initialCriteria from './criteria';
 
-const Criteria = { ...initialCriteria };
+const Criteria = {...initialCriteria};
 
 export class CriteriaEvaluator {
     constructor(criteriaObject) {
@@ -31,7 +31,7 @@ export class CriteriaEvaluator {
         this.criteria.forEach((criterion) => {
             const newTargetMatch = newTarget === !!criterion.options.newTarget;
             if (criterion instanceof Criteria.MaxTargetsCriterion && newTargetMatch) {
-                const { limit } = criterion.options;
+                const {limit} = criterion.options;
                 if (limit > result) {
                     result = limit;
                 }
@@ -59,7 +59,7 @@ export class CriteriaEvaluator {
                 schema.definitions[criterionkey] = Criteria[`${criterionkey}Schema`];
                 schema.properties[criterionkey] = {
                     oneOf: [
-                        { $ref: criterionDefinition },
+                        {$ref: criterionDefinition},
                         {
                             type: 'array',
                             items: {

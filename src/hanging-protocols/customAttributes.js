@@ -27,4 +27,4 @@ function addCustomAttribute(attributeId, attributeName, callback) {
     };
 }
 
-export { CustomAttributeRetrievalCallbacks, addCustomAttribute };
+export {CustomAttributeRetrievalCallbacks, addCustomAttribute};

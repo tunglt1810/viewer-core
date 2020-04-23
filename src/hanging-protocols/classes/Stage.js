@@ -33,7 +33,7 @@ export default class Stage {
    */
     createClone(name) {
     // Create a new JavaScript independent of the current Protocol
-        const currentStage = { ...this };
+        const currentStage = {...this};
 
         // Create a new Stage to return
         const clonedStage = new Stage();

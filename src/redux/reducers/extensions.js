@@ -15,7 +15,7 @@ const extensions = (state = defaultState, action) => {
                 }
             };
 
-            return { ...state, ...extension };
+            return {...state, ...extension};
 
         default:
             return state;

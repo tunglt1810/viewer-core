@@ -1,4 +1,4 @@
-import { api } from 'dicomweb-client';
+import {api} from 'dicomweb-client';
 import DICOMWeb from '../../DICOMWeb';
 import str2ab from '../str2ab';
 import unpackOverlay from './unpackOverlay';
@@ -47,7 +47,7 @@ export default async function fetchOverlayData(instance, server) {
 }
 
 async function _getOverlayData(tag, server) {
-    const { BulkDataURI } = tag;
+    const {BulkDataURI} = tag;
 
     let uri = BulkDataURI;
 

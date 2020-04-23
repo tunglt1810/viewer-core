@@ -1,14 +1,14 @@
 // - createStacks
 import DICOMWeb from './../../DICOMWeb';
 import ImageSet from './../ImageSet';
-import { InstanceMetadata } from './InstanceMetadata';
-import { Metadata } from './Metadata';
+import {InstanceMetadata} from './InstanceMetadata';
+import {Metadata} from './Metadata';
 import OHIFError from '../OHIFError';
-import { SeriesMetadata } from './SeriesMetadata';
+import {SeriesMetadata} from './SeriesMetadata';
 // - createStacks
-import { api } from 'dicomweb-client';
+import {api} from 'dicomweb-client';
 // - createStacks
-import { isImage } from '../../utils/isImage';
+import {isImage} from '../../utils/isImage';
 import isDisplaySetReconstructable from '../../utils/isDisplaySetReconstructable';
 import isLowPriorityModality from '../../utils/isLowPriorityModality';
 

@@ -1,4 +1,4 @@
-import { allTools } from './toolGroups/allTools';
+import {allTools} from './toolGroups/allTools';
 import {
     retrieveMeasurements,
     storeMeasurements,
@@ -39,4 +39,4 @@ const timepointApiDefaultConfig = {
     }
 };
 
-export { measurementApiDefaultConfig, timepointApiDefaultConfig };
+export {measurementApiDefaultConfig, timepointApiDefaultConfig};

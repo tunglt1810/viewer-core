@@ -42,7 +42,7 @@ export const setViewportActive = (viewportIndex) => ({
 /**
  * @param {ViewportLayout} layout
  */
-export const setLayout = ({ numRows, numColumns, viewports }) => ({
+export const setLayout = ({numRows, numColumns, viewports}) => ({
     type: SET_VIEWPORT_LAYOUT,
     numRows,
     numColumns,
@@ -55,7 +55,7 @@ export const setLayout = ({ numRows, numColumns, viewports }) => ({
  * @param {array} viewports
  */
 export const setViewportLayoutAndData = (
-    { numRows, numColumns, viewports },
+    {numRows, numColumns, viewports},
     viewportSpecificData
 ) => ({
     type: SET_VIEWPORT_LAYOUT_AND_DATA,

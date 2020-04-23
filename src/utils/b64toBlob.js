@@ -15,7 +15,7 @@ const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
         byteArrays.push(byteArray);
     }
 
-    const blob = new Blob(byteArrays, { type: contentType });
+    const blob = new Blob(byteArrays, {type: contentType});
     return blob;
 };
 

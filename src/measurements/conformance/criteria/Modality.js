@@ -1,4 +1,4 @@
-import { BaseCriterion } from './BaseCriterion';
+import {BaseCriterion} from './BaseCriterion';
 
 export const ModalitySchema = {
     type: 'object',
@@ -55,7 +55,7 @@ export class ModalityCriterion extends BaseCriterion {
             const items = data[measurementType];
 
             items.forEach((item) => {
-                const { measurement, metadata } = item;
+                const {measurement, metadata} = item;
                 const Modality = metadata.getTagValue('Modality') || '';
 
                 if (

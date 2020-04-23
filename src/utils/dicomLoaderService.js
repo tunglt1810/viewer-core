@@ -1,7 +1,7 @@
 import cornerstone from 'cornerstone-core';
-import { api } from 'dicomweb-client';
+import {api} from 'dicomweb-client';
 import DICOMWeb from '../DICOMWeb';
-import { getCornerstoneWADOImageLoader } from './cornerstoneWADOImageLoader';
+import {getCornerstoneWADOImageLoader} from './cornerstoneWADOImageLoader';
 
 const getImageId = (imageObj) => {
     if (!imageObj) {
@@ -20,8 +20,8 @@ const findImageIdOnStudies = (studies, displaySetInstanceUID) => {
         );
         return displaySet;
     });
-    const { series = [] } = study;
-    const { instances = [] } = series[0] || {};
+    const {series = []} = study;
+    const {instances = []} = series[0] || {};
     const instance = instances[0];
 
     return getImageId(instance);
@@ -173,7 +173,7 @@ class DicomLoaderService {
                 authorizationHeaders
             );
         } else if (!someInvalidStrings(wadoUri)) {
-            return fetchIt(wadoUri, { headers: authorizationHeaders });
+            return fetchIt(wadoUri, {headers: authorizationHeaders});
         }
     }
 

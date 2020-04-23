@@ -1,4 +1,4 @@
-import { BaseCriterion } from './BaseCriterion';
+import {BaseCriterion} from './BaseCriterion';
 
 export const MeasurementsLengthSchema = {
     type: 'object',
@@ -73,10 +73,10 @@ export const MeasurementsLengthSchema = {
         }
     },
     anyOf: [
-        { required: ['message', 'longAxis'] },
-        { required: ['message', 'shortAxis'] },
-        { required: ['message', 'longAxisSliceThicknessMultiplier'] },
-        { required: ['message', 'shortAxisSliceThicknessMultiplier'] }
+        {required: ['message', 'longAxis']},
+        {required: ['message', 'shortAxis']},
+        {required: ['message', 'longAxisSliceThicknessMultiplier']},
+        {required: ['message', 'shortAxisSliceThicknessMultiplier']}
     ]
 };
 
@@ -104,22 +104,22 @@ export class MeasurementsLengthCriterion extends BaseCriterion {
     evaluate(data) {
         let message;
         const measurements = [];
-        const { options } = this;
+        const {options} = this;
         const longMultiplier = options.longAxisSliceThicknessMultiplier;
         const shortMultiplier = options.shortAxisSliceThicknessMultiplier;
 
         data.targets.forEach((item) => {
-            const { metadata, measurement } = item;
-            const { location } = measurement;
+            const {metadata, measurement} = item;
+            const {location} = measurement;
 
-            let { longestDiameter, shortestDiameter, isNodal } = measurement;
+            let {longestDiameter, shortestDiameter, isNodal} = measurement;
             if (measurement.childToolsCount) {
                 const child = measurement.bidirectional;
                 longestDiameter = (child && child.longestDiameter) || 0;
                 shortestDiameter = (child && child.shortestDiameter) || 0;
             }
 
-            const { SliceThickness } = metadata;
+            const {SliceThickness} = metadata;
 
             const Modality = metadata.getTagValue('Modality') || '';
 

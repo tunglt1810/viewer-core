@@ -1,4 +1,4 @@
-import { BaseCriterion } from './BaseCriterion';
+import {BaseCriterion} from './BaseCriterion';
 
 export const LocationSchema = {
     type: 'object'

@@ -1,5 +1,5 @@
 import cornerstone from 'cornerstone-core';
-import { MeasurementApi } from '../classes';
+import {MeasurementApi} from '../classes';
 import log from '../../log';
 
 export default function handleSingleMeasurementRemoved({
@@ -9,7 +9,7 @@ export default function handleSingleMeasurementRemoved({
     toolGroup
 }) {
     log.info('CornerstoneToolsMeasurementRemoved');
-    const { measurementData, toolType } = eventData;
+    const {measurementData, toolType} = eventData;
 
     const measurementApi = MeasurementApi.Instance;
     if (!measurementApi) {

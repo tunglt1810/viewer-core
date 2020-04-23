@@ -12,8 +12,8 @@ import isToolSupported from './utils/isToolSupported';
  * @returns {Object} Dataset: measurement report from dcmjs
  */
 const parseMeasurementsData = (measurementsData) => {
-    const { MeasurementReport } = dcmjs.adapters.Cornerstone;
-    const { getImageIdForImagePath } = measurements;
+    const {MeasurementReport} = dcmjs.adapters.Cornerstone;
+    const {getImageIdForImagePath} = measurements;
 
     const toolState = {};
     const unsupportedTools = [];
@@ -22,7 +22,7 @@ const parseMeasurementsData = (measurementsData) => {
         const annotations = measurementsData[measurementType];
 
         annotations.forEach((annotation) => {
-            const { toolType, imagePath } = annotation;
+            const {toolType, imagePath} = annotation;
 
             if (isToolSupported(toolType)) {
                 const imageId = getImageIdForImagePath(imagePath);

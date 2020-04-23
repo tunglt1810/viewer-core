@@ -46,7 +46,7 @@ const comparators = [
         name: 'Only Integers',
         validator: 'numericality',
         validatorOption: 'onlyInteger',
-        description: "Real numbers won't be allowed."
+        description: 'Real numbers won\'t be allowed.'
     },
     {
         id: 'greaterThan',
@@ -95,4 +95,4 @@ const comparators = [
 // Immutable object
 Object.freeze(comparators);
 
-export { comparators };
+export {comparators};
