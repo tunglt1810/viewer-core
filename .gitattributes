@@ -1,0 +1,4 @@
+.* export-ignore
+src export-ignore
+*.config.js export-ignore
+*.lock export-ignore
