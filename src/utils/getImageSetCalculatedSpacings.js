@@ -10,6 +10,7 @@ export default function getImageSetCalculatedSpacings(imageSet) {
     for (let i = 0; i < imageSet.length; i++) {
         const metadata = imageSet[i].getData().metadata;
         const { ImagePositionPatient, ImageOrientationPatient } = metadata;
+        if (!ImagePositionPatient || !ImageOrientationPatient) return;
         const thisPosition = _getZPosAlongPlaneDirection(ImagePositionPatient, ImageOrientationPatient);
         if (i > 0) {
             if (i !== imageSet.length - 1) spacings[i] = thisPosition;
