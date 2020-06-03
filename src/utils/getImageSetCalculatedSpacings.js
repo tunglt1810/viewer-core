@@ -27,6 +27,7 @@ export default function getImageSetCalculatedSpacings(imageSet) {
 }
 
 // Compute true zPos along Plane normals from Image Position Patient (0020,0032) and Image Orientation Patient (0020,0037)
+// https://github.com/horosproject/horosplugins/blob/767f630607094e3ba3b814f788fc49736c70367d/VoxelVolume/VoxelVolumeFilter.m
 function _getZPosAlongPlaneDirection(imagePos, imageOrient) {
     // console.log('getZPosAlongPlaneDirection', imagePos, imageOrient);
     // image positions, normally this is the top-left coordinate of the image
