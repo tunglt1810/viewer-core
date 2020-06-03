@@ -83,33 +83,32 @@ function processSingleframe(instances) {
       _getPerpendicularDistance(firstImagePositionPatient, lastIpp) /
       (instances.length - 1);
 
-        let previousImagePositionPatient = firstImagePositionPatient;
+        // let previousImagePositionPatient = firstImagePositionPatient;
+        // for (let i = 0; i < instances.length; i++) {
+        //     const instance = instances[i].getData().metadata;
+        //     const {ImagePositionPatient} = instance;
+        //     Temporary disable slice spacing issues, will assume a spacing value calculated from ImagePositionPatient and ImageOrientationPatient
+        //     const spacingBetweenFrames = _getPerpendicularDistance(
+        //         ImagePositionPatient,
+        //         previousImagePositionPatient
+        //     );
+        //     const spacingIssue = _getSpacingIssue(
+        //         spacingBetweenFrames,
+        //         averageSpacingBetweenFrames
+        //     );
 
-        for (let i = 1; i < instances.length; i++) {
-            const instance = instances[i].getData().metadata;
-            const {ImagePositionPatient} = instance;
+        //     if (spacingIssue) {
+        //         const issue = spacingIssue.issue;
 
-            const spacingBetweenFrames = _getPerpendicularDistance(
-                ImagePositionPatient,
-                previousImagePositionPatient
-            );
-            const spacingIssue = _getSpacingIssue(
-                spacingBetweenFrames,
-                averageSpacingBetweenFrames
-            );
+        //         if (issue === reconstructionIssues.MISSING_FRAMES) {
+        //             missingFrames += spacingIssue.missingFrames;
+        //         } else if (issue === reconstructionIssues.IRREGULAR_SPACING) {
+        //             return {value: false};
+        //         }
+        //     }
 
-            if (spacingIssue) {
-                const issue = spacingIssue.issue;
-
-                if (issue === reconstructionIssues.MISSING_FRAMES) {
-                    missingFrames += spacingIssue.missingFrames;
-                } else if (issue === reconstructionIssues.IRREGULAR_SPACING) {
-                    return {value: false};
-                }
-            }
-
-            previousImagePositionPatient = ImagePositionPatient;
-        }
+        //     previousImagePositionPatient = ImagePositionPatient;
+        // }
     }
 
     return {value: true, missingFrames};

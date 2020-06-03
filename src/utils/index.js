@@ -12,6 +12,7 @@ import loadAndCacheDerivedDisplaySets from './loadAndCacheDerivedDisplaySets';
 import * as urlUtil from './urlUtil';
 import makeCancelable from './makeCancelable';
 import hotkeys from './hotkeys';
+import getImageSetCalculatedSpacings from './getImageSetCalculatedSpacings'
 
 const utils = {
     guid,
@@ -27,7 +28,8 @@ const utils = {
     urlUtil,
     loadAndCacheDerivedDisplaySets,
     makeCancelable,
-    hotkeys
+    hotkeys,
+    getImageSetCalculatedSpacings
 };
 
 export {
@@ -44,7 +46,8 @@ export {
     urlUtil,
     loadAndCacheDerivedDisplaySets,
     makeCancelable,
-    hotkeys
+    hotkeys,
+    getImageSetCalculatedSpacings
 };
 
 export default utils;
