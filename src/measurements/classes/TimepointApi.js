@@ -32,6 +32,13 @@ export default class TimepointApi {
       TimepointApi.Instance = this;
   }
 
+  static getInstance() {
+      if (!this.Instance) {
+          this.Instance = new TimepointApi();
+      }
+      return this.Instance;
+  }
+
   initialize(currentTimepointId, options = {}) {
       this.currentTimepointId = currentTimepointId;
       this.comparisonTimepointKey = options.comparisonTimepointKey || 'baseline';
@@ -121,7 +128,9 @@ export default class TimepointApi {
       log.info('Preparing to store timepoints');
       log.info(JSON.stringify(this.timepoints, null, 2));
 
-      storeFn(this.timepoints).then(() => log.info('Timepoint storage completed'));
+      //   storeFn(this.timepoints).then(() => log.info('Timepoint storage completed'));
+      // TungLT: change logic to use result of storing timepoints data
+      return storeFn(this.timepoints);
   }
 
   disassociateStudy(timepointIds, StudyInstanceUID) {
@@ -556,5 +565,11 @@ export default class TimepointApi {
       }
 
       return `${timepointName} ${parenthesisText}`;
+  }
+
+  // TungLT: create timeplate timepoint id for a template annotation group
+  addTempTimepoint(timepoint) {
+      this.timepoints.push(timepoint);
+      this.onTimepointsUpdated();
   }
 }

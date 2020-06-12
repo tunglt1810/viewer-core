@@ -1,18 +1,18 @@
-import ObjectPath from './objectPath';
-import StackManager from './StackManager';
 import absoluteUrl from './absoluteUrl';
 import addServers from './addServers';
-import guid from './guid';
-import sortBy from './sortBy';
-import studyMetadataManager from './studyMetadataManager';
-import writeScript from './writeScript';
-import DicomLoaderService from './dicomLoaderService';
 import b64toBlob from './b64toBlob';
-import loadAndCacheDerivedDisplaySets from './loadAndCacheDerivedDisplaySets';
-import * as urlUtil from './urlUtil';
-import makeCancelable from './makeCancelable';
+import DicomLoaderService from './dicomLoaderService';
+import getImageSetCalculatedSpacings from './getImageSetCalculatedSpacings';
+import guid from './guid';
 import hotkeys from './hotkeys';
-import getImageSetCalculatedSpacings from './getImageSetCalculatedSpacings'
+import loadAndCacheDerivedDisplaySets from './loadAndCacheDerivedDisplaySets';
+import makeCancelable from './makeCancelable';
+import ObjectPath from './objectPath';
+import sortBy from './sortBy';
+import StackManager from './StackManager';
+import studyMetadataManager from './studyMetadataManager';
+import * as urlUtil from './urlUtil';
+import writeScript from './writeScript';
 
 const utils = {
     guid,

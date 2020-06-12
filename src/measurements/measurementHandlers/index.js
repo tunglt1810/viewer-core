@@ -1,4 +1,4 @@
-import {MeasurementApi} from '../classes';
+import {MeasurementApi, TimepointApi} from '../classes';
 import handleSingleMeasurementAdded from './handleSingleMeasurementAdded';
 import handleChildMeasurementAdded from './handleChildMeasurementAdded';
 import handleSingleMeasurementModified from './handleSingleMeasurementModified';
@@ -31,6 +31,12 @@ const MeasurementHandlers = {
             toolGroup,
             tool
         } = MeasurementApi.getToolConfiguration(toolType);
+
+        // TungLT add current selected timepoint id
+        const currentTimepoint = TimepointApi.getInstance().current();
+        if (currentTimepoint)
+            eventData.measurementData.timepointId = currentTimepoint.timepointId;
+
         const params = {
             eventData,
             tool,

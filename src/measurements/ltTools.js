@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash.clonedeep';
+import { cloneDeep } from 'lodash';
 import {targets} from './toolGroups/targets';
 import {nonTargets} from './toolGroups/nonTargets';
 import {temp} from './toolGroups/temp';

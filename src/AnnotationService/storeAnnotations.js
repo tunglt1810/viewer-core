@@ -1,7 +1,7 @@
 import DICOMWeb from '../DICOMWeb';
 import measurements from '../measurements';
 import log from '../log';
-import uniqBy from 'lodash.uniqby';
+import { uniqBy } from 'lodash';
 
 const MeasurementApiInstance = measurements.MeasurementApi.getInstance();
 

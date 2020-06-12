@@ -27,7 +27,7 @@ class MetadataProvider {
 
         // If Arraybuffer, parse to DICOMJSON before naturalizing.
         if (dicomJSONDatasetOrP10ArrayBuffer instanceof ArrayBuffer) {
-            const dicomData = DicomMessage.readFile(dicomJSONDatasetOrP10ArrayBuffer);
+            const dicomData = dcmjs.data.DicomMessage.readFile(dicomJSONDatasetOrP10ArrayBuffer);
 
             dicomJSONDataset = dicomData.dict;
         } else {

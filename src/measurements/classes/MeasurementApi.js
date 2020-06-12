@@ -260,7 +260,7 @@ export default class MeasurementApi {
         this.onMeasurementsUpdated();
     }
 
-    retrieveMeasurements(PatientID, timepointIds) {
+    retrieveMeasurements(filter) {
         const retrievalFn = configuration.dataExchange.retrieve;
         const {server} = configuration;
         if (typeof retrievalFn !== 'function') {
@@ -269,7 +269,7 @@ export default class MeasurementApi {
         }
 
         return new Promise((resolve, reject) => {
-            retrievalFn(server).then((measurementData) => {
+            retrievalFn(server, filter).then((measurementData) => {
                 this.processMeasurementData(measurementData);
                 resolve();
             }, reject);

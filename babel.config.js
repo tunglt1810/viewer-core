@@ -4,7 +4,16 @@ module.exports = {
         '@babel/plugin-proposal-object-rest-spread',
         '@babel/plugin-syntax-dynamic-import',
         '@babel/plugin-transform-regenerator',
-        '@babel/plugin-transform-runtime'
+        '@babel/plugin-transform-runtime',
+        [
+            'transform-imports',
+            {
+                lodash: {
+                    transform: 'lodash/${member}',
+                    preventFullImport: true
+                }
+            }
+        ]
     ],
     presets: [
         // WebPack handles ES6 --> Target Syntax

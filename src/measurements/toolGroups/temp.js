@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash.clonedeep';
+import { cloneDeep } from 'lodash';
 import {length, ellipticalRoi} from '../tools';
 
 const childTools = cloneDeep([length, ellipticalRoi]);

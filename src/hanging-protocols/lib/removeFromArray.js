@@ -12,6 +12,7 @@ const removeFromArray = (array, input) => {
         return false;
     }
 
+    let indexToRemove;
     array.forEach((value, index) => {
     // TODO: Double check whether or not this deep equality check is necessary
     // if (_.isEqual(value, input)) {
@@ -21,7 +22,7 @@ const removeFromArray = (array, input) => {
         }
     });
 
-    if (indexToRemove === void 0) {
+    if (!indexToRemove) {
         return false;
     }
 

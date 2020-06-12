@@ -5,8 +5,7 @@ module.exports = {
         "jest": true,
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
+        "eslint:recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -53,21 +52,17 @@ module.exports = {
         "operator-linebreak": "off",
         'prefer-destructuring': 'off',
         'quotes': ['error', 'single'],
-        'space-unary-ops': 2,
 
         // TODO : fix
         "radix": ["off", "as-needed"],
         "no-param-reassign": ["off", {"props": false}],
-        "func-names": ["off"],
         "valid-typeof": ["off", {"requireStringLiterals": true}],
         "consistent-return": ["off"],
-        "camelcase": ["off"],
         "no-prototype-builtins": ["off"],
         "prefer-rest-params": ["off"],
         "eqeqeq": ["off"],
         "class-methods-use-this": ["off"],
         "import/no-named-as-default": "off",
-        "no-const-assign": "off",
         "default-case": "off",
         "prefer-const": "off",
         "no-undef": "off",
@@ -77,8 +72,6 @@ module.exports = {
         "no-cond-assign": "off",
         "no-empty-function": "off",
         "no-useless-catch": "off",
-        "max-classes-per-file": "off",
-        "no-void": "off",
         "prefer-promise-reject-errors": "off",
         "array-callback-return": "off",
         "no-unused-expressions": "off",

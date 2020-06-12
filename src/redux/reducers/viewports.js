@@ -1,5 +1,5 @@
-import cloneDeep from 'lodash.clonedeep';
-import merge from 'lodash.merge';
+import { cloneDeep } from 'lodash';
+import { merge } from 'lodash';
 
 import {
     CLEAR_VIEWPORT,

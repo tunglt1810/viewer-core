@@ -1,4 +1,4 @@
-import uniqBy from 'lodash.uniqby';
+import { uniqBy } from 'lodash';
 import DICOMWeb from '../DICOMWeb';
 import utils from '../utils';
 import log from '../log';
