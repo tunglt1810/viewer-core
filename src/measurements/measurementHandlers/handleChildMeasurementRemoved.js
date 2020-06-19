@@ -4,7 +4,8 @@ import log from '../../log';
 
 export default function ({eventData, tool, toolGroupId, toolGroup}) {
     log.info('CornerstoneToolsMeasurementRemoved');
-    const {measurementData} = eventData;
+    // Mod by TungLT: add persist flag to add removed annotation to template deteled data, which needs to send request to server
+    const {measurementData, persist} = eventData;
 
     const measurementApi = MeasurementApi.Instance;
     if (!measurementApi) {
@@ -28,7 +29,7 @@ export default function ({eventData, tool, toolGroupId, toolGroup}) {
     if (measurement.childToolsCount === 1) {
     // Remove the measurement
         collection.splice(measurementIndex, 1);
-        measurementApi.onMeasurementRemoved(tool.parentTool, measurement);
+        measurementApi.onMeasurementRemoved(tool.parentTool, measurement, persist);
     } else {
     // Update the measurement
         measurement[tool.attribute] = null;

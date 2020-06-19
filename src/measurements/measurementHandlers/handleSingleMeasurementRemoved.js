@@ -9,7 +9,8 @@ export default function handleSingleMeasurementRemoved({
     toolGroup
 }) {
     log.info('CornerstoneToolsMeasurementRemoved');
-    const {measurementData, toolType} = eventData;
+    // Mod by TungLT: add persist flag to add removed annotation to template deteled data, which needs to send request to server
+    const {measurementData, toolType, persist} = eventData;
 
     const measurementApi = MeasurementApi.Instance;
     if (!measurementApi) {
@@ -30,7 +31,7 @@ export default function handleSingleMeasurementRemoved({
     // Remove all the measurements with the given type and number
     // Modified by TungLT
     // const { lesionNamingNumber, timepointId } = measurement;
-    measurementApi.deleteMeasurements(toolType, measurementTypeId, measurement);
+    measurementApi.deleteMeasurements(toolType, measurementTypeId, measurement, persist);
 
     // TODO: This is very hacky, but will work for now
     cornerstone.getEnabledElements().forEach((enabledElement) => {

@@ -24,11 +24,13 @@ export default function handleSingleMeasurementAdded({eventData, tool}) {
     log.info('CornerstoneToolsMeasurementAdded');
 
     const imageAttributes = getImageAttributes(eventData.element);
-    const measurement = {...measurementData,
+    const measurement = {
+        ...measurementData,
         ...imageAttributes,
         lesionNamingNumber: measurementData.lesionNamingNumber,
         userId: user.getUserId(),
-        toolType};
+        toolType
+    };
 
     const addedMeasurement = measurementApi.addMeasurement(toolType, measurement);
     Object.assign(measurementData, addedMeasurement);
