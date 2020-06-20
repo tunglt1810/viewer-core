@@ -9,7 +9,6 @@ import {ServicesManager,
 } from './services';
 import classes, {CommandsManager, HotkeysManager} from './classes';
 
-import AnnotationService from './AnnotationService';
 import DICOMWeb from './DICOMWeb';
 import DICOMSR from './DICOMSR';
 import cornerstone from './cornerstone';
@@ -56,8 +55,7 @@ const ViewerCore = {
     UINotificationService,
     UIModalService,
     UIDialogService,
-    MeasurementService,
-    AnnotationService
+    MeasurementService
 };
 
 export {
@@ -89,8 +87,7 @@ export {
     UINotificationService,
     UIModalService,
     UIDialogService,
-    MeasurementService,
-    AnnotationService
+    MeasurementService
 };
 
 export {ViewerCore};
