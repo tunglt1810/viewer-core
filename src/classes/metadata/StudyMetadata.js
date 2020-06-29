@@ -12,6 +12,7 @@ import {isImage} from '../../utils/isImage';
 import isDisplaySetReconstructable from '../../utils/isDisplaySetReconstructable';
 import isLowPriorityModality from '../../utils/isLowPriorityModality';
 import getImageSetCalculatedSpacings from '../../utils/getImageSetCalculatedSpacings';
+import log from '../../log';
 
 export class StudyMetadata extends Metadata {
     constructor(data, uid) {
@@ -151,6 +152,7 @@ export class StudyMetadata extends Metadata {
                 !isImage(instance.getTagValue('SOPClassUID')) &&
         !instance.getTagValue('Rows')
             ) {
+                log.warn('DICOM images doesn\'nt have valid tag x00080016 or x00280010');
                 return;
             }
 

@@ -90,7 +90,7 @@ export default class MeasurementApi {
     }
 
     static syncMeasurementAndToolData(measurement) {
-        log.info('syncMeasurementAndToolData');
+        log.info('syncMeasurementAndToolData', measurement);
 
         const measurementLabel = getLabel(measurement);
         if (measurementLabel) {
@@ -713,7 +713,9 @@ export default class MeasurementApi {
 
         // Empty Item is the lesion just added in cornerstoneTools, but does not have measurement data yet
         const emptyItem = groupCollection.find(
-            (groupTool) => !groupTool.toolId && groupTool.timepointId === timepoint.timepointId
+            // (groupTool) => !groupTool.toolId && groupTool.timepointId === timepoint.timepointId
+            // TungLT change logic to update measurement data after save to storage
+            (groupTool) => groupTool.toolItemId === measurement._id && groupTool.timepointId === timepoint.timepointId
         );
 
         // Set the timepointId attribute to measurement to make it easier to filter measurements by timepoint
@@ -731,7 +733,7 @@ export default class MeasurementApi {
                         groupTool.lesionNamingNumber === measurement.lesionNamingNumber
                 )
                 .forEach((groupTool) => {
-                    groupTool.toolId = measurement.id;
+                    groupTool.toolId = measurement.toolType;
                     groupTool.toolItemId = measurement._id;
                     groupTool.createdAt = measurement.createdAt;
                     groupTool.measurementNumber = measurement.measurementNumber;
@@ -866,6 +868,7 @@ export default class MeasurementApi {
         const groupIndex = groupCollection.findIndex(
             (group) => group.toolItemId === measurement._id
         );
+        log.info('onMeasurementRemoved', measurement, groupCollection, groupIndex);
         if (groupIndex < 0) {
             return;
         }

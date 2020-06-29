@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2020-06-25
+### Added
+- StudyMetadata: add warning log for invalid image data when creating display set - [@tunglt1810]
+### Changed
+- MeasurementApi: change logic update measurement after stored to storage - [@tunglt1810]
+
 ## [1.0.4] - 2020-06-20
 ### Removed
 - Remove unused AnnotationService - [@tunglt1810]
