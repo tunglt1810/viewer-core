@@ -276,7 +276,7 @@ export default class MeasurementApi {
         });
     }
 
-    storeMeasurements(timepointId) {
+    storeMeasurements(timepointId, options) {
         const {server} = configuration;
         const storeFn = configuration.dataExchange.store;
         if (typeof storeFn !== 'function') {
@@ -319,7 +319,7 @@ export default class MeasurementApi {
         };
 
         log.info('Saving Measurements for timepoints:', timepoints);
-        return storeFn(measurementData, filter, server).then((measurementData) => {
+        return storeFn(measurementData, filter, server, options).then((measurementData) => {
             log.info('Measurement storage completed', measurementData);
             this.processMeasurementData(measurementData);
             return measurementData;
