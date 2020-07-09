@@ -1,6 +1,6 @@
 {
   "name": "viewer-core",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Generic business logic for web-based medical imaging applications - edited by Tung LT",
   "author": "OHIF Core Team",
   "editor": "Tung LT",
@@ -22,8 +22,7 @@
     "yarn": ">=1.16.0"
   },
   "scripts": {
-    "dev": "jest --watchAll",
-    "dev:core": "yarn run dev",
+    "dev": "cross-env NODE_ENV=development QUICK_BUILD=true webpack --watch --config .webpack/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config .webpack/webpack.prod.js",
     "build:dev": "cross-env NODE_ENV=development QUICK_BUILD=true webpack --config .webpack/webpack.dev.js",
     "build:package": "yarn run build",

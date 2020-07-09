@@ -27,7 +27,7 @@ export default function getAuthorizationHeader({requestOptions} = {}) {
             headers.Authorization = `Basic ${btoa(requestOptions.auth)}`;
         }
     } else if (accessToken) {
-        headers.Authorization = `Bearer ${accessToken}`;
+        headers.Authorization = accessToken;
     }
 
     return headers;
