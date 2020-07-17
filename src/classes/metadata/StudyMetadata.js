@@ -255,8 +255,7 @@ export class StudyMetadata extends Metadata {
         if (referencedFrameOfReferenceUID) {
             filteredDerivedDisplaySets = filteredDerivedDisplaySets.filter(
                 (displaySet) =>
-                    displaySet.ReferencedFrameOfReferenceUID ===
-          ReferencedFrameOfReferenceUID
+                    displaySet.ReferencedFrameOfReferenceUID === referencedFrameOfReferenceUID
             );
         }
 

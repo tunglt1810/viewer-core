@@ -378,11 +378,6 @@ function _isFunction(subject) {
 }
 
 /**
- * Shortcut for Object's prototype "hasOwnProperty" method.
- */
-const _hasOwnProperty = Object.prototype.hasOwnProperty;
-
-/**
  * Retrieve an object's property value by name. Composite property names (e.g., 'address.country.name') are accepted.
  * @param {Object} targetObject The object we want read the property from...
  * @param {String} propertyName The property to be read (e.g., 'address.street.name' or 'address.street.number'
@@ -418,7 +413,7 @@ function _compareToPropertyMapStrict(propertyMap, targetObject) {
     let result = false;
     // "for in" loops do not thown exceptions for invalid data types...
     for (const propertyName in propertyMap) {
-        if (_hasOwnProperty.call(propertyMap, propertyName)) {
+        if (Object.prototype.hasOwnProperty.call(propertyMap, propertyName)) {
             if (
                 propertyMap[propertyName] !==
         _getPropertyValue(targetObject, propertyName)

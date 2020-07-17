@@ -2,7 +2,7 @@
 function getNestedObject(shallowObject) {
     const nestedObject = {};
     for (const key in shallowObject) {
-        if (!shallowObject.hasOwnProperty(key)) continue;
+        if (!Object.prototype.hasOwnProperty.call(shallowObject, key)) continue;
         const value = shallowObject[key];
         const propertyArray = key.split('.');
         let currentObject = nestedObject;
@@ -28,7 +28,7 @@ function getShallowObject(nestedObject) {
     const shallowObject = {};
     const putValues = (baseKey, nestedObject, resultObject) => {
         for (const key in nestedObject) {
-            if (!nestedObject.hasOwnProperty(key)) continue;
+            if (!Object.prototype.hasOwnProperty.call(nestedObject, key)) continue;
             let currentKey = baseKey ? `${baseKey}.${key}` : key;
             const currentValue = nestedObject[key];
             if (typeof currentValue === 'object') {

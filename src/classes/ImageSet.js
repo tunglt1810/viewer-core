@@ -47,10 +47,9 @@ class ImageSet {
 
     setAttributes(attributes) {
         if (typeof attributes === OBJECT && attributes !== null) {
-            const imageSet = this,
-                hasOwn = Object.prototype.hasOwnProperty;
+            const imageSet = this;
             for (let attribute in attributes) {
-                if (hasOwn.call(attributes, attribute)) {
+                if (Object.prototype.hasOwnProperty.call(attributes, attribute)) {
                     imageSet[attribute] = attributes[attribute];
                 }
             }

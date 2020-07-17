@@ -35,13 +35,9 @@ export default class RetrieveMetadataLoader {
     async runLoaders(loaders) {
         let result;
         for (const loader of loaders) {
-            try {
-                result = await loader();
-                if (result && result.length) {
-                    break; // closes iterator in case data is retrieved successfully
-                }
-            } catch (e) {
-                throw e;
+            result = await loader();
+            if (result && result.length) {
+                break; // closes iterator in case data is retrieved successfully
             }
         }
 

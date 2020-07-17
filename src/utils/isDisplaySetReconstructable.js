@@ -79,9 +79,7 @@ function processSingleframe(instances) {
             return {value: false};
         }
 
-        const averageSpacingBetweenFrames =
-      _getPerpendicularDistance(firstImagePositionPatient, lastIpp) /
-      (instances.length - 1);
+        // const averageSpacingBetweenFrames = _getPerpendicularDistance(firstImagePositionPatient, lastIpp) / (instances.length - 1);
 
         // let previousImagePositionPatient = firstImagePositionPatient;
         // for (let i = 0; i < instances.length; i++) {

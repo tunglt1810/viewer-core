@@ -145,7 +145,7 @@ export class HotkeysManager {
      * @param {String} extension
      * @returns {undefined}
      */
-    registerHotkeys({commandName, keys, label} = {}, extension) {
+    registerHotkeys({commandName, keys, label} = {}) {
         if (!commandName) {
             log.warn(`No command was defined for hotkey "${keys}"`);
             return;

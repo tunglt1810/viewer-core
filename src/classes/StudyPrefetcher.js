@@ -93,25 +93,25 @@ export class StudyPrefetcher {
         requestPoolManager.startGrabbing();
     }
 
-    getStudy(image) {
-        const StudyInstanceUID = cornerstone.metaData.get(
-            'StudyInstanceUID',
-            image.imageId
-        );
-        return OHIF.viewer.Studies.find(
-            (study) => study.StudyInstanceUID === StudyInstanceUID
-        );
-    }
+    // getStudy(image) {
+    //     const StudyInstanceUID = cornerstone.metaData.get(
+    //         'StudyInstanceUID',
+    //         image.imageId
+    //     );
+    //     return OHIF.viewer.Studies.find(
+    //         (study) => study.StudyInstanceUID === StudyInstanceUID
+    //     );
+    // }
 
-    getSeries(study, image) {
-        const SeriesInstanceUID = cornerstone.metaData.get(
-            'SeriesInstanceUID',
-            image.imageId
-        );
-        const studyMetadata = OHIF.viewerbase.getStudyMetadata(study);
+    // getSeries(study, image) {
+    //     const SeriesInstanceUID = cornerstone.metaData.get(
+    //         'SeriesInstanceUID',
+    //         image.imageId
+    //     );
+    //     const studyMetadata = OHIF.viewerbase.getStudyMetadata(study);
 
-        return studyMetadata.getSeriesByUID(SeriesInstanceUID);
-    }
+    //     return studyMetadata.getSeriesByUID(SeriesInstanceUID);
+    // }
 
     getInstance(series, image) {
         const instanceMetadata = cornerstone.metaData.get(
@@ -132,9 +132,9 @@ export class StudyPrefetcher {
             return [];
         }
 
-        /* const study = this.getStudy(image);
-    const series = this.getSeries(study, image);
-    const instance = this.getInstance(series, image); */
+        const study = this.getStudy(image);
+        // const series = this.getSeries(study, image);
+        // const instance = this.getInstance(series, image);
         const displaySets = study.displaySets;
         const activeDisplaySet = null; // this.getActiveDisplaySet(displaySets, instance);
         const prefetchMethodMap = {

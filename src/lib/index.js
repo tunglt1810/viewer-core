@@ -1,2 +1,1 @@
-import './cornerstone';
 import './parsingUtils';

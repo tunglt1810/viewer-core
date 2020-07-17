@@ -73,7 +73,7 @@ const wadorsRetriever = (
 };
 
 const getImageLoaderType = (imageId) => {
-    const loaderRegExp = /^\w+\:/;
+    const loaderRegExp = /^\w+:/;
     const loaderType = loaderRegExp.exec(imageId);
 
     return (

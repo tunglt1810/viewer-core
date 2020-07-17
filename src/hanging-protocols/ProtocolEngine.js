@@ -300,7 +300,7 @@ export default class ProtocolEngine {
               }
 
               // Invalid data
-              if (!priorStudy instanceof StudyMetadata) {
+              if (!(priorStudy instanceof StudyMetadata)) {
                   return;
               }
 
@@ -714,7 +714,7 @@ export default class ProtocolEngine {
       // Reset the array of newStageIds
       this.newStageIds = [];
 
-      if (Protocol.prototype.isPrototypeOf(newProtocol)) {
+      if (Object.prototype.isPrototypeOf.call(newProtocol, Protocol)) {
           this.protocol = newProtocol;
       } else {
           this.protocol = new Protocol();

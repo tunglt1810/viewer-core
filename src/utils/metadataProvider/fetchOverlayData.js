@@ -7,7 +7,7 @@ export default async function fetchOverlayData(instance, server) {
     const OverlayDataPromises = [];
     const OverlayDataTags = [];
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         for (let overlayGroup = 0x00; overlayGroup <= 0x1e; overlayGroup += 0x02) {
             let groupStr = `60${overlayGroup.toString(16)}`;
 

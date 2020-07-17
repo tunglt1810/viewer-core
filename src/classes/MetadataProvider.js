@@ -156,8 +156,7 @@ class MetadataProvider {
 
     getTagFromInstance(
         naturalizedTagOrWADOImageLoaderTag,
-        instance,
-        options = {fallback: false}
+        instance
     ) {
         if (!instance) {
             return;
@@ -337,7 +336,7 @@ class MetadataProvider {
 
                 break;
             case WADO_IMAGE_LOADER_TAGS.OVERLAY_PLANE_MODULE:
-                metadata = [];
+                metadata = {};
 
                 for (
                     let overlayGroup = 0x00;
@@ -368,7 +367,7 @@ class MetadataProvider {
                     const ROIStandardDeviationTag = `${groupStr}1303`;
                     const OverlayOrigin = instance[OverlayOriginTag];
 
-                    const overlay = {
+                    metadata.overlay = {
                         rows: instance[OverlayRowsTag],
                         columns: instance[OverlayColumnsTag],
                         type: instance[OverlayType],
@@ -381,13 +380,7 @@ class MetadataProvider {
                         roiMean: instance[ROIMeanTag],
                         roiStandardDeviation: instance[ROIStandardDeviationTag]
                     };
-
-                    metadata.push(overlay);
                 }
-
-                metadata = {
-                    overlays
-                };
 
                 break;
 

@@ -367,7 +367,7 @@ class StackLoadingListener extends BaseLoadingListener {
         }
 
         progressBar += ']';
-        log.info(`${displaySetInstanceUID}: ${progressBar}`);
+        console.info(`${displaySetInstanceUID}: ${progressBar}`);
     }
 }
 

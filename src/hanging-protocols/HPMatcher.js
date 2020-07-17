@@ -38,7 +38,7 @@ const match = (metadataInstance, rules) => {
         const attribute = rule.attribute;
 
         // Do not use the custom attribute from the metadataInstance since it is subject to change
-        if (CustomAttributeRetrievalCallbacks.hasOwnProperty(attribute)) {
+        if (Object.prototype.hasOwnProperty.call(CustomAttributeRetrievalCallbacks, attribute)) {
             const customAttribute = CustomAttributeRetrievalCallbacks[attribute];
             metadataInstance.setCustomAttribute(
                 attribute,

@@ -81,10 +81,6 @@ export default function Instances(server, StudyInstanceUID) {
         headers: DICOMWeb.getAuthorizationHeader(server)
     };
     const dicomWeb = new api.DICOMwebClient(config);
-    const queryParams = getQIDOQueryParams(
-        filter,
-        server.qidoSupportsIncludeField
-    );
     const options = {
         studyInstanceUID: StudyInstanceUID
     };

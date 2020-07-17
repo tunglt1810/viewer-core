@@ -16,7 +16,7 @@ export default async function fetchPaletteColorLookupTableData(
         BluePaletteColorLookupTableData
     } = instance;
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         let entry;
         if (_paletteColorCache.isValidUID(PaletteColorLookupTableUID)) {
             entry = _paletteColorCache.get(PaletteColorLookupTableUID);
@@ -84,7 +84,7 @@ const _paletteColorCache = {
     },
     get: function(PaletteColorLookupTableUID) {
         let entry = null;
-        if (this.entries.hasOwnProperty(PaletteColorLookupTableUID)) {
+        if (Object.prototype.hasOwnProperty.call(this.entries, PaletteColorLookupTableUID)) {
             entry = this.entries[PaletteColorLookupTableUID];
             // check how the entry is...
             if (Date.now() - entry.time > this.maxAge) {
@@ -99,7 +99,7 @@ const _paletteColorCache = {
     add: function(entry) {
         if (this.isValidUID(entry.uid)) {
             let PaletteColorLookupTableUID = entry.uid;
-            if (this.entries.hasOwnProperty(PaletteColorLookupTableUID) !== true) {
+            if (Object.prototype.hasOwnProperty.call(this.entries, PaletteColorLookupTableUID) !== true) {
                 this.count++; // increment cache entry count...
             }
             entry.time = Date.now();
