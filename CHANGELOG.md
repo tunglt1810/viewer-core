@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.0.8] - 2020-07-17
 ### Fixed
 - Fixed packaged bundle version - [@tunglt1810]
+- Fixed some eslint rules - [@tunglt1810]
 
 ## [1.0.7] - 2020-07-09
 ### Changed
