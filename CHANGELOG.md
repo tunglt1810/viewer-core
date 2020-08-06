@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [1.0.9] - 2020-08-06
-### Changed
+### Added
+- Add series split functionality - [@Triet]
+- Add getters function in OHIFSeriesMetadata - [@Triet]
+## Changed
+- Changed addSeries condition in OHIFStudyMetadata - [@Triet]
 - Merge change from origin to support maximum concurrent metadata request - [@tunglt1810]
 
 ## [1.0.8] - 2020-07-17

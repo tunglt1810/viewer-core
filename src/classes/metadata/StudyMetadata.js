@@ -407,7 +407,8 @@ export class StudyMetadata extends Metadata {
      */
     addSeries(series) {
         let result = false;
-        if (series instanceof SeriesMetadata && this.getSeriesByUID(series.getSeriesInstanceUID()) === void 0) {
+        // Mod by Triet
+        if (series instanceof SeriesMetadata && (this.getSeriesByUID(series.getSeriesInstanceUID()) === void 0 || series.isSubSeries())) {
             this._series.push(series);
             result = true;
         }
@@ -705,8 +706,10 @@ const makeDisplaySet = (series, instances) => {
         SeriesDate: seriesData.SeriesDate,
         SeriesTime: seriesData.SeriesTime,
         SeriesInstanceUID: series.getSeriesInstanceUID(),
-        SeriesNumber: instance.getTagValue('SeriesNumber'),
-        SeriesDescription: instance.getTagValue('SeriesDescription'),
+        // SeriesNumber: instance.getTagValue('SeriesNumber'),
+        // SeriesDescription: instance.getTagValue('SeriesDescription'),
+        SeriesNumber: series.getSeriesNumber(),
+        SeriesDescription: series.getSeriesDescription(),
         numImageFrames: instances.length,
         frameRate: instance.getTagValue('FrameTime'),
         Modality: instance.getTagValue('Modality'),
