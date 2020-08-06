@@ -30,7 +30,7 @@ export default (series) => {
             default:
                 return [series];
         }
-    }
+    } else return [series];
 };
 
 const processMRSeries = (series) => {
