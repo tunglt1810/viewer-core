@@ -13,6 +13,7 @@ import StackManager from './StackManager';
 import studyMetadataManager from './studyMetadataManager';
 import * as urlUtil from './urlUtil';
 import writeScript from './writeScript';
+import splitSeries from './splitSeries';
 
 const utils = {
     guid,
@@ -29,7 +30,8 @@ const utils = {
     loadAndCacheDerivedDisplaySets,
     makeCancelable,
     hotkeys,
-    getImageSetCalculatedSpacings
+    getImageSetCalculatedSpacings,
+    splitSeries
 };
 
 export {
@@ -47,7 +49,8 @@ export {
     loadAndCacheDerivedDisplaySets,
     makeCancelable,
     hotkeys,
-    getImageSetCalculatedSpacings
+    getImageSetCalculatedSpacings,
+    splitSeries
 };
 
 export default utils;
