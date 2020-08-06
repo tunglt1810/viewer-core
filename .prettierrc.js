@@ -7,5 +7,5 @@ module.exports = {
     arrowParens: "always",
     parser: "babel",
     endOfLine: "lf",
-    printWidth: 140
+    printWidth: 120
 };

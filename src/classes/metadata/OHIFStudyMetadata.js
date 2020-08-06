@@ -25,6 +25,7 @@ export class OHIFStudyMetadata extends StudyMetadata {
         // populate internal list of series
         study.series.forEach((series) => {
             const split = splitSeries(series);
+            // Mod by Triet
             split.forEach((series) => {
                 this.addSeries(new OHIFSeriesMetadata(series, study));
             });
