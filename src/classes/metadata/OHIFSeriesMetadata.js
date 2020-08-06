@@ -1,6 +1,5 @@
 import {SeriesMetadata} from './SeriesMetadata';
 import {OHIFInstanceMetadata} from './OHIFInstanceMetadata';
-import { AST_DefaultAssign } from 'terser';
 
 export class OHIFSeriesMetadata extends SeriesMetadata {
     /**
