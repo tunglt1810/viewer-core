@@ -1,6 +1,6 @@
-import {api} from 'dicomweb-client';
-import DICOMWeb from '../../../DICOMWeb/';
-import {createStudyFromSOPInstanceList} from './studyInstanceHelpers';
+import { api } from 'dicomweb-client';
+import DICOMWeb from '../../../DICOMWeb';
+import { createStudyFromSOPInstanceList } from './studyInstanceHelpers';
 import RetrieveMetadataLoader from './retrieveMetadataLoader';
 
 /**
@@ -12,13 +12,13 @@ import RetrieveMetadataLoader from './retrieveMetadataLoader';
  */
 export default class RetrieveMetadataLoaderSync extends RetrieveMetadataLoader {
     getOptions() {
-        const {studyInstanceUID, filters} = this;
+        const { studyInstanceUID, filters } = this;
 
         const options = {
             studyInstanceUID
         };
 
-        const {seriesInstanceUID} = filters;
+        const { seriesInstanceUID } = filters;
         if (seriesInstanceUID) {
             options['seriesInstanceUID'] = seriesInstanceUID;
         }
@@ -29,13 +29,9 @@ export default class RetrieveMetadataLoaderSync extends RetrieveMetadataLoader {
     /**
      * @returns {Array} Array of loaders. To be consumed as queue
      */
-    * getLoaders() {
+    *getLoaders() {
         const loaders = [];
-        const {
-            studyInstanceUID,
-            filters: {seriesInstanceUID} = {},
-            client
-        } = this;
+        const { studyInstanceUID, filters: { seriesInstanceUID } = {}, client } = this;
 
         if (seriesInstanceUID) {
             loaders.push(
@@ -46,15 +42,13 @@ export default class RetrieveMetadataLoaderSync extends RetrieveMetadataLoader {
             );
         }
 
-        loaders.push(
-            client.retrieveStudyMetadata.bind(client, {studyInstanceUID})
-        );
+        loaders.push(client.retrieveStudyMetadata.bind(client, { studyInstanceUID }));
 
         yield* loaders;
     }
 
     configLoad() {
-        const {server} = this;
+        const { server } = this;
         const client = new api.DICOMwebClient({
             url: server.wadoRoot,
             headers: DICOMWeb.getAuthorizationHeader(server)
@@ -70,7 +64,9 @@ export default class RetrieveMetadataLoaderSync extends RetrieveMetadataLoader {
     }
 
     async posLoad(loadData) {
-        const {server, studyInstanceUID} = this;
+        const { server, studyInstanceUID } = this;
+        // TungLT: modify to fill custom combine studyInstanceUID into series
+        // and instance model data to build exact image request URL
         return createStudyFromSOPInstanceList(server, loadData, studyInstanceUID);
     }
 }

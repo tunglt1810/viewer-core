@@ -1,10 +1,10 @@
-import {SeriesMetadata} from './SeriesMetadata';
-import {OHIFInstanceMetadata} from './OHIFInstanceMetadata';
+import { SeriesMetadata } from './SeriesMetadata';
+import { OHIFInstanceMetadata } from './OHIFInstanceMetadata';
 
 export class OHIFSeriesMetadata extends SeriesMetadata {
     /**
-   * @param {Object} Series object.
-   */
+     * @param {Object} Series object.
+     */
     constructor(data, study, uid) {
         super(data, uid);
         this.init(study);

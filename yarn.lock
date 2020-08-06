@@ -1905,10 +1905,10 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-dcmjs@^0.13.2:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.13.2.tgz#1a37b9f46221dbe392d78d6c34845f2797ba8caf"
-  integrity sha512-lTtGsUSLW53VXr/bzNqWG+mZoPrd3gTrRd2mgFBSYTSxBsEcKmFzD2FsOADYQ5DD02pthxuoHx5FjyjGcN2GLA==
+dcmjs@^0.16.2:
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.16.2.tgz#02ffae95a02410a218d723872889e65c4d4cb3cb"
+  integrity sha512-QG2dMcM5uz510bTHzgb5bipolliCnMPGyLJFVQrAa51GpDwzTZYMQmVpnaH/tlvKED52wDGZtl7gasHCtYMqGQ==
   dependencies:
     "@babel/polyfill" "^7.8.3"
     "@babel/runtime" "^7.8.4"
@@ -3984,6 +3984,11 @@ prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
+
+prettier@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.0.5.tgz#d6d56282455243f2f92cc1716692c08aa31522d4"
+  integrity sha512-7PtVymN48hGcO4fGjybyBSIWDsLU4H4XlvOHfq91pz9kkGlonzwTfYkaIEwiRg/dAJF9YlbsduBAgtYLi+8cFg==
 
 pretty-bytes@^5.3.0:
   version "5.3.0"

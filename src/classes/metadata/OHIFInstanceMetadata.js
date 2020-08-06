@@ -1,10 +1,10 @@
-import {InstanceMetadata} from './InstanceMetadata';
+import { InstanceMetadata } from './InstanceMetadata';
 import getImageId from '../../utils/getImageId';
 
 export class OHIFInstanceMetadata extends InstanceMetadata {
     /**
-   * @param {Object} Instance object.
-   */
+     * @param {Object} Instance object.
+     */
     constructor(data, series, study, uid) {
         super(data, uid);
         this.init(series, study);
@@ -50,7 +50,7 @@ export class OHIFInstanceMetadata extends InstanceMetadata {
 
     // Override
     getTagValue(tagOrProperty, defaultValue, bypassCache) {
-    // check if this property has been cached...
+        // check if this property has been cached...
         if (tagOrProperty in this._cache && bypassCache !== true) {
             return this._cache[tagOrProperty];
         }
@@ -78,16 +78,12 @@ export class OHIFInstanceMetadata extends InstanceMetadata {
 
     // Override
     tagExists(tagOrProperty) {
-        return (
-            tagOrProperty in this._instance.metadata ||
-      tagOrProperty in this._series ||
-      tagOrProperty in this._study
-        );
+        return tagOrProperty in this._instance.metadata || tagOrProperty in this._series || tagOrProperty in this._study;
     }
 
     // Override
     getImageId(frame, thumbnail) {
-    // If _imageID is not cached, create it
+        // If _imageID is not cached, create it
         if (this._imageId === null) {
             this._imageId = getImageId(this.getData(), frame, thumbnail);
         }

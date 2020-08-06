@@ -1,4 +1,4 @@
-import {Metadata} from './Metadata';
+import { Metadata } from './Metadata';
 import OHIFError from '../OHIFError.js';
 
 /**
@@ -26,52 +26,52 @@ export class InstanceMetadata extends Metadata {
     }
 
     /**
-   * Private Methods
-   */
+     * Private Methods
+     */
 
     /**
-   * Define Public Properties
-   * This method should only be called during initialization (inside the class constructor)
-   */
-    _definePublicProperties() {
-    /**
-     * Property: this.SOPInstanceUID
-     * Same as this.getSOPInstanceUID()
-     * It's specially useful in contexts where a method call is not suitable like in search criteria. For example:
-     * sopInstanceCollection.findBy({
-     *   SOPInstanceUID: '1.2.3.4.5.6.77777.8888888.99999999999.0'
-     * });
+     * Define Public Properties
+     * This method should only be called during initialization (inside the class constructor)
      */
+    _definePublicProperties() {
+        /**
+         * Property: this.SOPInstanceUID
+         * Same as this.getSOPInstanceUID()
+         * It's specially useful in contexts where a method call is not suitable like in search criteria. For example:
+         * sopInstanceCollection.findBy({
+         *   SOPInstanceUID: '1.2.3.4.5.6.77777.8888888.99999999999.0'
+         * });
+         */
         Object.defineProperty(this, 'SOPInstanceUID', {
             configurable: false,
             enumerable: false,
-            get: function() {
+            get: function () {
                 return this.getSOPInstanceUID();
             }
         });
     }
 
     /**
-   * Public Methods
-   */
+     * Public Methods
+     */
 
     /**
-   * Returns the StudyInstanceUID of the current instance. This method is basically a shorthand the full "getTagValue" method call.
-   */
+     * Returns the StudyInstanceUID of the current instance. This method is basically a shorthand the full "getTagValue" method call.
+     */
     getStudyInstanceUID() {
         return this.getTagValue('StudyInstanceUID', null);
     }
 
     /**
-   * Returns the SeriesInstanceUID of the current instance. This method is basically a shorthand the full "getTagValue" method call.
-   */
+     * Returns the SeriesInstanceUID of the current instance. This method is basically a shorthand the full "getTagValue" method call.
+     */
     getSeriesInstanceUID() {
         return this.getTagValue('SeriesInstanceUID', null);
     }
 
     /**
-   * Returns the SOPInstanceUID of the current instance.
-   */
+     * Returns the SOPInstanceUID of the current instance.
+     */
     getSOPInstanceUID() {
         return this.getTagValue('SOPInstanceUID', null);
     }
@@ -120,71 +120,67 @@ export class InstanceMetadata extends Metadata {
     }
 
     /**
-   * This function should be overriden by specialized classes in order to allow client libraries or viewers to take advantage of the Study Metadata API.
-   */
-    getTagValue(tagOrProperty, defaultValue) {
-    /**
-     * Please override this method on a specialized class.
+     * This function should be overriden by specialized classes in order to allow client libraries or viewers to take advantage of the Study Metadata API.
      */
+    getTagValue(tagOrProperty, defaultValue) {
+        /**
+         * Please override this method on a specialized class.
+         */
         throw new OHIFError(
             'InstanceMetadata::getTagValue is not overriden. Please, override it in a specialized class. See OHIFInstanceMetadata for example'
         );
     }
 
     /**
-   * Compares the current instance with another one.
-   * @param {InstanceMetadata} instance An instance of the InstanceMetadata class.
-   * @returns {boolean} Returns true if both instances refer to the same instance.
-   */
+     * Compares the current instance with another one.
+     * @param {InstanceMetadata} instance An instance of the InstanceMetadata class.
+     * @returns {boolean} Returns true if both instances refer to the same instance.
+     */
     equals(instance) {
         const self = this;
-        return (
-            instance === self ||
-      (instance instanceof InstanceMetadata &&
-        instance.getSOPInstanceUID() === self.getSOPInstanceUID())
-        );
+        return instance === self || (instance instanceof InstanceMetadata && instance.getSOPInstanceUID() === self.getSOPInstanceUID());
     }
 
     /**
-   * Check if the tagOrProperty exists
-   * @param  {String} tagOrProperty tag or property be checked
-   * @return {Boolean}   True if the tag or property exists or false if doesn't
-   */
-    tagExists(tagOrProperty) {
-    /**
-     * Please override this method
+     * Check if the tagOrProperty exists
+     * @param  {String} tagOrProperty tag or property be checked
+     * @return {Boolean}   True if the tag or property exists or false if doesn't
      */
+    tagExists(tagOrProperty) {
+        /**
+         * Please override this method
+         */
         throw new OHIFError(
             'InstanceMetadata::tagExists is not overriden. Please, override it in a specialized class. See OHIFInstanceMetadata for example'
         );
     }
 
     /**
-   * Get custom image id of a sop instance
-   * @return {Any}          sop instance image id
-   */
-    getImageId(frame) {
-    /**
-     * Please override this method
+     * Get custom image id of a sop instance
+     * @return {Any}          sop instance image id
      */
+    getImageId(frame) {
+        /**
+         * Please override this method
+         */
         throw new OHIFError(
             'InstanceMetadata::getImageId is not overriden. Please, override it in a specialized class. See OHIFInstanceMetadata for example'
         );
     }
 
     /**
-   * Static Methods
-   */
+     * Static Methods
+     */
 
     /**
-   * Get an value based that can be index based. This function is called by all getters. See above functions.
-   *     - If value is a String and has indexes:
-   *         - If undefined index: returns an array of the split values.
-   *         - If defined index:
-   *             - If invalid: returns defaultValue
-   *             - If valid: returns the indexed value
-   *      - If value is not a String, returns default value.
-   */
+     * Get an value based that can be index based. This function is called by all getters. See above functions.
+     *     - If value is a String and has indexes:
+     *         - If undefined index: returns an array of the split values.
+     *         - If defined index:
+     *             - If invalid: returns defaultValue
+     *             - If valid: returns the indexed value
+     *      - If value is not a String, returns default value.
+     */
     static getIndexedValue(value, index, defaultValue) {
         let result = defaultValue;
 

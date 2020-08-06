@@ -1,5 +1,5 @@
 import cornerstone from 'cornerstone-core';
-import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
+import { getCornerstoneWADOImageLoader } from '../utils/cornerstoneWADOImageLoader';
 import StackManager from '../utils/StackManager';
 
 class BaseLoadingListener {
@@ -49,15 +49,14 @@ class BaseLoadingListener {
         // elements and recalculate the speed (bytes/s or frames/s)
         if (items.length > 1) {
             const oldestItem = items[0];
-            stats.elapsedTime =
-                (newItem.date.getTime() - oldestItem.date.getTime()) / 1000;
+            stats.elapsedTime = (newItem.date.getTime() - oldestItem.date.getTime()) / 1000;
             stats.speed = (stats.total - oldestItem.value) / stats.elapsedTime;
         }
     }
 
     _getProgressId() {
         const displaySetInstanceUID = this.stack.displaySetInstanceUID;
-        return `StackProgress:${displaySetInstanceUID}`;
+        return 'StackProgress:' + displaySetInstanceUID;
     }
 
     _clearProgress() {
@@ -79,10 +78,7 @@ class BaseLoadingListener {
     }
 
     static getNewId() {
-        const timeSlice = new Date()
-            .getTime()
-            .toString()
-            .slice(-8);
+        const timeSlice = new Date().getTime().toString().slice(-8);
         const randomNumber = parseInt(Math.random() * 1000000000);
 
         return timeSlice.toString() + randomNumber.toString();
@@ -99,10 +95,9 @@ class DICOMFileLoadingListener extends BaseLoadingListener {
         this._checkCachedData();
     }
 
-    _checkCachedData() {
-        const dataSet = cornerstoneWADOImageLoader.wadouri.dataSetCacheManager.get(
-            this._dataSetUrl
-        );
+    async _checkCachedData() {
+        const cornerstoneWADOImageLoader = await getCornerstoneWADOImageLoader();
+        const dataSet = cornerstoneWADOImageLoader.wadouri.dataSetCacheManager.get(this._dataSetUrl);
 
         if (dataSet) {
             const dataSetLength = dataSet.byteArray.length;
@@ -117,33 +112,25 @@ class DICOMFileLoadingListener extends BaseLoadingListener {
 
     _getImageLoadProgressEventName() {
         // TODO: Add this event as a constant in Cornerstone
-        return `cornerstoneimageloadprogress.${this.id}`;
+        return 'cornerstoneimageloadprogress.' + this.id;
     }
 
     startListening() {
         const imageLoadProgressEventName = this._getImageLoadProgressEventName();
 
-        this.imageLoadProgressEventHandler = this._imageLoadProgressEventHandle.bind(
-            this
-        );
+        this.imageLoadProgressEventHandler = this._imageLoadProgressEventHandle.bind(this);
 
         this.stopListening();
 
-        cornerstone.events.addEventListener(
-            imageLoadProgressEventName,
-            this.imageLoadProgressEventHandle
-        );
+        cornerstone.events.addEventListener(imageLoadProgressEventName, this.imageLoadProgressEventHandle);
     }
 
     stopListening() {
         const imageLoadProgressEventName = this._getImageLoadProgressEventName();
-        cornerstone.events.removeEventListener(
-            imageLoadProgressEventName,
-            this.imageLoadProgressEventHandle
-        );
+        cornerstone.events.removeEventListener(imageLoadProgressEventName, this.imageLoadProgressEventHandle);
     }
 
-    _imageLoadProgressEventHandler(e) {
+    _imageLoadProgressEventHandler = (e) => {
         const eventData = e.detail;
         const dataSetUrl = this._convertImageIdToDataSetUrl(eventData.imageId);
         const bytesDiff = eventData.loaded - this._lastLoaded;
@@ -160,7 +147,7 @@ class DICOMFileLoadingListener extends BaseLoadingListener {
 
         // Cache the last eventData.loaded value
         this._lastLoaded = eventData.loaded;
-    }
+    };
 
     _updateProgress(eventData) {
         const progressId = this._getProgressId();
@@ -237,15 +224,15 @@ class StackLoadingListener extends BaseLoadingListener {
     _checkCachedData() {
         // const imageIds = this.stack.imageIds;
         // TODO: No way to check status of Promise.
-        /* for(let i = 0; i < imageIds.length; i++) {
-                const imageId = imageIds[i];
+        /*for(let i = 0; i < imageIds.length; i++) {
+            const imageId = imageIds[i];
 
-                const imagePromise = cornerstone.imageCache.getImageLoadObject(imageId).promise;
+            const imagePromise = cornerstone.imageCache.getImageLoadObject(imageId).promise;
 
-                if (imagePromise && (imagePromise.state() === 'resolved')) {
-                    this._updateFrameStatus(imageId, true);
-                }
-            } */
+            if (imagePromise && (imagePromise.state() === 'resolved')) {
+                this._updateFrameStatus(imageId, true);
+            }
+        }*/
     }
 
     _getImageLoadedEventName() {
@@ -269,34 +256,20 @@ class StackLoadingListener extends BaseLoadingListener {
         const imageCachePromiseRemovedEventName = this._getImageCachePromiseRemoveEventName();
 
         this.imageLoadedEventHandler = this._imageLoadedEventHandler.bind(this);
-        this.imageCachePromiseRemovedEventHandler = this._imageCachePromiseRemovedEventHandler.bind(
-            this
-        );
+        this.imageCachePromiseRemovedEventHandler = this._imageCachePromiseRemovedEventHandler.bind(this);
 
         this.stopListening();
 
-        cornerstone.events.addEventListener(
-            imageLoadedEventName,
-            this.imageLoadedEventHandler
-        );
-        cornerstone.events.addEventListener(
-            imageCachePromiseRemovedEventName,
-            this.imageCachePromiseRemovedEventHandler
-        );
+        cornerstone.events.addEventListener(imageLoadedEventName, this.imageLoadedEventHandler);
+        cornerstone.events.addEventListener(imageCachePromiseRemovedEventName, this.imageCachePromiseRemovedEventHandler);
     }
 
     stopListening() {
         const imageLoadedEventName = this._getImageLoadedEventName();
         const imageCachePromiseRemovedEventName = this._getImageCachePromiseRemoveEventName();
 
-        cornerstone.events.removeEventListener(
-            imageLoadedEventName,
-            this.imageLoadedEventHandler
-        );
-        cornerstone.events.removeEventListener(
-            imageCachePromiseRemovedEventName,
-            this.imageCachePromiseRemovedEventHandler
-        );
+        cornerstone.events.removeEventListener(imageLoadedEventName, this.imageLoadedEventHandler);
+        cornerstone.events.removeEventListener(imageCachePromiseRemovedEventName, this.imageCachePromiseRemovedEventHandler);
     }
 
     _updateFrameStatus(imageId, loaded) {
@@ -324,24 +297,18 @@ class StackLoadingListener extends BaseLoadingListener {
         // the 'options' variable on instantiation, but this is really ugly.
         // We could consider making the StudyLoadingListener a higher-order
         // component which would set this stuff itself.
-        throw new Error(
-            'The _setProgressData function must be provided in StudyLoadingListener\'s options'
-        );
+        throw new Error("The _setProgressData function must be provided in StudyLoadingListener's options");
     }
 
     _clearProgressById(progressId) {
-        throw new Error(
-            'The _clearProgressById function must be provided in StudyLoadingListener\'s options'
-        );
+        throw new Error("The _clearProgressById function must be provided in StudyLoadingListener's options");
     }
 
     _updateProgress() {
         const totalFramesCount = this.stack.imageIds.length;
         const loadedFramesCount = this.loadedCount;
         const loadingFramesCount = totalFramesCount - loadedFramesCount;
-        const percentComplete = Math.round(
-            (loadedFramesCount / totalFramesCount) * 100
-        );
+        const percentComplete = Math.round((loadedFramesCount / totalFramesCount) * 100);
         const progressId = this._getProgressId();
         const progressData = {
             multiFrame: true,
@@ -380,7 +347,7 @@ class StudyLoadingListener {
     addStack(stack, stackMetaData) {
         // TODO: Make this work for plugins
         if (!stack) {
-            // console.log('Skipping adding stack to StudyLoadingListener');
+            //console.log('Skipping adding stack to StudyLoadingListener');
             return;
         }
 
@@ -449,6 +416,7 @@ class StudyLoadingListener {
 
     _getSchema(stack) {
         const imageId = stack.imageIds[0];
+        if (!imageId) return null;
         const colonIndex = imageId.indexOf(':');
         return imageId.substring(0, colonIndex);
     }
@@ -463,4 +431,4 @@ class StudyLoadingListener {
     }
 }
 
-export {StudyLoadingListener, StackLoadingListener, DICOMFileLoadingListener};
+export { StudyLoadingListener, StackLoadingListener, DICOMFileLoadingListener };

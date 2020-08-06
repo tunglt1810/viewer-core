@@ -2,7 +2,7 @@ import DICOMWeb from '../../../DICOMWeb';
 import metadataProvider from '../../../classes/MetadataProvider';
 import getWADORSImageId from '../../../utils/getWADORSImageId';
 import getReferencedSeriesSequence from './getReferencedSeriesSequence';
-import {getCornerstoneWADOImageLoader} from '../../../utils/cornerstoneWADOImageLoader';
+import { getCornerstoneWADOImageLoader } from '../../../utils/cornerstoneWADOImageLoader';
 
 // Modified by TungLT
 /**
@@ -45,12 +45,7 @@ function createStudy(server, aSopInstance, studyInstanceUID) {
  * @param SOPInstanceUID
  * @returns  {string}
  */
-function buildInstanceWadoUrl(
-    server,
-    StudyInstanceUID,
-    SeriesInstanceUID,
-    SOPInstanceUID
-) {
+function buildInstanceWadoUrl(server, StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID) {
     // TODO: This can be removed, since DICOMWebClient has the same function. Not urgent, though
     const params = [];
 
@@ -66,28 +61,12 @@ function buildInstanceWadoUrl(
     return `${server.wadoUriRoot}?${paramString}`;
 }
 
-function buildInstanceWadoRsUri(
-    server,
-    StudyInstanceUID,
-    SeriesInstanceUID,
-    SOPInstanceUID
-) {
+function buildInstanceWadoRsUri(server, StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID) {
     return `${server.wadoRoot}/studies/${StudyInstanceUID}/series/${SeriesInstanceUID}/instances/${SOPInstanceUID}`;
 }
 
-function buildInstanceFrameWadoRsUri(
-    server,
-    StudyInstanceUID,
-    SeriesInstanceUID,
-    SOPInstanceUID,
-    frame
-) {
-    const baseWadoRsUri = buildInstanceWadoRsUri(
-        server,
-        StudyInstanceUID,
-        SeriesInstanceUID,
-        SOPInstanceUID
-    );
+function buildInstanceFrameWadoRsUri(server, StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID, frame) {
+    const baseWadoRsUri = buildInstanceWadoRsUri(server, StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID);
     frame = frame != null || 1;
 
     return `${baseWadoRsUri}/frames/${frame}`;
@@ -96,14 +75,10 @@ function buildInstanceFrameWadoRsUri(
 async function makeSOPInstance(server, study, instance) {
     const naturalizedInstance = await metadataProvider.addInstance(instance, {
         server,
-        StudyInstanceUID: study.StudyInstanceUID
+        StudyInstanceUID: study.StudyInstanceUID // TungLT mod
     });
 
-    const {
-        StudyInstanceUID,
-        SeriesInstanceUID,
-        SOPInstanceUID
-    } = naturalizedInstance;
+    const { StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID } = naturalizedInstance;
 
     let series = study.seriesMap[SeriesInstanceUID];
 
@@ -121,24 +96,9 @@ async function makeSOPInstance(server, study, instance) {
         study.series.push(series);
     }
 
-    const wadouri = buildInstanceWadoUrl(
-        server,
-        StudyInstanceUID,
-        SeriesInstanceUID,
-        SOPInstanceUID
-    );
-    const baseWadoRsUri = buildInstanceWadoRsUri(
-        server,
-        StudyInstanceUID,
-        SeriesInstanceUID,
-        SOPInstanceUID
-    );
-    const wadorsuri = buildInstanceFrameWadoRsUri(
-        server,
-        StudyInstanceUID,
-        SeriesInstanceUID,
-        SOPInstanceUID
-    );
+    const wadouri = buildInstanceWadoUrl(server, StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID);
+    const baseWadoRsUri = buildInstanceWadoRsUri(server, StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID);
+    const wadorsuri = buildInstanceFrameWadoRsUri(server, StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID);
 
     const sopInstance = {
         metadata: naturalizedInstance,
@@ -152,10 +112,7 @@ async function makeSOPInstance(server, study, instance) {
 
     series.instances.push(sopInstance);
 
-    if (
-        sopInstance.thumbnailRendering === 'wadors' ||
-        sopInstance.imageRendering === 'wadors'
-    ) {
+    if (sopInstance.thumbnailRendering === 'wadors' || sopInstance.imageRendering === 'wadors') {
         // If using WADO-RS for either images or thumbnails,
         // Need to add this to cornerstoneWADOImageLoader's provider
         // (it won't be hit on cornerstone.metaData.get, but cornerstoneWADOImageLoader
@@ -164,24 +121,18 @@ async function makeSOPInstance(server, study, instance) {
         const wadoRSMetadata = Object.assign(instance);
 
         const cornerstoneWADOImageLoader = await getCornerstoneWADOImageLoader();
-        const {NumberOfFrames} = sopInstance.metadata;
+        const { NumberOfFrames } = sopInstance.metadata;
 
         if (NumberOfFrames) {
             for (let i = 0; i < NumberOfFrames; i++) {
                 const wadorsImageId = getWADORSImageId(sopInstance, i);
 
-                cornerstoneWADOImageLoader.wadors.metaDataManager.add(
-                    wadorsImageId,
-                    wadoRSMetadata
-                );
+                cornerstoneWADOImageLoader.wadors.metaDataManager.add(wadorsImageId, wadoRSMetadata);
             }
         } else {
             const wadorsImageId = getWADORSImageId(sopInstance);
 
-            cornerstoneWADOImageLoader.wadors.metaDataManager.add(
-                wadorsImageId,
-                wadoRSMetadata
-            );
+            cornerstoneWADOImageLoader.wadors.metaDataManager.add(wadorsImageId, wadoRSMetadata);
         }
     }
 
@@ -202,6 +153,7 @@ async function addInstancesToStudy(server, study, sopInstanceList) {
     );
 }
 
+// TungLT modify
 const createStudyFromSOPInstanceList = async (server, sopInstanceList, studyInstanceUID) => {
     if (Array.isArray(sopInstanceList) && sopInstanceList.length > 0) {
         const firstSopInstance = sopInstanceList[0];
@@ -212,4 +164,4 @@ const createStudyFromSOPInstanceList = async (server, sopInstanceList, studyInst
     throw new Error('Failed to create study out of provided SOP instance list');
 };
 
-export {createStudyFromSOPInstanceList, addInstancesToStudy};
+export { createStudyFromSOPInstanceList, addInstancesToStudy };

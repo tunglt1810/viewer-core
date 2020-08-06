@@ -19,13 +19,11 @@ import log from '../log.js';
  * to extend this class, please check it's source before adding new methods.
  */
 export class CommandsManager {
-    constructor({getAppState, getActiveContexts} = {}) {
+    constructor({ getAppState, getActiveContexts } = {}) {
         this.contexts = {};
 
         if (!getAppState || !getActiveContexts) {
-            log.warn(
-                'CommandsManager was instantiated without getAppState() or getActiveContexts()'
-            );
+            log.warn('CommandsManager was instantiated without getAppState() or getActiveContexts()');
         }
 
         this._getAppState = getAppState;
@@ -161,7 +159,7 @@ export class CommandsManager {
             return;
         }
 
-        const {commandFn, storeContexts = []} = definition;
+        const { commandFn, storeContexts = [] } = definition;
         const definitionOptions = definition.options;
 
         let commandParams = {};
@@ -179,9 +177,10 @@ export class CommandsManager {
 
         if (typeof commandFn !== 'function') {
             log.warn(`No commandFn was defined for command "${commandName}"`);
-        } else {
-            return commandFn(commandParams);
-        }
+            return;
+        } 
+        return commandFn(commandParams);
+        
     }
 }
 

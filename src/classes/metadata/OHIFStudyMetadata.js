@@ -1,10 +1,10 @@
-import {StudyMetadata} from './StudyMetadata';
-import {OHIFSeriesMetadata} from './OHIFSeriesMetadata';
+import { StudyMetadata } from './StudyMetadata';
+import { OHIFSeriesMetadata } from './OHIFSeriesMetadata';
 
 export class OHIFStudyMetadata extends StudyMetadata {
     /**
-   * @param {Object} Study object.
-   */
+     * @param {Object} Study object.
+     */
     constructor(data, uid) {
         super(data, uid);
         this.init();
