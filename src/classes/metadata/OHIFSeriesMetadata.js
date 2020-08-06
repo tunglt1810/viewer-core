@@ -1,5 +1,6 @@
 import {SeriesMetadata} from './SeriesMetadata';
 import {OHIFInstanceMetadata} from './OHIFInstanceMetadata';
+import { AST_DefaultAssign } from 'terser';
 
 export class OHIFSeriesMetadata extends SeriesMetadata {
     /**
@@ -12,7 +13,7 @@ export class OHIFSeriesMetadata extends SeriesMetadata {
 
     init(study) {
         const series = this.getData();
-
+        // console.log('OHIFSeriesMetadata', series);
         // define "_seriesInstanceUID" protected property...
         Object.defineProperty(this, '_seriesInstanceUID', {
             configurable: false,
@@ -25,5 +26,17 @@ export class OHIFSeriesMetadata extends SeriesMetadata {
         series.instances.forEach((instance) => {
             this.addInstance(new OHIFInstanceMetadata(instance, series, study));
         });
+    }
+
+    isSubSeries() {
+        return this._data.isSubSeries;
+    }
+
+    getSeriesDescription() {
+        return this._data.SeriesDescription;
+    }
+
+    getSeriesNumber() {
+        return this._data.SeriesNumber;
     }
 }

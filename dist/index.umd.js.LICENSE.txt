@@ -1,4 +1,11 @@
 /*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
+ */
+
+/*!
  * validate.js 0.12.0
  *
  * (c) 2013-2017 Nicklas Ansman, 2013 Wrapp
