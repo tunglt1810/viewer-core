@@ -26,7 +26,7 @@ export class OHIFSeriesMetadata extends SeriesMetadata {
             this.addInstance(new OHIFInstanceMetadata(instance, series, study));
         });
         // Mod by Triet
-        this.combinedId = series.SeriesInstanceUID + (series.isSubSeries ? series.SubSeriesIndex : '');
+        this.combinedId = series.SeriesInstanceUID + (series.SubSeriesIndex || '');
     }
 
     // Mod by Triet

@@ -12,6 +12,8 @@ import { isImage } from '../../utils/isImage';
 import isDisplaySetReconstructable from '../../utils/isDisplaySetReconstructable';
 import isLowPriorityModality from '../../utils/isLowPriorityModality';
 import errorHandler from '../../errorHandler';
+// Mod by Triet
+import getImageSetCalculatedSpacings from '../../utils/getImageSetCalculatedSpacings';
 
 export class StudyMetadata extends Metadata {
     constructor(data, uid) {
@@ -755,6 +757,12 @@ const makeDisplaySet = (series, instances) => {
         // Volumes with gaps later on.
         imageSet.missingFrames = isReconstructable.missingFrames;
     }
+
+    // Mod by Triet
+    //Get calculated spacings between slices in the set
+    const calculatedSpacings = getImageSetCalculatedSpacings(instances);
+    imageSet.calculatedSpacings = calculatedSpacings;
+    // console.log('Make Displayset calculated spacings', calculatedSpacings);
 
     return imageSet;
 };
