@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 ### Added
-- Add combinedId to account for subseries - [@Triet]
+- Add combinedId to OHIFSeriesMEtadata to account for subseries - [@Triet]
 ### Changed
 - Changed updateSeries and createDisplaySets to account for combinedId - [@Triet]
 
