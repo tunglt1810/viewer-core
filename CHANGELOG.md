@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [1.1.1] - 2020-08-07
 ### Added
-- Add combinedId to OHIFSeriesMEtadata to account for subseries - [@Triet]
+- Add combinedId to OHIFSeriesMEtadata to account for subseries - [@triet12369]
 ### Changed
-- Changed updateSeries and createDisplaySets to account for combinedId - [@Triet]
+- Changed updateSeries and createDisplaySets to account for combinedId - [@triet12369]
 
 ## [1.1.0] - 2020-08-06
 ### Fixed
@@ -17,10 +17,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.0.9] - 2020-08-06
 ### Added
-- Add series split functionality - [@Triet]
-- Add getters function in OHIFSeriesMetadata - [@Triet]
+- Add series split functionality - [@triet12369]
+- Add getters function in OHIFSeriesMetadata - [@triet12369]
 ## Changed
-- Changed addSeries condition in OHIFStudyMetadata - [@Triet]
+- Changed addSeries condition in OHIFStudyMetadata - [@triet12369]
 - Merge change from origin to support maximum concurrent metadata request - [@tunglt1810]
 
 ## [1.0.8] - 2020-07-17
