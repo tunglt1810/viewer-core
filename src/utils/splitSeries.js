@@ -1,7 +1,7 @@
 
 /** Process series metadata and split if necessary
 * @param {Object} series original series
-* 
+* @author Triet
 */
 const splitRules = {
     /** Define rules for each modality types
@@ -39,6 +39,7 @@ const processMRSeries = (series) => {
     let count = 0;
     let isSubSeries = false;
     let descriptionSuffix;
+    // let SubSeriesIndex;
     if (subSeriesInstances.length > 1) {
         isSubSeries = true;
         descriptionSuffix = seriesDescriptionSuffix;
@@ -49,6 +50,7 @@ const processMRSeries = (series) => {
             ...series,
             SeriesDescription: isSubSeries ? series.SeriesDescription + descriptionSuffix + count : series.SeriesDescription,
             // SeriesInstanceUID: series.SeriesInstanceUID + '.' + count,
+            SubSeriesIndex: isSubSeries ? '_' + count : '',
             isSubSeries: isSubSeries,
             instances: subInstances
         };

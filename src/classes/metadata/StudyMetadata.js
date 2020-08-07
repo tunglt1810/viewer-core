@@ -12,6 +12,8 @@ import { isImage } from '../../utils/isImage';
 import isDisplaySetReconstructable from '../../utils/isDisplaySetReconstructable';
 import isLowPriorityModality from '../../utils/isLowPriorityModality';
 import errorHandler from '../../errorHandler';
+// Mod by Triet
+import getImageSetCalculatedSpacings from '../../utils/getImageSetCalculatedSpacings';
 
 export class StudyMetadata extends Metadata {
     constructor(data, uid) {
@@ -106,7 +108,6 @@ export class StudyMetadata extends Metadata {
     _createDisplaySetsForSeries(sopClassHandlerModules, series) {
         const study = this;
         const displaySets = [];
-
         const anyInstances = series.getInstanceCount() > 0;
 
         if (!anyInstances) {
@@ -118,11 +119,11 @@ export class StudyMetadata extends Metadata {
                 SeriesInstanceUID: seriesData.SeriesInstanceUID,
                 SeriesDescription: seriesData.SeriesDescription,
                 SeriesNumber: seriesData.SeriesNumber,
-                Modality: seriesData.Modality
+                Modality: seriesData.Modality,
+                combinedId: series.combinedId
             });
 
             displaySets.push(displaySet);
-
             return displaySets;
         }
 
@@ -135,7 +136,7 @@ export class StudyMetadata extends Metadata {
                 displaySet.sopClassModule = true;
 
                 displaySet.isDerived ? this._addDerivedDisplaySet(displaySet) : displaySets.push(displaySet);
-
+                displaySet.combinedId = series.combinedId;
                 return displaySets;
             }
         }
@@ -302,11 +303,11 @@ export class StudyMetadata extends Metadata {
         }
 
         const displaySets = this._createDisplaySetsForSeries(sopClassHandlerModules, series);
-
         // Note: filtering in place because this._displaySets has writable: false
+        // Mod: check for combined id instead of SeriesUID
         for (let i = this._displaySets.length - 1; i >= 0; i--) {
             const displaySet = this._displaySets[i];
-            if (displaySet.SeriesInstanceUID === series.getSeriesInstanceUID()) {
+            if (displaySet.combinedId === series.combinedId) {
                 this._displaySets.splice(i, 1);
             }
         }
@@ -422,20 +423,19 @@ export class StudyMetadata extends Metadata {
      * @returns {boolean} Returns true on success, false otherwise.
      */
     updateSeries(SeriesInstanceUID, series) {
-        const index = this._series.findIndex((series) => {
-            return series.getSeriesInstanceUID() === SeriesInstanceUID;
-        });
+        // const index = this._series.findIndex((series) => {
+        //     return series.getSeriesInstanceUID() === SeriesInstanceUID;
+        // });
 
-        if (index < 0) {
-            return false;
-        }
-
+        // if (index < 0) {
+        //     return false;
+        // }
+        const index = this.getSeriesIndexByCustomId(series.getCustomSeriesInstanceUID());
         if (!(series instanceof SeriesMetadata)) {
             throw new Error('Series must be an instance of SeriesMetadata');
         }
 
         this._series[index] = series;
-
         return true;
     }
 
@@ -671,6 +671,22 @@ export class StudyMetadata extends Metadata {
 
         return result.instance;
     }
+
+    // Mod by Triet
+    /**
+     * Check if the series with subseries exists under the custom id
+     * @param {string} customId, SeriesUID + '_' + SubSeriesId
+     */
+    getSeriesIndexByCustomId(customId) {
+        const index = this._series.findIndex((series) => {
+            return series.combinedId === customId;
+        });
+
+        if (index < 0) {
+            return null;
+        }
+        return index;
+    }
 }
 
 /**
@@ -741,6 +757,12 @@ const makeDisplaySet = (series, instances) => {
         // Volumes with gaps later on.
         imageSet.missingFrames = isReconstructable.missingFrames;
     }
+
+    // Mod by Triet
+    //Get calculated spacings between slices in the set
+    const calculatedSpacings = getImageSetCalculatedSpacings(instances);
+    imageSet.calculatedSpacings = calculatedSpacings;
+    // console.log('Make Displayset calculated spacings', calculatedSpacings);
 
     return imageSet;
 };

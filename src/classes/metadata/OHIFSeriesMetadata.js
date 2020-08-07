@@ -25,8 +25,11 @@ export class OHIFSeriesMetadata extends SeriesMetadata {
         series.instances.forEach((instance) => {
             this.addInstance(new OHIFInstanceMetadata(instance, series, study));
         });
+        // Mod by Triet
+        this.combinedId = series.SeriesInstanceUID + (series.SubSeriesIndex || '');
     }
 
+    // Mod by Triet
     isSubSeries() {
         return this._data.isSubSeries;
     }
@@ -37,5 +40,9 @@ export class OHIFSeriesMetadata extends SeriesMetadata {
 
     getSeriesNumber() {
         return this._data.SeriesNumber;
+    }
+
+    getCustomSeriesInstanceUID() {
+        return this.combinedId;
     }
 }
