@@ -670,14 +670,13 @@ export class StudyMetadata extends Metadata {
         return result.instance;
     }
 
+    // Mod by Triet
     /**
      * Check if the series with subseries exists under the custom id
      * @param {string} customId, SeriesUID + '_' + SubSeriesId
      */
     getSeriesIndexByCustomId(customId) {
         const index = this._series.findIndex((series) => {
-            // if (series.combinedId === customId) console.log('found', series.combinedId);
-            // console.log('series id', SeriesInstanceUID + '_' + SubSeriesIndex);
             return series.combinedId === customId;
         });
 
