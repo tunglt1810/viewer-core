@@ -39,6 +39,7 @@ const processMRSeries = (series) => {
     let count = 0;
     let isSubSeries = false;
     let descriptionSuffix;
+    // let SubSeriesIndex;
     if (subSeriesInstances.length > 1) {
         isSubSeries = true;
         descriptionSuffix = seriesDescriptionSuffix;
@@ -49,6 +50,7 @@ const processMRSeries = (series) => {
             ...series,
             SeriesDescription: isSubSeries ? series.SeriesDescription + descriptionSuffix + count : series.SeriesDescription,
             // SeriesInstanceUID: series.SeriesInstanceUID + '.' + count,
+            SubSeriesIndex: isSubSeries ? count : '',
             isSubSeries: isSubSeries,
             instances: subInstances
         };
