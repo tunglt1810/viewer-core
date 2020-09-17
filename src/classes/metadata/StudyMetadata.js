@@ -762,7 +762,7 @@ const makeDisplaySet = (series, instances) => {
     //Get calculated spacings between slices in the set
     const calculatedSpacings = getImageSetCalculatedSpacings(instances);
     imageSet.calculatedSpacings = calculatedSpacings;
-    console.log('Make Displayset', imageSet);
+    // console.log('Make Displayset', imageSet);
 
     return imageSet;
 };
