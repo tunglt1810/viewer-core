@@ -6,7 +6,7 @@
 
 const getManufacturer = (instance) => {
     const { metadata } = instance;
-    return metadata.Manufacturer || metadata['00080070'];
+    return metadata.Manufacturer || metadata['00080070'] || '';
 };
 
 const getSplitRules = (manufacturer) => {
@@ -14,32 +14,43 @@ const getSplitRules = (manufacturer) => {
      * if the value of the defined Tag is different accross the instances, the instances will be split
      * into each Tag
     */
-    if (manufacturer === 'SIEMENS') {
+    const manufacturerLowerCase = manufacturer.toLowerCase();
+    // console.log('manufacturer', manufacturerLowerCase);
+    if (manufacturerLowerCase === 'siemens' || manufacturerLowerCase === 'siemens healthineers') {
         return {
             MR: [
+                'ImageType',
                 'SequenceName',
-                'DiffusionBValue',
+                '0019100C', // SIEMENS b-value
                 'EchoTime',
                 'RepetitionTime'
             ]
         };
     }
-    else if (manufacturer === 'Philips' || manufacturer === 'Philips Medical Systems') {
+    else if (manufacturerLowerCase === 'philips' || manufacturerLowerCase === 'philips medical systems') {
         return {
             MR: [
+                'ImageType', // 
                 '20011020', // pulse sequence name
-                '20011003', // b-value
+                '20011003', // PHILIPS b-value
                 'EchoTime',
                 'RepetitionTime'
             ]
         };
     }
-    else if (manufacturer === 'TOSHIBA') {
-        return {};
-    }
+    // else if (manufacturerLowerCase === 'toshiba') {
+    //     return {};
+    // }
     
     // default case
     return {
+        MR: [
+            'ImageType',
+            'SequenceName',
+            'DiffusionBValue',
+            'EchoTime',
+            'RepetitionTime'
+        ]
     };
 };
 
@@ -92,23 +103,26 @@ const splitInstances = (instances, ruleSet) => {
     // console.log('manufacturer', getManufacturer(instances[0]));
     let instancesList = [];
     const rulesLength = ruleSet.length;
-    const uniqueValues = new Array(rulesLength).fill(new Set());
-    const indexes = new Set();
+    const uniqueValues = new Array(rulesLength).fill(new Set()); // list of possible unique values accross rule set
+    const indexes = new Set(); // list of the subseries identifier
     instances.forEach((instance) => {
-        let index = '';
+        let index = ''; // instance identifier
         for (let i = 0; i < rulesLength; i++) {
+            // generate instance identifier for each rule
             const val = getMetadataValueFromRule(instance.metadata, ruleSet[i]);
-            uniqueValues[i].add(val);
-            index += [...uniqueValues[i]].indexOf(val);
+            const valString = getValueString(val);
+            uniqueValues[i].add(valString);
+            index += [...uniqueValues[i]].indexOf(valString);
         }
+        // if instance identifier is different from previous instances, make new subseries
         indexes.add(index);
         const subSeriesIndex = [...indexes].indexOf(index);
+        // add instance to output array according to subseries index
         if (!instancesList[subSeriesIndex]) instancesList[subSeriesIndex] = [instance];
         else instancesList[subSeriesIndex].push(instance);
     });
     // console.log('processMRSeries uniqueValues', uniqueValues);
-    // if (instancesList.length > 1) console.log(instancesList);
-    console.log('processMRSeries subSeries', instancesList);
+    // console.log('processMRSeries subSeries', instancesList);
     return instancesList;
 };
 
@@ -120,4 +134,14 @@ const getMetadataValueFromRule = (metadata, rule) => {
         value = value[objectKeys[i]];
     }
     return value;
+};
+
+const getValueString = (val) => {
+    // console.log('getValueString', val);
+    if (Array.isArray(val)) {
+        // array can't be differentiated in Set, so we have to flatten them
+        // console.log(val.join('/'));
+        return val.join('/');
+    }
+    return val;
 };
