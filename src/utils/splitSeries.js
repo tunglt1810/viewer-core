@@ -16,7 +16,7 @@ const getSplitRules = (manufacturer) => {
     */
     const manufacturerLowerCase = manufacturer.toLowerCase();
     // console.log('manufacturer', manufacturerLowerCase);
-    if (manufacturerLowerCase === 'siemens' || manufacturerLowerCase === 'siemens healthineers') {
+    if (manufacturerLowerCase.indexOf('siemens') > -1) {
         return {
             MR: [
                 'ImageType',
@@ -27,7 +27,7 @@ const getSplitRules = (manufacturer) => {
             ]
         };
     }
-    else if (manufacturerLowerCase === 'philips' || manufacturerLowerCase === 'philips medical systems') {
+    else if (manufacturerLowerCase.indexOf('philips') > -1) {
         return {
             MR: [
                 'ImageType', // 
