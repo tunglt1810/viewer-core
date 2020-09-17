@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] - 2020-09-17
+### Fixed
+- Add special rules for PHILIPS and SIEMENS modality - [@triet12369]
+### Changed
+- Add b-value, ImageType to split rule - [@triet12369]
+
+
 ## [1.1.1] - 2020-08-07
 ### Added
 - Add combinedId to OHIFSeriesMEtadata to account for subseries - [@triet12369]
