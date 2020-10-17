@@ -225,18 +225,21 @@ export class StudyPrefetcher {
         const imageIds = [];
 
         // TODO: This duplicates work done by the stack manager
-        displaySet.images.forEach((image) => {
-            const numFrames = image.numFrames;
-            if (numFrames > 1) {
-                for (let i = 0; i < numFrames; i++) {
-                    const imageId = getImageId(image, i);
+        // Mod by Triet: add check for images in displaySet
+        if (displaySet.images && displaySet.images.length) {
+            displaySet.images.forEach((image) => {
+                const numFrames = image.numFrames;
+                if (numFrames > 1) {
+                    for (let i = 0; i < numFrames; i++) {
+                        const imageId = getImageId(image, i);
+                        imageIds.push(imageId);
+                    }
+                } else {
+                    const imageId = getImageId(image);
                     imageIds.push(imageId);
                 }
-            } else {
-                const imageId = getImageId(image);
-                imageIds.push(imageId);
-            }
-        });
+            });
+        }
 
         return imageIds;
     }
