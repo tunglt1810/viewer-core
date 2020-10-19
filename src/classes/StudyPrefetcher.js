@@ -11,7 +11,7 @@ export class StudyPrefetcher {
 
         cornerstone.events.addEventListener(
             'cornerstoneimagecachefull.StudyPrefetcher',
-            this.cacheFullHandler
+            this.cacheFullHandler.bind(this)
         );
     }
 
@@ -19,7 +19,7 @@ export class StudyPrefetcher {
         this.stopPrefetching();
         cornerstone.events.removeEventListener(
             'cornerstoneimagecachefull.StudyPrefetcher',
-            this.cacheFullHandler
+            this.cacheFullHandler.bind(this)
         );
     }
 
