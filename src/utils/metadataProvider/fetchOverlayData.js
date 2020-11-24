@@ -49,8 +49,9 @@ export default async function fetchOverlayData(instance, server) {
 async function _getOverlayData(tag, server) {
     const {BulkDataURI} = tag;
 
-    let uri = BulkDataURI;
-
+    let uri = BulkDataURI.slice(BulkDataURI.indexOf('/studies'), BulkDataURI.length);
+    // replace BulkDataURI with correct host
+    
     // TODO: Workaround for dcm4chee behind SSL-terminating proxy returning
     // incorrect bulk data URIs
     if (server.wadoRoot.indexOf('https') === 0 && !uri.includes('https')) {
@@ -63,7 +64,7 @@ async function _getOverlayData(tag, server) {
     };
     const dicomWeb = new api.DICOMwebClient(config);
     const options = {
-        BulkDataURI: uri
+        BulkDataURI: `${server.wadoRoot}${uri}`
     };
 
     return dicomWeb

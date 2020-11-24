@@ -151,10 +151,12 @@ export class StudyMetadata extends Metadata {
         const stackableInstances = [];
         series.forEachInstance((instance) => {
             // All imaging modalities must have a valid value for SOPClassUID (x00080016) or Rows (x00280010)
-            if (!isImage(instance.getTagValue('SOPClassUID')) && !instance.getTagValue('Rows')) {
-                return;
-            }
-
+            // Mod by Triet
+            // Disable isImage checking to support showing HTML series
+            // if (!isImage(instance.getTagValue('SOPClassUID')) && !instance.getTagValue('Rows')) {
+            //     return;
+            // }
+        
             let displaySet;
 
             if (isMultiFrame(instance)) {
@@ -283,7 +285,6 @@ export class StudyMetadata extends Metadata {
 
             displaySets.push(...displaySetsForSeries);
         });
-
         return sortDisplaySetList(displaySets);
     }
 
