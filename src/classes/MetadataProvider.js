@@ -62,9 +62,11 @@ class MetadataProvider {
         Object.assign(instance, naturalizedDataset);
 
         // TODO: comment by TungLT
-        // if (options.server) {
-        // await this._checkBulkDataAndInlineBinaries(instance, options.server);
-        // }
+        // Mod by Triet
+        // uncomment to enable image overlay
+        if (options.server) {
+            await this._checkBulkDataAndInlineBinaries(instance, options.server);
+        }
 
         return instance;
     }
@@ -336,8 +338,7 @@ class MetadataProvider {
 
                 break;
             case WADO_IMAGE_LOADER_TAGS.OVERLAY_PLANE_MODULE:
-                metadata = {};
-
+                const overlays = [];
                 for (
                     let overlayGroup = 0x00;
                     overlayGroup <= 0x1e;
@@ -367,7 +368,7 @@ class MetadataProvider {
                     const ROIStandardDeviationTag = `${groupStr}1303`;
                     const OverlayOrigin = instance[OverlayOriginTag];
 
-                    metadata.overlay = {
+                    const overlay = {
                         rows: instance[OverlayRowsTag],
                         columns: instance[OverlayColumnsTag],
                         type: instance[OverlayType],
@@ -378,9 +379,15 @@ class MetadataProvider {
                         label: instance[OverlayLabelTag],
                         roiArea: instance[ROIAreaTag],
                         roiMean: instance[ROIMeanTag],
-                        roiStandardDeviation: instance[ROIStandardDeviationTag]
+                        roiStandardDeviation: instance[ROIStandardDeviationTag],
                     };
+
+                    overlays.push(overlay);
                 }
+
+                metadata = {
+                    overlays
+                };
 
                 break;
 
