@@ -65,7 +65,13 @@ class MetadataProvider {
         // Mod by Triet
         // uncomment to enable image overlay
         if (options.server) {
-            await this._checkBulkDataAndInlineBinaries(instance, options.server);
+            try {
+                // console.log('_checkBulkDataAndInlineBinaries', options);
+                await this._checkBulkDataAndInlineBinaries(instance, options.server, options.StudyInstanceUID);
+            } catch (err) {
+                return instance;
+                // throw new Error(err);
+            }
         }
 
         return instance;
@@ -114,11 +120,11 @@ class MetadataProvider {
         return instance;
     }
 
-    async _checkBulkDataAndInlineBinaries(instance, server) {
-        await fetchOverlayData(instance, server);
+    async _checkBulkDataAndInlineBinaries(instance, server, studyInstanceUID) {
+        await fetchOverlayData(instance, server, studyInstanceUID);
 
         if (instance.PhotometricInterpretation === 'PALETTE COLOR') {
-            await fetchPaletteColorLookupTableData(instance, server);
+            await fetchPaletteColorLookupTableData(instance, server, studyInstanceUID);
         }
     }
 
