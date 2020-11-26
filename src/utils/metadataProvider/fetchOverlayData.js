@@ -3,7 +3,7 @@ import DICOMWeb from '../../DICOMWeb';
 import str2ab from '../str2ab';
 import unpackOverlay from './unpackOverlay';
 
-export default async function fetchOverlayData(instance, server) {
+export default async function fetchOverlayData(instance, server, studyInstanceUID) {
     const OverlayDataPromises = [];
     const OverlayDataTags = [];
 
@@ -24,7 +24,7 @@ export default async function fetchOverlayData(instance, server) {
                 instance[OverlayDataTag] = unpackOverlay(arraybuffer);
             } else if (instance[OverlayDataTag] && instance[OverlayDataTag].BulkDataURI) {
                 OverlayDataPromises.push(
-                    _getOverlayData(instance[OverlayDataTag], server)
+                    _getOverlayData(instance[OverlayDataTag], server, studyInstanceUID)
                 );
                 OverlayDataTags.push(OverlayDataTag);
             } else if (instance[OverlayDataTag] && instance[OverlayDataTag] instanceof ArrayBuffer) {
@@ -43,13 +43,20 @@ export default async function fetchOverlayData(instance, server) {
         } else {
             resolve();
         }
+    }).catch((err) => {
+        console.error(err);
     });
 }
 
-async function _getOverlayData(tag, server) {
+async function _getOverlayData(tag, server, studyInstanceUID) {
     const {BulkDataURI} = tag;
-
-    let uri = BulkDataURI.slice(BulkDataURI.indexOf('/studies'), BulkDataURI.length);
+    // console.log('_getOverlayData', studyInstanceUID);
+    let uri;
+    if (studyInstanceUID) {
+        uri = `/studies/${studyInstanceUID}${BulkDataURI.slice(BulkDataURI.indexOf('/series'), BulkDataURI.length)}`;
+    } else {
+        uri = BulkDataURI.slice(BulkDataURI.indexOf('/studies'), BulkDataURI.length);
+    }
     // replace BulkDataURI with correct host
     
     // TODO: Workaround for dcm4chee behind SSL-terminating proxy returning
@@ -70,7 +77,8 @@ async function _getOverlayData(tag, server) {
     return dicomWeb
         .retrieveBulkData(options)
         .then((result) => result[0])
-        .then(unpackOverlay);
+        .then(unpackOverlay)
+        .catch((err) => console.error(err));
 }
 
 
