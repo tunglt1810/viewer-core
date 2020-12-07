@@ -4,10 +4,11 @@ import log from '../log';
 import getImageId from '../utils/getImageId';
 
 export class StudyPrefetcher {
-    constructor(studies) {
+    constructor(studies, options = {}) {
         this.studies = studies || [];
         this.prefetchDisplaySetsTimeout = 300;
         this.lastActiveViewportElement = null;
+        this.options = options;
 
         cornerstone.events.addEventListener(
             'cornerstoneimagecachefull.StudyPrefetcher',
@@ -34,6 +35,10 @@ export class StudyPrefetcher {
     setStudies(studies) {
         this.stopPrefetching();
         this.studies = studies;
+    }
+
+    setOptions(options) {
+        this.options = options;
     }
 
     prefetch() {
@@ -76,6 +81,7 @@ export class StudyPrefetcher {
         const requestPoolManager = cornerstoneTools.requestPoolManager;
         const requestType = 'prefetch';
         const preventCache = false;
+        const mediaType = this.options.mediaType;
         const noop = () => {
         };
 
@@ -86,7 +92,9 @@ export class StudyPrefetcher {
                 requestType,
                 preventCache,
                 noop,
-                noop
+                noop,
+                false,
+                mediaType
             );
         });
 
