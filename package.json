@@ -40,7 +40,7 @@
     "cornerstone-tools": "^4.0.0",
     "cornerstone-wado-image-loader": "^3.0.6",
     "dcmjs": "^0.16.2",
-    "dicom-parser": "^1.8.5"
+    "dicom-parser": "^1.8.7"
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",

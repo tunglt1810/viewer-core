@@ -1,6 +1,7 @@
 import * as dcmjs from 'dcmjs';
 import queryString from 'query-string';
 import dicomParser from 'dicom-parser';
+import convertNumber from '../utils/metadataProvider/convertNumber';
 import getPixelSpacingInformation from '../utils/metadataProvider/getPixelSpacingInformation';
 import fetchPaletteColorLookupTableData from '../utils/metadataProvider/fetchPaletteColorLookupTableData';
 import fetchOverlayData from '../utils/metadataProvider/fetchOverlayData';
@@ -73,7 +74,7 @@ class MetadataProvider {
                 // throw new Error(err);
             }
         }
-
+        // console.log('viewer-core image instance', instance);
         return instance;
     }
 
@@ -232,8 +233,8 @@ class MetadataProvider {
                 let columnCosines;
 
                 if (PixelSpacing) {
-                    rowPixelSpacing = PixelSpacing[0];
-                    columnPixelSpacing = PixelSpacing[1];
+                    rowPixelSpacing = convertNumber(PixelSpacing[0]);
+                    columnPixelSpacing = convertNumber(PixelSpacing[1]);
                 }
 
                 if (ImageOrientationPatient) {
@@ -290,10 +291,10 @@ class MetadataProvider {
 
                 const windowCenter = Array.isArray(WindowCenter)
                     ? WindowCenter
-                    : [WindowCenter];
+                    : [convertNumber(WindowCenter)];
                 const windowWidth = Array.isArray(WindowWidth)
                     ? WindowWidth
-                    : [WindowWidth];
+                    : [convertNumber(WindowWidth)];
 
                 metadata = {
                     windowCenter,
@@ -303,8 +304,8 @@ class MetadataProvider {
                 break;
             case WADO_IMAGE_LOADER_TAGS.MODALITY_LUT_MODULE:
                 metadata = {
-                    rescaleIntercept: instance.RescaleIntercept,
-                    rescaleSlope: instance.RescaleSlope,
+                    rescaleIntercept: convertNumber(instance.RescaleIntercept),
+                    rescaleSlope: convertNumber(instance.RescaleSlope),
                     rescaleType: instance.RescaleType
                 };
                 break;
