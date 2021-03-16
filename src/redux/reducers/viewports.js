@@ -8,7 +8,9 @@ import {
     SET_VIEWPORT,
     SET_VIEWPORT_ACTIVE,
     SET_VIEWPORT_LAYOUT,
-    SET_VIEWPORT_LAYOUT_AND_DATA
+    SET_VIEWPORT_LAYOUT_AND_DATA,
+    SET_ENLARGE_VIEWPORT,
+    CLEAR_ENLARGE_VIEWPORT
 } from '../constants/ActionTypes';
 
 export const DEFAULT_STATE = {
@@ -158,10 +160,10 @@ const viewports = (state = DEFAULT_STATE, action) => {
         }
 
         /**
-     * Sets viewport specific data of active viewport.
-     *
-     * @return {Object} New state.
-     */
+         * Sets viewport specific data of active viewport.
+         *
+         * @return {Object} New state.
+        */
         case SET_VIEWPORT: {
             const layout = cloneDeep(state.layout);
 
@@ -179,6 +181,24 @@ const viewports = (state = DEFAULT_STATE, action) => {
 
             return {...state, layout, viewportSpecificData};
         }
+        /**
+         * Sets enlarge state of a single viewport.
+         *
+         * @return {Object} New state.
+        */
+
+        case SET_ENLARGE_VIEWPORT: {
+            const { viewportIndex } = action;
+            const viewportSpecificData = cloneDeep(state.viewportSpecificData);
+            viewportSpecificData[viewportIndex].enlarging = true;
+            return {...state, viewportSpecificData};
+        }
+        case CLEAR_ENLARGE_VIEWPORT: {
+            const { viewportIndex } = action;
+            const viewportSpecificData = cloneDeep(state.viewportSpecificData);
+            viewportSpecificData[viewportIndex].enlarging = false;
+            return {...state, viewportSpecificData};
+        }
 
         /**
      * Sets viewport specific data of active/any viewport.
@@ -189,7 +209,7 @@ const viewports = (state = DEFAULT_STATE, action) => {
             useActiveViewport = true;
             // Allow fall-through
             // eslint-disable-next-line
-    case SET_SPECIFIC_DATA: {
+        case SET_SPECIFIC_DATA: {
             const layout = cloneDeep(state.layout);
             const viewportIndex = useActiveViewport
                 ? state.activeViewportIndex

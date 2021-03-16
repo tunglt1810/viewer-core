@@ -716,10 +716,12 @@ const makeDisplaySet = (series, instances) => {
     const instance = instances[0];
     const imageSet = new ImageSet(instances);
     const seriesData = series.getData();
-
+    // console.log('makeDisplaySet seriesData', seriesData);
     // set appropriate attributes to image set...
     imageSet.setAttributes({
-        displaySetInstanceUID: imageSet.uid, // create a local alias for the imageSet UID
+        // displaySetInstanceUID: imageSet.uid, // create a local alias for the imageSet UID
+        // Mod by Triet: use consisitent displaySetID to sync accross different clients
+        displaySetInstanceUID: series.getCustomSeriesInstanceUID(),
         SeriesDate: seriesData.SeriesDate,
         SeriesTime: seriesData.SeriesTime,
         SeriesInstanceUID: series.getSeriesInstanceUID(),
