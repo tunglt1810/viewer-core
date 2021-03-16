@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2021-02-28
+### Added
+- Add reducer for single viewport focus - [@triet12369]
+### Changed
+- Change displaySetID to be consistent accross several viewer instances - [@triet12369]
+
 ## [1.1.9] - 2021-02-28
 ### Fixed
 - Fixed Window metadata parsed as strings when Window metadata is array - [@triet12369]

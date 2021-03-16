@@ -10,7 +10,9 @@ import {
     SET_VIEWPORT_ACTIVE,
     SET_VIEWPORT_LAYOUT,
     SET_VIEWPORT_LAYOUT_AND_DATA,
-    SET_USER_PREFERENCES
+    SET_USER_PREFERENCES,
+    SET_ENLARGE_VIEWPORT,
+    CLEAR_ENLARGE_VIEWPORT
 } from './constants/ActionTypes';
 
 /**
@@ -75,6 +77,15 @@ export const setActiveViewportSpecificData = (viewportSpecificData) => ({
     viewportSpecificData
 });
 
+export const setEnlargeViewport = (viewportIndex) => ({
+    type: SET_ENLARGE_VIEWPORT,
+    viewportIndex
+});
+
+export const clearEnlargeViewport = (viewportIndex) => ({
+    type: CLEAR_ENLARGE_VIEWPORT,
+    viewportIndex
+});
 /**
  * NOT-VIEWPORT
  */
@@ -131,6 +142,8 @@ const actions = {
     setLayout,
     clearViewportSpecificData,
     setActiveViewportSpecificData,
+    setEnlargeViewport,
+    clearEnlargeViewport,
     /**
    * NOT-VIEWPORT
    */
