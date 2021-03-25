@@ -57,7 +57,8 @@ const wadorsRetriever = (
     studyInstanceUID,
     seriesInstanceUID,
     sopInstanceUID,
-    headers = DICOMWeb.getAuthorizationHeader()
+    headers = DICOMWeb.getAuthorizationHeader(),
+    mediaTypes
 ) => {
     const config = {
         url,
@@ -68,7 +69,8 @@ const wadorsRetriever = (
     return dicomWeb.retrieveInstance({
         studyInstanceUID,
         seriesInstanceUID,
-        sopInstanceUID
+        sopInstanceUID,
+        mediaTypes
     });
 };
 
@@ -104,7 +106,7 @@ class DicomLoaderService {
         }
     }
 
-    getDataByImageType(dataset) {
+    getDataByImageType(dataset, options = {}) {
         const imageInstance = getImageInstance(dataset);
 
         if (imageInstance) {
@@ -127,6 +129,7 @@ class DicomLoaderService {
                         seriesInstanceUID,
                         sopInstanceUID
                     ]);
+                    const mediaTypes = options.mediaTypes;
                     if (invalidParams) {
                         return;
                     }
@@ -136,7 +139,8 @@ class DicomLoaderService {
                         url,
                         studyInstanceUID,
                         seriesInstanceUID,
-                        sopInstanceUID
+                        sopInstanceUID,
+                        mediaTypes
                     );
                     break;
                 case 'wadouri':
@@ -161,7 +165,8 @@ class DicomLoaderService {
             SOPInstanceUID,
             authorizationHeaders,
             wadoRoot,
-            wadoUri
+            wadoUri,
+            mediaTypes
         } = dataset;
         // Retrieve wadors or just try to fetch wadouri
         if (!someInvalidStrings(wadoRoot)) {
@@ -170,21 +175,22 @@ class DicomLoaderService {
                 StudyInstanceUID,
                 SeriesInstanceUID,
                 SOPInstanceUID,
-                authorizationHeaders
+                authorizationHeaders,
+                mediaTypes
             );
         } else if (!someInvalidStrings(wadoUri)) {
             return fetchIt(wadoUri, {headers: authorizationHeaders});
         }
     }
 
-    async *getLoaderIterator(dataset, studies) {
-        yield await this.getLocalData(dataset, studies);
-        yield this.getDataByImageType(dataset);
-        yield this.getDataByDatasetType(dataset);
+    async *getLoaderIterator(dataset, studies, options) {
+        yield await this.getLocalData(dataset, studies, options);
+        yield this.getDataByImageType(dataset, options);
+        yield this.getDataByDatasetType(dataset, options);
     }
 
-    async findDicomDataPromise(dataset, studies) {
-        const loaderIterator = this.getLoaderIterator(dataset, studies);
+    async findDicomDataPromise(dataset, studies, options) {
+        const loaderIterator = this.getLoaderIterator(dataset, studies, options);
         // it returns first valid retriever method.
         for await (const loader of loaderIterator) {
             if (loader) {
