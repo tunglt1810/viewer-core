@@ -130,15 +130,23 @@ export class StudyMetadata extends Metadata {
         const sopClassUIDs = getSopClassUIDs(series);
 
         if (sopClassHandlerModules && sopClassHandlerModules.length > 0) {
-            const displaySet = _getDisplaySetFromSopClassModule(sopClassHandlerModules, series, study, sopClassUIDs);
-
-            if (displaySet) {
-                displaySet.sopClassModule = true;
-
-                displaySet.isDerived ? this._addDerivedDisplaySet(displaySet) : displaySets.push(displaySet);
-                displaySet.combinedId = series.combinedId;
+            const sopClassDisplaySets = _getDisplaySetFromSopClassModule(sopClassHandlerModules, series, study, sopClassUIDs);
+            if (sopClassDisplaySets) {
+                for (let i = 0; i < sopClassDisplaySets.length; i++) {
+                    sopClassDisplaySets[i].sopClassModule = true;
+                    sopClassDisplaySets[i].isDerived ? this._addDerivedDisplaySet(sopClassDisplaySets[i]) : displaySets.push(sopClassDisplaySets[i]);
+                    // FIXME: need universal ID generation for displaySets
+                    sopClassDisplaySets[i].combinedId = `${series.combinedId}_${i}`;
+                }
                 return displaySets;
             }
+            // if (displaySet) {
+            //     displaySet.sopClassModule = true;
+
+            //     displaySet.isDerived ? this._addDerivedDisplaySet(displaySet) : displaySets.push(displaySet);
+            //     displaySet.combinedId = series.combinedId;
+            //     return displaySets;
+            // }
         }
 
         // WE NEED A BETTER WAY TO NOTE THAT THIS IS THE DEFAULT BEHAVIOR FOR LOADING
@@ -827,12 +835,21 @@ function _getDisplaySetFromSopClassModule(
         errorInterceptor
     });
 
-    let displaySet = plugin.getDisplaySetFromSeries(series, study, dicomWebClient, headers);
-    if (displaySet && !displaySet.Modality) {
-        const instance = series.getFirstInstance();
-        displaySet.Modality = instance.getTagValue('Modality');
-    }
-    return displaySet;
+    const addModalityToDisplaySet = (displaySet) => {
+        if (displaySet && !displaySet.Modality) {
+            const instance = series.getFirstInstance();
+            displaySet.Modality = instance.getTagValue('Modality');
+        }
+        return displaySet;
+    };
+
+    let displaySets = plugin.getDisplaySetFromSeries(series, study, dicomWebClient, headers);
+    if (displaySets.length) {
+        for (let i = 0; i < displaySets.length; i++) {
+            displaySets[i] = addModalityToDisplaySet(displaySets[i]);
+        }
+    } else if (displaySets) displaySets = [addModalityToDisplaySet(displaySets)];
+    return displaySets;
 }
 
 /**
